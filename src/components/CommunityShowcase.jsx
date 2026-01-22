@@ -410,18 +410,11 @@ export function CommunityShowcase() {
 
                     {/* Model Info */}
                     <div className="p-4">
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-2">
-                          <span className="text-xl">{item.modelIcon}</span>
-                          <div>
-                            <p className="text-sm font-semibold text-gray-900">{item.model}</p>
-                          </div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-xl">{item.modelIcon}</span>
+                        <div>
+                          <p className="text-sm font-semibold text-gray-900">{item.model}</p>
                         </div>
-                        
-                        {/* Rank Badge */}
-                        <span className={`px-3 py-1 rounded-full text-xs font-semibold ${item.rankColor}`}>
-                          {item.rank}
-                        </span>
                       </div>
                     </div>
                   </div>
