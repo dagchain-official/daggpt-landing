@@ -8,20 +8,15 @@ import {
   Code2,
   Zap,
   Paperclip,
-  Mic,
   Send,
-  Settings,
   Globe,
   Lock,
   ChevronDown,
-  Plus,
-  BarChart3,
   X,
   FileText,
   Check,
 } from "lucide-react"
 import VoiceInputButton from './VoiceInputButton'
-import vertexAIService from '../services/vertexAIService'
 
 const aiTools = [
   {

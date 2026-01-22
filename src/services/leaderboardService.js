@@ -4,9 +4,6 @@
  * Uses Bradley-Terry Elo rating system
  */
 
-const LEADERBOARD_API = 'https://huggingface.co/api/datasets/lmsys/chatbot_arena_conversations/parquet';
-const FALLBACK_DATA_URL = 'https://huggingface.co/spaces/lmsys/chatbot-arena-leaderboard/raw/main/data/elo_results.json';
-
 /**
  * Fetch real-time AI model leaderboard data
  * @returns {Promise<Array>} Array of model performance data
@@ -158,7 +155,9 @@ function getFallbackData() {
   ];
 }
 
-export default {
+const leaderboardService = {
   fetchModelLeaderboard,
   getFallbackData
 };
+
+export default leaderboardService;

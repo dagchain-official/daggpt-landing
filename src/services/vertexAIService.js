@@ -192,4 +192,6 @@ class VertexAIService {
   }
 }
 
-export default new VertexAIService();
+const vertexAIService = new VertexAIService();
+
+export default vertexAIService;

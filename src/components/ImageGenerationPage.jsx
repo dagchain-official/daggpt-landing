@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Download, Share2, RefreshCw, Sparkles } from 'lucide-react';
 import vertexAIService from '../services/vertexAIService';

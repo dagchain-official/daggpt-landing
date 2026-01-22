@@ -75,7 +75,6 @@ const getCompanyLogo = (organization) => {
 };
 
 export function ModelPerformance() {
-  const [selectedCategory, setSelectedCategory] = useState('All Categories');
   const [modelData, setModelData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [lastUpdated, setLastUpdated] = useState(null);
@@ -109,19 +108,6 @@ export function ModelPerformance() {
       setLoading(false);
     }
   };
-
-  const categories = [
-    'All Categories',
-    'Website',
-    'Game Dev',
-    '3D Design',
-    'Data Viz',
-    'UI Component',
-    'Image',
-    'Logo',
-    'SVG',
-    'Video'
-  ];
 
   return (
     <section className="w-full py-20 px-4 bg-gray-50 relative z-10">
