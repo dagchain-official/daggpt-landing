@@ -1,4 +1,6 @@
-# Getting Started with Create React App
+# DAGGPT Landing Page
+
+Your smart AI assistant with DAGGPT - generates high converting contents with AI, helping you get the most out of AI Models.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
