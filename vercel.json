@@ -1,10 +1,26 @@
 {
   "buildCommand": "npm run build",
   "outputDirectory": "build",
-  "rewrites": [
+  "routes": [
     {
-      "source": "/(.*)",
-      "destination": "/index.html"
+      "src": "/static/(.*)",
+      "dest": "/static/$1"
+    },
+    {
+      "src": "/images/(.*)",
+      "dest": "/images/$1"
+    },
+    {
+      "src": "/background.mp4",
+      "dest": "/background.mp4"
+    },
+    {
+      "src": "/(.*\\.(js|css|json|ico|png|jpg|jpeg|svg|gif|mp4|webm|woff|woff2|ttf|otf))",
+      "dest": "/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
     }
   ]
 }
