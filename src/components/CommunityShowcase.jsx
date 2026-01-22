@@ -196,7 +196,7 @@ export function CommunityShowcase() {
           modelIcon: '✨',
           rank: '3rd',
           rankColor: 'bg-orange-100 text-orange-800',
-          preview: 'https://images.unsplash.com/photo-1536240478700-b869070f9279?w=400&h=300&fit=crop'
+          preview: 'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=400&h=300&fit=crop'
         },
         {
           id: 20,
@@ -235,7 +235,7 @@ export function CommunityShowcase() {
           modelIcon: '✨',
           rank: '3rd',
           rankColor: 'bg-orange-100 text-orange-800',
-          preview: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400&h=300&fit=crop'
+          preview: 'https://images.unsplash.com/photo-1492619375914-88005aa9e8fb?w=400&h=300&fit=crop'
         },
         {
           id: 24,
