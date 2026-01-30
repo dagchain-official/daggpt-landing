@@ -36,6 +36,7 @@ export function HeroSection() {
           <motion.h1 
             variants={itemVariants}
           className="text-7xl md:text-9xl lg:text-[11rem] font-black text-slate-900 mb-8 leading-[0.85] tracking-tighter"
+          style={{ fontFamily: 'Nasalization, sans-serif' }}
         >
           FUTURE OF <br />
           <span className="relative inline-block mt-4">
