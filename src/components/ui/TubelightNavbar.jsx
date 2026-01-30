@@ -12,10 +12,9 @@ export function NavBar({ items, className }) {
         className,
       )}
     >
-      <div className="flex items-center gap-1 bg-white/40 border border-slate-200 shadow-[0_20px_50px_rgba(0,0,0,0.05)] backdrop-blur-2xl py-1.5 px-1.5 rounded-full pointer-events-auto">
-        {items.map((item) => {
-          const Icon = item.icon
-          const isActive = activeTab === item.name
+        <div className="flex items-center gap-1 bg-white/40 border border-slate-200 shadow-[0_20px_50px_rgba(0,0,0,0.05)] backdrop-blur-2xl py-1.5 px-1.5 rounded-full pointer-events-auto">
+          {items.map((item) => {
+            const isActive = activeTab === item.name
 
           return (
             <a

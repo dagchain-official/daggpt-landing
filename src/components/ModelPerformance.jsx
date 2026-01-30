@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BarChart3, TrendingUp, Zap, Clock, RefreshCw } from 'lucide-react';
+import { TrendingUp, Zap, Clock } from 'lucide-react';
 import { motion } from 'framer-motion';
 import leaderboardService from '../services/leaderboardService';
 

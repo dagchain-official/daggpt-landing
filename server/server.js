@@ -384,6 +384,17 @@ app.post('/api/generate-video', async (req, res) => {
     const client = await auth.getClient();
     const accessToken = await client.getAccessToken();
 
+    // Veo 3.1 only supports 16:9, 9:16, 1:1. Map others to nearest.
+    const rawRatio = ASPECT_RATIOS[aspectRatio] || "16:9";
+    let videoRatio = "16:9";
+    if (["1:1", "9:16", "16:9"].includes(rawRatio)) {
+      videoRatio = rawRatio;
+    } else if (rawRatio === "3:4") {
+      videoRatio = "9:16";
+    } else if (rawRatio === "4:3") {
+      videoRatio = "16:9";
+    }
+
     if (!projectId) {
       throw new Error('Project ID is not configured (REACT_APP_VERTEX_AI_PROJECT_ID)');
     }
@@ -397,7 +408,7 @@ app.post('/api/generate-video', async (req, res) => {
       parameters: {
         durationSeconds: 8,
         generateAudio: true,
-        aspectRatio: ASPECT_RATIOS[aspectRatio] || "16:9",
+        aspectRatio: videoRatio,
         resolution: "1080p",
         sampleCount: 1,
         personGeneration: "allow_adult"

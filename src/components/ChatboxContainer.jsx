@@ -104,7 +104,6 @@ export function ChatboxContainer() {
   const [selectedTool, setSelectedTool] = useState("AI Chat")
   const [selectedAspectRatio, setSelectedAspectRatio] = useState("Square (1:1)")
   const [showAspectRatioDropdown, setShowAspectRatioDropdown] = useState(false)
-  const [isPublic, setIsPublic] = useState(true)
   const [attachedFiles, setAttachedFiles] = useState([])
   const [showModelDropdown, setShowModelDropdown] = useState(false)
   const [selectedModel, setSelectedModel] = useState("Gemini 3 Pro")

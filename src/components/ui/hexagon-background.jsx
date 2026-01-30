@@ -20,9 +20,8 @@ function HexagonBackground({
     columns: 0,
   });
 
-  const [mousePos, setMousePos] = React.useState({ x: -1000, y: -1000 });
-  const containerRef = React.useRef(null);
-  const { scrollYProgress } = useScroll();
+    const [mousePos, setMousePos] = React.useState({ x: -1000, y: -1000 });
+    const { scrollYProgress } = useScroll();
   const y = useTransform(scrollYProgress, [0, 1], [0, -100]);
 
   const updateGridDimensions = React.useCallback(() => {

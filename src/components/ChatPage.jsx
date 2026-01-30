@@ -47,18 +47,41 @@ export function ChatPage() {
     scrollToBottom();
   }, [messages]);
 
-  useEffect(() => {
-    if (initialMessage && messages.length === 0) {
-      const newUserMessage = { 
-        role: 'user', 
-        content: initialMessage,
-        type: selectedFunction || 'AI Chat',
-        model: selectedModel,
-        aspectRatio: aspectRatio,
-        files: files
-      };
-      setMessages([newUserMessage]);
-      handleGeneration(initialMessage, selectedFunction, selectedModel, aspectRatio);
+  const pollVideoStatus = useCallback(async (opName) => {
+    console.log(`🎬 Starting polling for operation: ${opName}`);
+    let done = false;
+    let attempts = 0;
+    while (!done && attempts < 60) { // Max 15 mins (increased)
+      attempts++;
+      try {
+          console.log(`🔍 Polling attempt ${attempts} for ${opName}...`);
+          const status = await vertexAIService.checkOperationStatus(opName);
+          console.log(`📊 Operation status:`, status);
+          if (status.done) {
+            done = true;
+            if (status.error) throw new Error(status.error.message);
+            
+            // Veo 3.1 returns generatedVideos array
+            const videoData = status.response.generatedVideos?.[0] || status.response.videos?.[0];
+            if (!videoData) throw new Error('No video data in response');
+
+            setMessages(prev => [...prev, { 
+              role: 'model', 
+              type: 'video',
+              content: 'Your cinematic video has been generated.',
+              videoUrl: videoData.video?.bytesBase64Encoded || videoData.bytesBase64Encoded || videoData.gcsUri,
+              mimeType: videoData.video?.mimeType || videoData.mimeType || 'video/mp4'
+            }]);
+            setIsLoading(false);
+          } else {
+          setLoadingText(`Generating video... (${attempts * 2}%)`);
+          await new Promise(r => setTimeout(r, 15000)); // Poll every 15s
+        }
+      } catch (err) {
+        setError('Video generation failed: ' + err.message);
+        setIsLoading(false);
+        break;
+      }
     }
   }, []);
 
@@ -122,45 +145,25 @@ export function ChatPage() {
     } finally {
       setIsLoading(false);
     }
-  }, [messages]);
+  }, [messages, pollVideoStatus]);
 
-  const pollVideoStatus = useCallback(async (opName) => {
-    console.log(`🎬 Starting polling for operation: ${opName}`);
-    let done = false;
-    let attempts = 0;
-    while (!done && attempts < 60) { // Max 15 mins (increased)
-      attempts++;
-      try {
-          console.log(`🔍 Polling attempt ${attempts} for ${opName}...`);
-          const status = await vertexAIService.checkOperationStatus(opName);
-          console.log(`📊 Operation status:`, status);
-          if (status.done) {
-            done = true;
-            if (status.error) throw new Error(status.error.message);
-            
-            // Veo 3.1 returns generatedVideos array
-            const videoData = status.response.generatedVideos?.[0] || status.response.videos?.[0];
-            if (!videoData) throw new Error('No video data in response');
+  const hasHandledInitial = useRef(false);
 
-            setMessages(prev => [...prev, { 
-              role: 'model', 
-              type: 'video',
-              content: 'Your cinematic video has been generated.',
-              videoUrl: videoData.video?.bytesBase64Encoded || videoData.bytesBase64Encoded || videoData.gcsUri,
-              mimeType: videoData.video?.mimeType || videoData.mimeType || 'video/mp4'
-            }]);
-            setIsLoading(false);
-          } else {
-          setLoadingText(`Generating video... (${attempts * 2}%)`);
-          await new Promise(r => setTimeout(r, 15000)); // Poll every 15s
-        }
-      } catch (err) {
-        setError('Video generation failed: ' + err.message);
-        setIsLoading(false);
-        break;
-      }
+  useEffect(() => {
+    if (initialMessage && messages.length === 0 && !hasHandledInitial.current) {
+      hasHandledInitial.current = true;
+      const newUserMessage = { 
+        role: 'user', 
+        content: initialMessage,
+        type: selectedFunction || 'AI Chat',
+        model: selectedModel,
+        aspectRatio: aspectRatio,
+        files: files
+      };
+      setMessages([newUserMessage]);
+      handleGeneration(initialMessage, selectedFunction, selectedModel, aspectRatio);
     }
-  }, []);
+  }, [initialMessage, messages.length, selectedFunction, selectedModel, aspectRatio, files, handleGeneration]);
 
   const handleSendMessage = async () => {
     if (!inputValue.trim() || isLoading) return;
