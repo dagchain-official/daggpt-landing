@@ -193,17 +193,17 @@ export function ModelPerformance() {
                 <div className="w-12 h-12 border-4 border-slate-100 border-t-[#5A189A] rounded-full animate-spin" />
               </div>
             ) : (
-                <div className="flex items-end justify-start gap-6 min-w-max px-2" style={{ height: '450px' }}>
+                  <div className="flex items-end justify-start gap-6 min-w-max px-2" style={{ height: '500px' }}>
                   {modelData.map((model, index) => {
                     const minScore = Math.min(...modelData.map(m => m.score));
                     const maxScore = Math.max(...modelData.map(m => m.score));
                     const scoreRange = maxScore - minScore;
                     
                     let heightPercentage;
-                    if (scoreRange > 0) {
-                      const normalized = (model.score - minScore) / scoreRange;
-                      heightPercentage = (normalized * 35) + 65; 
-                    } else {
+                      if (scoreRange > 0) {
+                        const normalized = (model.score - minScore) / scoreRange;
+                        heightPercentage = (normalized * 25) + 65; 
+                      } else {
                       heightPercentage = 75;
                     }
                     
