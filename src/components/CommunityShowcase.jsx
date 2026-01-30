@@ -76,106 +76,106 @@ export function CommunityShowcase() {
     ? showcaseGroups 
     : showcaseGroups.filter(group => group.category === selectedCategory);
 
-  return (
-    <section className="w-full py-32 px-4 bg-transparent relative z-10 overflow-hidden" id="community">
-      <div className="max-w-[1400px] mx-auto">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-20"
-          >
-            <h2 className="text-4xl md:text-7xl font-black text-slate-900 mb-8 tracking-tighter">
-              Designed by the <br />
-              <span className="bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-600 bg-clip-text text-transparent">Creative Community</span>
-            </h2>
-          </motion.div>
-
-        {/* Filter Bar */}
-        <div className="mb-20 flex items-center justify-center gap-4 flex-wrap">
-          {categories.map((category) => (
-            <button
-              key={category.name}
-              onClick={() => setSelectedCategory(category.name)}
-              className={`relative px-8 py-4 rounded-2xl text-[11px] font-black uppercase tracking-widest transition-all duration-500 border ${
-                selectedCategory === category.name
-                  ? 'bg-slate-900 text-white shadow-[0_20px_40px_rgba(0,0,0,0.15)] border-slate-900'
-                  : 'bg-white text-slate-500 hover:text-slate-900 border-slate-200 shadow-sm'
-              }`}
+    return (
+      <section className="w-full py-16 md:py-32 px-4 bg-transparent relative z-10 overflow-hidden" id="community">
+        <div className="max-w-[1400px] mx-auto">
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-center mb-12 md:mb-20"
             >
-              <div className="flex items-center gap-3">
-                <category.icon className={`w-4 h-4 ${selectedCategory === category.name ? 'text-white' : 'text-slate-400'}`} />
-                {category.name}
-              </div>
-              {selectedCategory === category.name && (
-                <motion.div layoutId="catGlow" className="absolute -inset-[1px] rounded-2xl border border-white/20 opacity-50" />
-              )}
-            </button>
-          ))}
-        </div>
-
-        {/* Showcase Groups */}
-        <div className="space-y-32">
-          <AnimatePresence mode="wait">
-            {filteredGroups.map((group, groupIndex) => (
-                <motion.div 
-                  key={group.category + groupIndex}
-                  initial={{ opacity: 0, y: 40 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -40 }}
-                  transition={{ delay: groupIndex * 0.1, duration: 0.8 }}
-                >
-                  <div className="flex items-end justify-between mb-10 px-4 text-center md:text-left">
-                    <div className="flex flex-col md:flex-row items-center gap-6 w-full md:w-auto">
-                      <div>
-                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-2">{group.category}</p>
-                        <p className="text-2xl font-bold text-slate-900 tracking-tight leading-none italic">"{group.prompt}"</p>
+              <h2 className="text-3xl md:text-7xl font-black text-slate-900 mb-6 md:mb-8 tracking-tighter">
+                Designed by the <br />
+                <span className="bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-600 bg-clip-text text-transparent">Creative Community</span>
+              </h2>
+            </motion.div>
+  
+          {/* Filter Bar */}
+          <div className="mb-12 md:mb-20 flex items-center justify-center gap-2 md:gap-4 flex-wrap">
+            {categories.map((category) => (
+              <button
+                key={category.name}
+                onClick={() => setSelectedCategory(category.name)}
+                className={`relative px-4 md:px-8 py-3 md:py-4 rounded-2xl text-[10px] md:text-[11px] font-black uppercase tracking-widest transition-all duration-500 border ${
+                  selectedCategory === category.name
+                    ? 'bg-slate-900 text-white shadow-[0_20px_40px_rgba(0,0,0,0.15)] border-slate-900'
+                    : 'bg-white text-slate-500 hover:text-slate-900 border-slate-200 shadow-sm'
+                }`}
+              >
+                <div className="flex items-center gap-2 md:gap-3">
+                  <category.icon className={`w-3.5 h-3.5 md:w-4 h-4 ${selectedCategory === category.name ? 'text-white' : 'text-slate-400'}`} />
+                  <span>{category.name}</span>
+                </div>
+                {selectedCategory === category.name && (
+                  <motion.div layoutId="catGlow" className="absolute -inset-[1px] rounded-2xl border border-white/20 opacity-50" />
+                )}
+              </button>
+            ))}
+          </div>
+  
+          {/* Showcase Groups */}
+          <div className="space-y-20 md:space-y-32">
+            <AnimatePresence mode="wait">
+              {filteredGroups.map((group, groupIndex) => (
+                  <motion.div 
+                    key={group.category + groupIndex}
+                    initial={{ opacity: 0, y: 40 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -40 }}
+                    transition={{ delay: groupIndex * 0.1, duration: 0.8 }}
+                  >
+                    <div className="flex items-end justify-between mb-8 md:mb-10 px-4 text-center md:text-left">
+                      <div className="flex flex-col md:flex-row items-center gap-4 md:gap-6 w-full md:w-auto">
+                        <div>
+                          <p className="text-[9px] md:text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-1 md:mb-2">{group.category}</p>
+                          <p className="text-xl md:text-2xl font-bold text-slate-900 tracking-tight leading-none italic">"{group.prompt}"</p>
+                        </div>
                       </div>
                     </div>
+  
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 px-4">
+                    {group.items.map((item) => (
+                      <motion.div
+                        key={item.id}
+                        whileHover={{ y: -4, scale: 1.01 }}
+                        className="group relative bg-white border border-slate-200 rounded-[1.2rem] overflow-hidden shadow-sm hover:shadow-lg transition-all duration-500"
+                      >
+                        <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
+                          <img 
+                            src={item.preview} 
+                            alt={item.model}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[1s] ease-out"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                          
+                          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500">
+                             <div className="p-2 bg-white/90 backdrop-blur-md rounded-xl shadow-2xl scale-75 group-hover:scale-100 transition-transform duration-500">
+                                <Maximize2 className="w-4 h-4 text-slate-900" />
+                             </div>
+                          </div>
+  
+                          <div className="absolute bottom-2 left-2 right-2 flex items-center justify-end">
+                            <span className="text-[7px] font-black text-white uppercase tracking-widest px-2 py-1 bg-black/40 backdrop-blur-md rounded-md border border-white/20">
+                              {item.model}
+                            </span>
+                          </div>
+                        </div>
+  
+                        <div className="p-3 bg-white">
+                          <div className="flex items-center justify-between">
+                            <p className="text-[8px] font-black text-slate-400 tracking-[0.1em] uppercase">Project Showcase</p>
+                            <Sparkles className="w-2.5 h-2.5 text-slate-200 group-hover:text-purple-400 transition-colors" />
+                          </div>
+                        </div>
+                      </motion.div>
+                    ))}
                   </div>
-
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 px-4">
-                  {group.items.map((item) => (
-                    <motion.div
-                      key={item.id}
-                      whileHover={{ y: -4, scale: 1.01 }}
-                      className="group relative bg-white border border-slate-200 rounded-[1.2rem] overflow-hidden shadow-sm hover:shadow-lg transition-all duration-500"
-                    >
-                      <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
-                        <img 
-                          src={item.preview} 
-                          alt={item.model}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[1s] ease-out"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                        
-                        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500">
-                           <div className="p-2 bg-white/90 backdrop-blur-md rounded-xl shadow-2xl scale-75 group-hover:scale-100 transition-transform duration-500">
-                              <Maximize2 className="w-4 h-4 text-slate-900" />
-                           </div>
-                        </div>
-
-                        <div className="absolute bottom-2 left-2 right-2 flex items-center justify-end">
-                          <span className="text-[7px] font-black text-white uppercase tracking-widest px-2 py-1 bg-black/40 backdrop-blur-md rounded-md border border-white/20">
-                            {item.model}
-                          </span>
-                        </div>
-                      </div>
-
-                      <div className="p-3 bg-white">
-                        <div className="flex items-center justify-between">
-                          <p className="text-[8px] font-black text-slate-400 tracking-[0.1em] uppercase">Project Showcase</p>
-                          <Sparkles className="w-2.5 h-2.5 text-slate-200 group-hover:text-purple-400 transition-colors" />
-                        </div>
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
-              </motion.div>
-            ))}
-          </AnimatePresence>
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </div>
         </div>
-      </div>
-    </section>
-  );
+      </section>
+    );
 }

@@ -25,17 +25,17 @@ export function HeroSection() {
   };
 
   return (
-    <div className="relative w-full min-h-[45vh] flex flex-col items-center justify-center overflow-hidden bg-transparent pt-32 pb-12">
+    <div className="relative w-full min-h-[45vh] flex flex-col items-center justify-center overflow-hidden bg-transparent pt-20 md:pt-32 pb-12">
       {/* Content Container */}
         <motion.div 
-          className="relative z-10 max-w-6xl mx-auto text-center px-4"
+          className="relative z-10 max-w-6xl mx-auto text-center px-6"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
         >
           <motion.h1 
             variants={itemVariants}
-          className="text-7xl md:text-9xl lg:text-[11rem] font-black text-slate-900 mb-8 leading-[0.85] tracking-tighter"
+          className="text-5xl md:text-8xl lg:text-[11rem] font-black text-slate-900 mb-8 leading-[0.85] tracking-tighter"
           style={{ fontFamily: 'Nasalization, sans-serif' }}
         >
           FUTURE OF <br />

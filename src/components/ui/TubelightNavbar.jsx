@@ -16,21 +16,21 @@ export function NavBar({ items, className }) {
           {items.map((item) => {
             const isActive = activeTab === item.name
 
-          return (
-            <a
-              key={item.name}
-              href={item.url}
-              onClick={(e) => {
-                e.preventDefault();
-                setActiveTab(item.name);
-              }}
-              className={cn(
-                "relative cursor-pointer text-[11px] font-black uppercase tracking-widest px-6 py-2.5 rounded-full transition-all duration-300",
-                isActive 
-                  ? "text-slate-900" 
-                  : "text-slate-400 hover:text-slate-600",
-              )}
-            >
+            return (
+              <a
+                key={item.name}
+                href={item.url}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setActiveTab(item.name);
+                }}
+                className={cn(
+                  "relative cursor-pointer text-[9px] md:text-[11px] font-black uppercase tracking-widest px-3 md:px-6 py-2 md:py-2.5 rounded-full transition-all duration-300",
+                  isActive 
+                    ? "text-slate-900" 
+                    : "text-slate-400 hover:text-slate-600",
+                )}
+              >
               <span className="relative z-10">{item.name}</span>
               {isActive && (
                 <motion.div

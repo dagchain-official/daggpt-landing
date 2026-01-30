@@ -25,10 +25,10 @@ function HomePage() {
     return (
       <HexagonBackground>
         <div className="min-h-screen w-full relative text-slate-900 selection:bg-purple-500/10">
-          {/* Logo */}
-          <div className="fixed top-6 left-8 z-50">
-            <Logo />
-          </div>
+            {/* Logo */}
+            <div className="fixed top-4 left-4 md:top-6 md:left-8 z-50">
+              <Logo />
+            </div>
           
           {/* Navbar */}
           <div className="">

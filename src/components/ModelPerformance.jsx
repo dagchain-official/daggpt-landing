@@ -105,83 +105,83 @@ const getCompanyLogo = (organization) => {
     }
   };
 
-  return (
-    <section className="w-full py-32 px-4 bg-transparent relative z-10">
-        <div className="max-w-7xl mx-auto">
-          {/* Section Header */}
-          <div className="mb-20 text-center md:text-left">
-            
-            <motion.h2 
-              initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="text-4xl md:text-6xl font-black text-[#001219] mb-8 tracking-tighter"
-          >
-            The Intelligence <br />
-            <span className="bg-gradient-to-r from-[#132A13] via-[#31572C] to-[#90A955] bg-clip-text text-transparent font-black tracking-tighter">Leaderboard</span>
-          </motion.h2>
-          
-            <motion.p 
-              initial={{ opacity: 0, y: 20 }}
+    return (
+      <section className="w-full py-16 md:py-32 px-4 bg-transparent relative z-10">
+          <div className="max-w-7xl mx-auto">
+            {/* Section Header */}
+            <div className="mb-12 md:mb-20 text-center md:text-left px-4">
+              
+              <motion.h2 
+                initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="text-lg text-slate-500 max-w-3xl leading-relaxed font-normal mb-10"
+              transition={{ delay: 0.1 }}
+              className="text-3xl md:text-6xl font-black text-[#001219] mb-6 md:mb-8 tracking-tighter"
             >
-              Real-time performance analytics across the world's most capable AI models. 
-              Ranked using the <span className="text-slate-900 font-semibold italic">Bradley-Terry Elo system</span> based on millions of head-to-head creative matchups.
-            </motion.p>
-          </div>
-
-            {/* Stats Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-              {[
-                { label: "Total Models", value: `${modelData.length}+`, icon: TrendingUp, color: "text-[#132A13]" },
-                { label: "Avg Latency", value: "0.8s", icon: Zap, color: "text-[#31572C]" },
-                { label: "Uptime", value: "99.99%", icon: Clock, color: "text-[#4F772D]" }
-              ].map((stat, i) => (
-              <motion.div 
-                key={i}
+              The Intelligence <br />
+              <span className="bg-gradient-to-r from-[#132A13] via-[#31572C] to-[#90A955] bg-clip-text text-transparent font-black tracking-tighter">Leaderboard</span>
+            </motion.h2>
+            
+              <motion.p 
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="bg-white/60 backdrop-blur-xl rounded-3xl p-8 border border-slate-200/50 group hover:border-[#E9D8A6] transition-all shadow-sm"
+                transition={{ delay: 0.2 }}
+                className="text-base md:text-lg text-slate-500 max-w-3xl leading-relaxed font-normal mb-10"
               >
-                <div className="flex items-center gap-5">
-                  <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100 group-hover:scale-110 transition-transform">
-                    <stat.icon className={`w-6 h-6 ${stat.color}`} />
-                  </div>
-                  <div>
-                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-1">{stat.label}</p>
-                    <p className="text-3xl font-black text-[#001219] tracking-tighter">{stat.value}</p>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-
-        {/* Model Performance Chart */}
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          className="bg-white/80 backdrop-blur-3xl rounded-[2.5rem] border border-slate-200/50 p-10 md:p-16 shadow-[0_32px_64px_-16px_rgba(0,0,0,0.05)]"
-        >
-            <div className="flex flex-col md:flex-row items-center justify-between mb-12 gap-6">
-              <h3 className="text-2xl font-black text-[#001219] tracking-tighter">Elo Rating Distribution</h3>
-                  <div className="flex items-center gap-6">
-                    <div className="flex items-center gap-2">
-                      <div className="w-2.5 h-2.5 bg-[#132A13] rounded-full shadow-[0_0_10px_rgba(19,42,19,0.3)]" />
-                      <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Ultra Class</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className="w-2.5 h-2.5 bg-[#4F772D] rounded-full shadow-[0_0_10px_rgba(79,119,45,0.3)]" />
-                      <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Pro Class</span>
-                    </div>
-                  </div>
+                Real-time performance analytics across the world's most capable AI models. 
+                Ranked using the <span className="text-slate-900 font-semibold italic">Bradley-Terry Elo system</span> based on millions of head-to-head creative matchups.
+              </motion.p>
             </div>
+
+              {/* Stats Cards */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-16 px-4">
+                {[
+                  { label: "Total Models", value: `${modelData.length}+`, icon: TrendingUp, color: "text-[#132A13]" },
+                  { label: "Avg Latency", value: "0.8s", icon: Zap, color: "text-[#31572C]" },
+                  { label: "Uptime", value: "99.99%", icon: Clock, color: "text-[#4F772D]" }
+                ].map((stat, i) => (
+                <motion.div 
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1 }}
+                  className="bg-white/60 backdrop-blur-xl rounded-3xl p-6 md:p-8 border border-slate-200/50 group hover:border-[#E9D8A6] transition-all shadow-sm"
+                >
+                  <div className="flex items-center gap-5">
+                    <div className="p-3 md:p-4 bg-slate-50 rounded-2xl border border-slate-100 group-hover:scale-110 transition-transform">
+                      <stat.icon className={`w-5 h-5 md:w-6 md:h-6 ${stat.color}`} />
+                    </div>
+                    <div>
+                      <p className="text-[9px] md:text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-1">{stat.label}</p>
+                      <p className="text-2xl md:text-3xl font-black text-[#001219] tracking-tighter">{stat.value}</p>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+
+          {/* Model Performance Chart */}
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            className="bg-white/80 backdrop-blur-3xl rounded-[2rem] md:rounded-[2.5rem] border border-slate-200/50 p-6 md:p-16 shadow-[0_32px_64px_-16px_rgba(0,0,0,0.05)] mx-4"
+          >
+              <div className="flex flex-col md:flex-row items-center justify-between mb-8 md:mb-12 gap-6">
+                <h3 className="text-xl md:text-2xl font-black text-[#001219] tracking-tighter">Elo Rating Distribution</h3>
+                    <div className="flex items-center gap-4 md:gap-6">
+                      <div className="flex items-center gap-2">
+                        <div className="w-2 h-2 md:w-2.5 md:h-2.5 bg-[#132A13] rounded-full shadow-[0_0_10px_rgba(19,42,19,0.3)]" />
+                        <span className="text-[8px] md:text-[10px] font-bold text-slate-400 uppercase tracking-widest">Ultra Class</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <div className="w-2 h-2 md:w-2.5 md:h-2.5 bg-[#4F772D] rounded-full shadow-[0_0_10px_rgba(79,119,45,0.3)]" />
+                        <span className="text-[8px] md:text-[10px] font-bold text-slate-400 uppercase tracking-widest">Pro Class</span>
+                      </div>
+                    </div>
+              </div>
 
           {/* Chart Container */}
           <div className="overflow-x-auto pb-8 scrollbar-hide">
