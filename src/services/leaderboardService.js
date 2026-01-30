@@ -146,7 +146,7 @@ function getFallbackData() {
     { name: 'Grok 4.1', score: 1466, rank: 6, icon: '🤖', category: 'xAI', color: 'bg-gradient-to-br from-indigo-400 to-indigo-600', performance: 96, organization: 'xAI', isSubjectToChange: false },
     { name: 'Gemini 3 Flash (Thinking)', score: 1464, rank: 7, icon: '🌟', category: 'Google', color: 'bg-gradient-to-br from-yellow-400 to-orange-500', performance: 96, organization: 'Google', isSubjectToChange: false },
     { name: 'GPT-5.1 High', score: 1458, rank: 8, icon: '⚡', category: 'OpenAI', color: 'bg-gradient-to-br from-pink-400 to-rose-600', performance: 95, organization: 'OpenAI', isSubjectToChange: false },
-    { name: 'Ernie 5.0', score: 1454, rank: 9, icon: '✨', category: 'Other', color: 'bg-gradient-to-br from-teal-400 to-cyan-600', performance: 95, organization: 'Baidu', isSubjectToChange: false },
+    { name: 'Ernie 5.0', score: 1454, rank: 9, icon: '✨', category: 'Baidu', color: 'bg-gradient-to-br from-teal-400 to-cyan-600', performance: 95, organization: 'Baidu', isSubjectToChange: false },
     { name: 'Claude 4.5 Sonnet (Thinking)', score: 1451, rank: 10, icon: '🎯', category: 'Anthropic', color: 'bg-gradient-to-br from-violet-400 to-purple-600', performance: 94, organization: 'Anthropic', isSubjectToChange: false },
     { name: 'Claude 4.5 Sonnet', score: 1445, rank: 11, icon: '🎯', category: 'Anthropic', color: 'bg-gradient-to-br from-lime-400 to-green-600', performance: 93, organization: 'Anthropic', isSubjectToChange: false },
     { name: 'DeepSeek V4.1', score: 1438, rank: 12, icon: '🔍', category: 'DeepSeek', color: 'bg-gradient-to-br from-sky-400 to-blue-600', performance: 93, organization: 'DeepSeek', isSubjectToChange: false },
