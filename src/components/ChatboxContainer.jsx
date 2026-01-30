@@ -59,18 +59,18 @@ const aiTools = [
 ]
 
 const modelsByFunction = {
-  "AI Chat": [
-    { name: "Gemini 3 Pro", id: "gemini-3-pro-preview", tier: "Ultra-Premium" },
-    { name: "Gemini 3 Flash", id: "gemini-3-flash-preview", tier: "Standard" },
-    { name: "Grok 4.1 Thinking", id: "grok-4.1-thinking", tier: "Reasoning" },
-    { name: "Claude 4.5 Opus", id: "claude-4-5-opus", tier: "Intelligence King" },
-    { name: "GPT-5.1 High", id: "gpt-5.1-high", tier: "Powerhouse" },
-    { name: "DeepSeek V4.1", id: "deepseek-v4.1", tier: "Advanced Reasoning" },
-    { name: "Claude 4.5 Sonnet", id: "claude-4-5-sonnet", tier: "Balanced" },
-    { name: "Llama 5 (405B)", id: "llama-5-405b", tier: "Open-Source Giant" },
-    { name: "Qwen 4 Max", id: "qwen-4-max", tier: "Production Scale" },
-    { name: "Gemini 3.5 Pro", id: "gemini-3.5-pro", tier: "Next-Gen Stable" }
-  ],
+    "AI Chat": [
+      { name: "Gemini 3 Pro", id: "gemini-3-pro-preview", tier: "Overall Leader" },
+      { name: "Grok 4.1 Thinking", id: "grok-4.1-thinking", tier: "Reasoning King" },
+      { name: "Gemini 3 Flash", id: "gemini-3-flash-preview", tier: "Speed & Intelligence" },
+      { name: "Claude 4.5 Opus", id: "claude-4-5-opus", tier: "Intelligence King" },
+      { name: "Grok 4.1", id: "grok-4.1", tier: "High-Performance" },
+      { name: "GPT-5.1 High", id: "gpt-5.1-high", tier: "OpenAI Elite" },
+      { name: "Ernie 5.0", id: "ernie-5.0", tier: "Multilingual Power" },
+      { name: "Claude 4.5 Sonnet", id: "claude-4-5-sonnet", tier: "Balanced Master" },
+      { name: "DeepSeek V4.1", id: "deepseek-v4.1", tier: "Advanced Reasoning" },
+      { name: "Llama 5 (405B)", id: "llama-5-405b", tier: "Open-Source Giant" }
+    ],
   "Image Generation": [
     { name: "Imagen 4 Ultra", id: "imagen-4.0-ultra-generate-001", tier: "Photorealistic" },
     { name: "Imagen 4 Standard", id: "imagen-4.0-generate-001", tier: "Artistic" },

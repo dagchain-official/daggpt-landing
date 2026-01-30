@@ -65,6 +65,7 @@ function getModelCategory(modelName) {
   if (name.includes('deepseek')) return 'DeepSeek';
   if (name.includes('qwen') || name.includes('alibaba')) return 'Alibaba';
   if (name.includes('grok')) return 'xAI';
+  if (name.includes('ernie') || name.includes('baidu')) return 'Baidu';
   return 'Other';
 }
 
@@ -81,6 +82,7 @@ function getOrganization(modelName) {
   if (name.includes('deepseek')) return 'DeepSeek';
   if (name.includes('qwen')) return 'Alibaba';
   if (name.includes('grok')) return 'xAI';
+  if (name.includes('ernie') || name.includes('baidu')) return 'Baidu';
   if (name.includes('yi')) return '01.AI';
   if (name.includes('cohere')) return 'Cohere';
   return 'Independent';

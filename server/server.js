@@ -99,12 +99,39 @@ const MAAS_MODELS = {
     modelName: 'deepseek-ai/deepseek-v3.2-maas'
   },
   // Qwen Models
-  'qwen-3-235b-instruct': {
-    publisher: 'qwen',
-    endpoint: 'generateContent',
-    location: 'us-central1'
-  }
-};
+    'qwen-3-235b-instruct': {
+      publisher: 'qwen',
+      endpoint: 'generateContent',
+      location: 'us-central1'
+    },
+    // GPT-5 Models
+    'gpt-5.1-high': {
+      publisher: 'openai',
+      endpoint: 'generateContent',
+      location: 'global',
+      usePublishersPath: true
+    },
+    // Grok 4 Models
+    'grok-4.1-thinking': {
+      publisher: 'xai',
+      endpoint: 'generateContent',
+      location: 'global',
+      usePublishersPath: true
+    },
+    'grok-4.1': {
+      publisher: 'xai',
+      endpoint: 'generateContent',
+      location: 'global',
+      usePublishersPath: true
+    },
+    // Ernie Models
+    'ernie-5.0': {
+      publisher: 'baidu',
+      endpoint: 'generateContent',
+      location: 'global',
+      usePublishersPath: true
+    }
+  };
 
 // Image Generation Model IDs
 const IMAGE_MODELS = {
@@ -150,6 +177,9 @@ const MODEL_IDS = {
   "GPT-5.1 High": "gpt-5.1-high",
   "GPT-5.1 Mini": "gpt-5.1-mini",
   "GPT-5 Ultra": "gpt-5-ultra",
+
+  // Baidu Ernie Models
+  "Ernie 5.0": "ernie-5.0",
 
   // DeepSeek Models
   "DeepSeek V4.1": "deepseek-v4.1",
