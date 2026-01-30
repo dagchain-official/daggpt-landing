@@ -75,8 +75,15 @@ class VertexAIService {
       });
 
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Failed to start video generation');
+        let errorMessage = 'Failed to start video generation';
+        try {
+          const errorData = await response.json();
+          errorMessage = errorData.error || errorMessage;
+        } catch (e) {
+          // Fallback if response is not JSON
+          errorMessage = await response.text();
+        }
+        throw new Error(errorMessage);
       }
 
       const data = await response.json();
