@@ -101,7 +101,7 @@ export function Footer() {
                 © 2026 DAG GPT.
               </p>
               <div className="flex items-center gap-6">
-                <a href="/DAGGPT PRIVACY POLICY.pdf" target="_blank" rel="noopener noreferrer" className="text-xs font-black text-slate-400 hover:text-slate-900 uppercase tracking-widest transition-colors">Privacy</a>
+                <a href="/DAGGPT%20PRIVACY%20POLICY.pdf" target="_blank" rel="noopener noreferrer" className="text-xs font-black text-slate-400 hover:text-slate-900 uppercase tracking-widest transition-colors">Privacy</a>
                 <a href="/" className="text-xs font-black text-slate-400 hover:text-slate-900 uppercase tracking-widest transition-colors">Terms</a>
               </div>
             </div>
