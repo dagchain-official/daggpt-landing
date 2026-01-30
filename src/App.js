@@ -30,16 +30,16 @@ function HomePage() {
         <Logo />
       </div>
       
-      {/* Navbar */}
-      <NavBar items={navItems} />
-      
-      {/* Main Content - Chatbox Container */}
-      <ChatboxContainer />
-      
-      {/* Hero Section */}
-      <HeroSection />
-      
-      {/* Model Performance Section */}
+        {/* Navbar */}
+        <NavBar items={navItems} />
+        
+        {/* Hero Section */}
+        <HeroSection />
+        
+        {/* Main Content - Chatbox Container */}
+        <ChatboxContainer />
+        
+        {/* Model Performance Section */}
       <ModelPerformance />
       
       {/* Community Showcase Section */}

@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react"
 import { useNavigate } from 'react-router-dom'
+import { motion, AnimatePresence } from 'framer-motion'
 import {
   MessageSquare,
   Images,
@@ -15,6 +16,7 @@ import {
   X,
   FileText,
   Check,
+  Sparkles
 } from "lucide-react"
 import VoiceInputButton from './VoiceInputButton'
 
@@ -112,74 +114,22 @@ export function ChatboxContainer() {
   ]
 
   const aiModels = [
-    // Google Gemini 3 Models (Latest)
     { name: "Gemini 3 Pro", id: "gemini-3-pro-preview", tier: "Ultra-Premium" },
     { name: "Gemini 3 Flash", id: "gemini-2.0-flash-exp", tier: "Standard" },
-    
-    // Google Gemini 2.5 Models
     { name: "Gemini 2.5 Pro", id: "gemini-2.5-pro", tier: "Production Stable" },
     { name: "Gemini 2.5 Flash", id: "gemini-2.5-flash", tier: "Fast" },
-    { name: "Gemini 2.5 Flash-Lite", id: "gemini-2.5-flash-lite", tier: "Budget" },
-    
-    // Anthropic Claude Models
     { name: "Claude Sonnet 4.5", id: "claude-sonnet-4-5", tier: "Ultra-Premium" },
-    
-    // Meta Llama Models
     { name: "Llama 3.3 (70B)", id: "llama-3.3-70b-instruct-maas", tier: "Open Model" },
-    { name: "Llama 3.1 (405B)", id: "llama-3.1-405b-instruct-maas", tier: "Open Model" },
-    { name: "Llama 3.1 (70B)", id: "llama-3.1-70b-instruct-maas", tier: "Open Model" },
-    { name: "Llama 3.1 (8B)", id: "llama-3.1-8b-instruct-maas", tier: "Open Model" },
-    
-    // Mistral Models
-    { name: "Mistral Large 2", id: "mistral-large-2407", tier: "Premium" },
-    { name: "Mistral Nemo", id: "mistral-nemo-2407", tier: "Standard" },
-    
-    // DeepSeek Models
     { name: "DeepSeek V3.2", id: "deepseek-v3.2-maas", tier: "Specialist" },
-    
-    // Qwen Models
-    { name: "Qwen 3 (235B)", id: "qwen3-235b-instruct-maas", tier: "Premium" },
-    
-    // Specialized Models
-    { name: "Codestral", id: "codestral@2405", tier: "Code Specialist" }
   ]
-
-  const handleFileSelect = (e) => {
-    const files = Array.from(e.target.files)
-    if (attachedFiles.length + files.length > 5) {
-      alert('Maximum 5 files allowed')
-      return
-    }
-    setAttachedFiles([...attachedFiles, ...files])
-  }
-
-  const removeFile = (index) => {
-    setAttachedFiles(attachedFiles.filter((_, i) => i !== index))
-  }
 
   const handleSendMessage = () => {
     if (!inputValue.trim()) return
-
     const userMessage = inputValue.trim()
-    
-    // Route based on selected tool
     if (selectedTool === "Image Generation") {
-      // Navigate to image generation page
-      navigate('/image-generation', {
-        state: {
-          initialPrompt: userMessage,
-          selectedModel: selectedImageModel,
-          aspectRatio: selectedAspectRatio
-        }
-      })
+      navigate('/image-generation', { state: { initialPrompt: userMessage, selectedModel: selectedImageModel, aspectRatio: selectedAspectRatio } })
     } else {
-      // Navigate to chat page with initial message and selected model
-      navigate('/chat', {
-        state: {
-          initialMessage: userMessage,
-          selectedModel: selectedModel
-        }
-      })
+      navigate('/chat', { state: { initialMessage: userMessage, selectedModel: selectedModel } })
     }
   }
 
@@ -190,536 +140,186 @@ export function ChatboxContainer() {
     }
   }
 
-  const handleAttachClick = () => {
-    fileInputRef.current?.click()
-  }
-
   return (
-    <div className="w-full px-4 relative z-10" style={{ minHeight: '60vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', paddingTop: '100px' }}>
-      <div className="w-full max-w-xl mx-auto">
-        <div className="space-y-6">
-
-          {/* Main Chatbox Container */}
-          <div className="bg-white border border-gray-200 rounded-2xl shadow-xl overflow-visible">
-            {/* Input Field with Tool Indicator */}
-            <div className="p-4 relative">
-              {/* Selected Tool Indicator - Top Right - Neumorphic 3D */}
-              <div className="absolute top-3 right-3">
-                <div 
-                  className="inline-flex items-center gap-2 py-1 px-3 rounded-full"
-                  style={{
-                    background: '#ffffff',
-                    boxShadow: '6px 6px 12px rgba(0, 0, 0, 0.1), -6px -6px 12px rgba(255, 255, 255, 0.9), inset 2px 2px 4px rgba(0, 0, 0, 0.05)',
-                  }}
-                >
-                  <span className="text-xs font-semibold text-gray-700">{selectedTool}</span>
+    <div className="w-full px-4 relative z-20 pb-20">
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.6, duration: 0.8 }}
+        className="w-full max-w-4xl mx-auto"
+      >
+        <div className="space-y-8">
+          {/* Main Chatbox Container with Glassmorphism */}
+          <div className="relative group">
+            <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 to-blue-600 rounded-3xl blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
+            
+            <div className="relative bg-white/80 backdrop-blur-xl border border-white/20 rounded-2xl shadow-2xl overflow-hidden">
+              {/* Input Area */}
+              <div className="p-6">
+                <div className="flex items-start gap-4">
+                  <div className="flex-1 min-h-[120px] relative">
+                    <textarea
+                      value={inputValue}
+                      onChange={(e) => setInputValue(e.target.value)}
+                      onKeyPress={handleKeyPress}
+                      placeholder={`Message ${selectedTool}...`}
+                      className="w-full h-full bg-transparent text-gray-900 text-lg md:text-xl placeholder:text-gray-400 focus:outline-none resize-none leading-relaxed"
+                    />
+                    
+                    {attachedFiles.length > 0 && (
+                      <div className="mt-4 flex flex-wrap gap-2">
+                        {attachedFiles.map((file, index) => (
+                          <motion.div
+                            initial={{ scale: 0.8, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            key={index}
+                            className="inline-flex items-center gap-2 px-3 py-1.5 bg-gray-100/50 backdrop-blur-sm rounded-lg text-xs text-gray-700 border border-gray-200 shadow-sm"
+                          >
+                            <FileText className="w-3.5 h-3.5" />
+                            <span className="max-w-[120px] truncate">{file.name}</span>
+                            <button onClick={() => setAttachedFiles(f => f.filter((_, i) => i !== index))} className="hover:text-red-600">
+                              <X className="w-3.5 h-3.5" />
+                            </button>
+                          </motion.div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
-              
-              <textarea
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
-                onKeyPress={handleKeyPress}
-                placeholder="Ask me to build a beautiful landing page, generate an image, or create a video..."
-                className="w-full h-20 bg-transparent text-gray-900 text-sm placeholder:text-gray-400 focus:outline-none resize-none leading-relaxed pr-32"
-              />
-              
-              {/* Hidden File Input */}
-              <input
-                ref={fileInputRef}
-                type="file"
-                multiple
-                accept=".doc,.docx,.txt,.rtf,.odt,.xls,.xlsx,.csv,.pdf,.jpg,.jpeg,.png,.gif,.bmp,.webp,.svg"
-                onChange={handleFileSelect}
-                className="hidden"
-              />
-              
-              {/* Attached Files Display */}
-              {attachedFiles.length > 0 && (
-                <div className="mt-3 flex flex-wrap gap-2">
-                  {attachedFiles.map((file, index) => (
-                    <div
-                      key={index}
-                      className="inline-flex items-center gap-2 px-3 py-1.5 bg-gray-100 rounded-lg text-xs text-gray-700 border border-gray-200"
+
+              {/* Toolbar */}
+              <div className="bg-gray-50/50 backdrop-blur-md border-t border-gray-100 p-4">
+                <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+                  {/* Left: Dynamic Controls */}
+                  <div className="flex items-center flex-wrap gap-2">
+                    <button 
+                      onClick={() => fileInputRef.current?.click()}
+                      className="p-2.5 rounded-xl bg-white hover:bg-gray-50 border border-gray-200 shadow-sm transition-all text-gray-600"
                     >
-                      <FileText className="w-3.5 h-3.5" />
-                      <span className="max-w-[150px] truncate">{file.name}</span>
-                      <button
-                        onClick={() => removeFile(index)}
-                        className="hover:text-red-600 transition-colors"
-                      >
-                        <X className="w-3.5 h-3.5" />
-                      </button>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
+                      <Paperclip className="w-4 h-4" />
+                      <input ref={fileInputRef} type="file" multiple className="hidden" onChange={(e) => setAttachedFiles([...attachedFiles, ...Array.from(e.target.files)])} />
+                    </button>
 
-            {/* Dynamic Control Toolbar - Single Line */}
-            <div className="border-t border-gray-100 bg-gray-50/50 p-4">
-              <div className="flex items-center justify-between gap-3">
-                {/* Left Side Controls */}
-                <div className="flex items-center gap-2">
-                  {/* AI Chat Controls */}
-                  {selectedTool === "AI Chat" && (
-                    <>
-                      <button 
-                        onClick={handleAttachClick}
-                        className="inline-flex items-center gap-2 px-3 py-2 text-xs rounded-lg bg-white hover:bg-gray-50 text-gray-600 hover:text-gray-900 transition-all border border-gray-200 hover:border-gray-300"
-                      >
-                        <Paperclip className="w-3.5 h-3.5" />
-                        <span>Attach</span>
-                        {attachedFiles.length > 0 && (
-                          <span className="ml-1 px-1.5 py-0.5 bg-primary text-white rounded-full text-[10px] font-semibold">
-                            {attachedFiles.length}
-                          </span>
-                        )}
-                      </button>
-                      {/* Model Selection Dropdown */}
-                      <div className="relative">
-                        <button 
-                          onClick={() => setShowModelDropdown(!showModelDropdown)}
-                          className="inline-flex items-center gap-2 px-3 py-2 text-xs rounded-lg bg-white hover:bg-gray-50 text-gray-600 hover:text-gray-900 transition-all border border-gray-200 hover:border-gray-300"
-                        >
-                          <span>{selectedModel}</span>
-                          <ChevronDown className="w-3 h-3" />
-                        </button>
-
-                        {showModelDropdown && (
-                          <>
-                            <div 
-                              className="fixed inset-0 z-[99]" 
-                              onClick={() => setShowModelDropdown(false)}
-                            />
-                            <div className="absolute top-full left-0 mt-2 w-52 bg-white border border-gray-200 rounded-xl shadow-2xl z-[100] overflow-hidden">
-                              <div className="py-1">
-                                <div className="px-3 py-1.5 text-[10px] font-semibold text-gray-500 uppercase tracking-wide">
-                                  Select AI Model
-                                </div>
-                                <div className="max-h-64 overflow-y-auto">
-                                  {aiModels.map((model) => (
-                                    <button
-                                      key={model.id}
-                                      onClick={() => {
-                                        setSelectedModel(model.name)
-                                        setShowModelDropdown(false)
-                                      }}
-                                      className={`w-full text-left px-3 py-1.5 text-[11px] hover:bg-gray-50 transition-colors flex items-center justify-between ${
-                                        selectedModel === model.name ? 'bg-purple-50 text-purple-700 font-semibold' : 'text-gray-700'
-                                      }`}
-                                    >
-                                      <span>{model.name}</span>
-                                      {selectedModel === model.name && (
-                                        <Check className="w-3.5 h-3.5 text-purple-600" />
-                                      )}
-                                    </button>
-                                  ))}
-                                </div>
-                              </div>
-                            </div>
-                          </>
-                        )}
-                      </div>
-                    </>
-                  )}
-
-                  {/* Image Generation Controls */}
-                  {selectedTool === "Image Generation" && (
-                    <>
-                      <button className="inline-flex items-center gap-2 px-3 py-2 text-xs rounded-lg bg-white hover:bg-gray-50 text-gray-600 hover:text-gray-900 transition-all border border-gray-200 hover:border-gray-300">
-                        <Paperclip className="w-3.5 h-3.5" />
-                        <span>Attach</span>
-                      </button>
-                      
-                      {/* Image Model Selection Dropdown */}
-                      <div className="relative">
-                        <button 
-                          onClick={() => setShowImageModelDropdown(!showImageModelDropdown)}
-                          className="inline-flex items-center gap-2 px-3 py-2 text-xs rounded-lg bg-white hover:bg-gray-50 text-gray-600 hover:text-gray-900 transition-all border border-gray-200 hover:border-gray-300"
-                        >
-                          <span>{selectedImageModel}</span>
-                          <ChevronDown className="w-3 h-3" />
-                        </button>
-
-                        {showImageModelDropdown && (
-                          <>
-                            <div 
-                              className="fixed inset-0 z-[99]" 
-                              onClick={() => setShowImageModelDropdown(false)}
-                            />
-                            <div className="absolute top-full left-0 mt-2 w-72 bg-white border border-gray-200 rounded-xl shadow-2xl z-[100] overflow-hidden">
-                              <div className="py-1">
-                                <div className="px-3 py-1.5 text-[10px] font-semibold text-gray-500 uppercase tracking-wide">
-                                  Select Image Model
-                                </div>
-                                <div className="max-h-64 overflow-y-auto">
-                                  {imageModels.map((model) => (
-                                    <button
-                                      key={model.id}
-                                      onClick={() => {
-                                        setSelectedImageModel(model.name)
-                                        setShowImageModelDropdown(false)
-                                      }}
-                                      className={`w-full text-left px-3 py-2 text-[11px] hover:bg-gray-50 transition-colors ${
-                                        selectedImageModel === model.name ? 'bg-purple-50 text-purple-700 font-semibold' : 'text-gray-700'
-                                      }`}
-                                    >
-                                      <div className="flex items-start justify-between gap-2">
-                                        <div className="flex-1">
-                                          <div className="font-semibold">{model.name}</div>
-                                          <div className="text-[10px] text-gray-500 mt-0.5">{model.description}</div>
-                                        </div>
-                                        {selectedImageModel === model.name && (
-                                          <Check className="w-3.5 h-3.5 text-purple-600 flex-shrink-0 mt-0.5" />
-                                        )}
-                                      </div>
-                                    </button>
-                                  ))}
-                                </div>
-                              </div>
-                            </div>
-                          </>
-                        )}
-                      </div>
-                      
-                      {/* Aspect Ratio Dropdown */}
-                      <div className="relative">
-                        <button 
-                          onClick={() => setShowAspectRatioDropdown(!showAspectRatioDropdown)}
-                          className="inline-flex items-center gap-2 px-3 py-2 text-xs rounded-lg bg-white hover:bg-gray-50 text-gray-600 hover:text-gray-900 transition-all border border-gray-200 hover:border-gray-300"
-                        >
-                          <span>{selectedAspectRatio}</span>
-                          <ChevronDown className="w-3 h-3" />
-                        </button>
-                        
-                        {showAspectRatioDropdown && (
-                          <>
-                            <div 
-                              className="fixed inset-0 z-[99]" 
-                              onClick={() => setShowAspectRatioDropdown(false)}
-                            />
-                            <div className="absolute top-full left-0 mt-2 w-52 bg-white border border-gray-200 rounded-xl shadow-2xl z-[100] overflow-hidden">
-                              <div className="py-1 max-h-72 overflow-y-auto">
-                                {aspectRatios.map((ratio) => (
-                                  <button
-                                    key={ratio.name}
-                                    onClick={() => {
-                                      setSelectedAspectRatio(ratio.name)
-                                      setShowAspectRatioDropdown(false)
-                                    }}
-                                    className={`w-full text-left px-4 py-2.5 text-xs hover:bg-gray-50 transition-colors flex items-center gap-3 ${
-                                      selectedAspectRatio === ratio.name ? 'bg-primary/10 text-primary font-semibold' : 'text-gray-700'
-                                    }`}
-                                  >
-                                    <span className="flex-shrink-0">{ratio.icon}</span>
-                                    <span>{ratio.name}</span>
-                                  </button>
-                                ))}
-                              </div>
-                            </div>
-                          </>
-                        )}
-                      </div>
-                      
-                      <button title="Prompt Enhancer" className="p-2 rounded-lg bg-white hover:bg-gray-50 text-gray-600 hover:text-gray-900 transition-all border border-gray-200 hover:border-gray-300">
-                        <Zap className="w-3.5 h-3.5" />
-                      </button>
-                    </>
-                  )}
-
-                  {/* Video Generation Controls */}
-                  {selectedTool === "Video Generation" && (
-                    <>
-                      <button className="inline-flex items-center gap-2 px-3 py-2 text-xs rounded-lg bg-white hover:bg-gray-50 text-gray-600 hover:text-gray-900 transition-all border border-gray-200 hover:border-gray-300">
-                        <Paperclip className="w-3.5 h-3.5" />
-                        <span>Attach</span>
-                      </button>
-                      <button className="inline-flex items-center gap-2 px-3 py-2 text-xs rounded-lg bg-white hover:bg-gray-50 text-gray-600 hover:text-gray-900 transition-all border border-gray-200 hover:border-gray-300">
-                        <span>Model</span>
-                        <ChevronDown className="w-3 h-3" />
-                      </button>
-                      
-                      {/* Aspect Ratio Dropdown */}
-                      <div className="relative">
-                        <button 
-                          onClick={() => setShowAspectRatioDropdown(!showAspectRatioDropdown)}
-                          className="inline-flex items-center gap-2 px-3 py-2 text-xs rounded-lg bg-white hover:bg-gray-50 text-gray-600 hover:text-gray-900 transition-all border border-gray-200 hover:border-gray-300"
-                        >
-                          <span>{selectedAspectRatio}</span>
-                          <ChevronDown className="w-3 h-3" />
-                        </button>
-                        
-                        {showAspectRatioDropdown && (
-                          <>
-                            <div 
-                              className="fixed inset-0 z-[99]" 
-                              onClick={() => setShowAspectRatioDropdown(false)}
-                            />
-                            <div className="absolute top-full left-0 mt-2 w-52 bg-white border border-gray-200 rounded-xl shadow-2xl z-[100] overflow-hidden">
-                              <div className="py-1 max-h-72 overflow-y-auto">
-                                {aspectRatios.map((ratio) => (
-                                  <button
-                                    key={ratio.name}
-                                    onClick={() => {
-                                      setSelectedAspectRatio(ratio.name)
-                                      setShowAspectRatioDropdown(false)
-                                    }}
-                                    className={`w-full text-left px-4 py-2.5 text-xs hover:bg-gray-50 transition-colors flex items-center gap-3 ${
-                                      selectedAspectRatio === ratio.name ? 'bg-primary/10 text-primary font-semibold' : 'text-gray-700'
-                                    }`}
-                                  >
-                                    <span className="flex-shrink-0">{ratio.icon}</span>
-                                    <span>{ratio.name}</span>
-                                  </button>
-                                ))}
-                              </div>
-                            </div>
-                          </>
-                        )}
-                      </div>
-                      
-                      <button title="Prompt Enhancer" className="p-2 rounded-lg bg-white hover:bg-gray-50 text-gray-600 hover:text-gray-900 transition-all border border-gray-200 hover:border-gray-300">
-                        <Zap className="w-3.5 h-3.5" />
-                      </button>
-                    </>
-                  )}
-
-                  {/* Music Generation Controls */}
-                  {selectedTool === "Music Generation" && (
-                    <>
-                      <button className="inline-flex items-center gap-2 px-3 py-2 text-xs rounded-lg bg-white hover:bg-gray-50 text-gray-600 hover:text-gray-900 transition-all border border-gray-200 hover:border-gray-300">
-                        <span>Simple/Custom</span>
-                        <ChevronDown className="w-3 h-3" />
-                      </button>
-                      <button className="inline-flex items-center gap-2 px-3 py-2 text-xs rounded-lg bg-white hover:bg-gray-50 text-gray-600 hover:text-gray-900 transition-all border border-gray-200 hover:border-gray-300">
-                        <span>Style</span>
-                        <ChevronDown className="w-3 h-3" />
-                      </button>
-                      <button className="inline-flex items-center gap-2 px-3 py-2 text-xs rounded-lg bg-white hover:bg-gray-50 text-gray-600 hover:text-gray-900 transition-all border border-gray-200 hover:border-gray-300">
-                        <span>Model</span>
-                        <ChevronDown className="w-3 h-3" />
-                      </button>
-                    </>
-                  )}
-
-                  {/* Website Builder Controls */}
-                  {selectedTool === "Website Builder" && (
-                    <>
-                      <button className="inline-flex items-center gap-2 px-3 py-2 text-xs rounded-lg bg-white hover:bg-gray-50 text-gray-600 hover:text-gray-900 transition-all border border-gray-200 hover:border-gray-300">
-                        <Paperclip className="w-3.5 h-3.5" />
-                        <span>Attach</span>
-                      </button>
-                      <button className="inline-flex items-center gap-2 px-3 py-2 text-xs rounded-lg bg-white hover:bg-gray-50 text-gray-600 hover:text-gray-900 transition-all border border-gray-200 hover:border-gray-300">
-                        <span>Model</span>
-                        <ChevronDown className="w-3 h-3" />
-                      </button>
-                      <button title="Prompt Enhancer" className="p-2 rounded-lg bg-white hover:bg-gray-50 text-gray-600 hover:text-gray-900 transition-all border border-gray-200 hover:border-gray-300">
-                        <Zap className="w-3.5 h-3.5" />
-                      </button>
-                    </>
-                  )}
-
-                  {/* Smart Tools Controls */}
-                  {selectedTool === "Smart Tools" && (
-                    <>
-                      <button className="inline-flex items-center gap-2 px-3 py-2 text-xs rounded-lg bg-white hover:bg-gray-50 text-gray-600 hover:text-gray-900 transition-all border border-gray-200 hover:border-gray-300">
-                        <Paperclip className="w-3.5 h-3.5" />
-                        <span>Attach</span>
-                      </button>
-                      <button className="inline-flex items-center gap-2 px-3 py-2 text-xs rounded-lg bg-white hover:bg-gray-50 text-gray-600 hover:text-gray-900 transition-all border border-gray-200 hover:border-gray-300">
-                        <span>Model</span>
-                        <ChevronDown className="w-3 h-3" />
-                      </button>
-                    </>
-                  )}
-                </div>
-
-                {/* Right Side Controls - Same for All Tools */}
-                <div className="flex items-center gap-2">
-                  {/* Figma Integration - Only for Website Builder */}
-                  {selectedTool === "Website Builder" && (
+                    {/* Model Dropdown */}
                     <div className="relative">
                       <button 
-                        onClick={() => setShowFigmaDropdown(!showFigmaDropdown)}
-                        className="p-2 rounded-lg bg-white hover:bg-gray-50 transition-all border border-gray-200 hover:border-gray-300"
-                        title="Import Figma Design"
+                        onClick={() => setShowModelDropdown(!showModelDropdown)}
+                        className="flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-xl bg-white hover:bg-gray-50 border border-gray-200 shadow-sm transition-all text-gray-700"
                       >
-                        <svg className="w-3.5 h-3.5" viewBox="0 0 38 57" fill="none">
-                          <path d="M19 28.5C19 23.2533 23.2533 19 28.5 19C33.7467 19 38 23.2533 38 28.5C38 33.7467 33.7467 38 28.5 38C23.2533 38 19 33.7467 19 28.5Z" fill="#1ABCFE"/>
-                          <path d="M0 47.5C0 42.2533 4.25329 38 9.5 38H19V47.5C19 52.7467 14.7467 57 9.5 57C4.25329 57 0 52.7467 0 47.5Z" fill="#0ACF83"/>
-                          <path d="M19 0V19H28.5C33.7467 19 38 14.7467 38 9.5C38 4.25329 33.7467 0 28.5 0H19Z" fill="#FF7262"/>
-                          <path d="M0 9.5C0 14.7467 4.25329 19 9.5 19H19V0H9.5C4.25329 0 0 4.25329 0 9.5Z" fill="#F24E1E"/>
-                          <path d="M0 28.5C0 33.7467 4.25329 38 9.5 38H19V19H9.5C4.25329 19 0 23.2533 0 28.5Z" fill="#A259FF"/>
-                        </svg>
+                        <Sparkles className="w-4 h-4 text-purple-600" />
+                        <span>{selectedTool === "Image Generation" ? selectedImageModel : selectedModel}</span>
+                        <ChevronDown className="w-4 h-4 opacity-50" />
                       </button>
-
-                      {/* Figma Dropdown Modal */}
-                      {showFigmaDropdown && (
-                        <>
-                          <div 
-                            className="fixed inset-0 z-[100]" 
-                            onClick={() => setShowFigmaDropdown(false)}
-                          />
-                          <div className="absolute right-0 top-12 w-[560px] bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden z-[101]">
-                            <div className="p-5">
-                              <h3 className="text-sm font-semibold text-gray-900 mb-2 uppercase tracking-wide">
-                                Import Figma Design
-                              </h3>
-                              
-                              <p className="text-xs text-gray-600 mb-3 leading-snug">
-                                In Figma, select any Frame and right-click / Copy/Paste as / <span className="font-semibold">Copy link to selection</span>. Do NOT use Command + L since that will copy the entire Figma file.
-                              </p>
-
-                              <div className="grid grid-cols-2 gap-4 mb-3">
-                                <div>
-                                  <label className="block text-xs font-medium text-gray-700 mb-1.5">
-                                    Figma URL
-                                  </label>
-                                  <input
-                                    type="text"
-                                    value={figmaUrl}
-                                    onChange={(e) => setFigmaUrl(e.target.value)}
-                                    placeholder="https://www.figma.com/design/KEY/NAME"
-                                    className="w-full px-3 py-2 text-sm border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
-                                  />
-                                </div>
-
-                                <div>
-                                  <div className="flex items-center justify-between mb-1.5">
-                                    <label className="block text-xs font-medium text-gray-700">
-                                      Figma API Token
-                                    </label>
-                                    <div className="flex items-center gap-2">
-                                      <span className="text-xs text-gray-600">Default token</span>
-                                      <button
-                                        onClick={() => setUseDefaultToken(!useDefaultToken)}
-                                        className={`relative inline-flex h-5 w-10 items-center rounded-full transition-colors ${
-                                          useDefaultToken ? 'bg-gray-900' : 'bg-gray-300'
-                                        }`}
-                                      >
-                                        <span
-                                          className={`inline-block h-4 w-4 transform rounded-full bg-white shadow-md transition-transform ${
-                                            useDefaultToken ? 'translate-x-5.5' : 'translate-x-0.5'
-                                          }`}
-                                        />
-                                      </button>
-                                    </div>
-                                  </div>
-                                  <p className="text-xs text-gray-500">
-                                    Your personal token may be needed for private files.
-                                  </p>
-                                </div>
-                              </div>
-                            </div>
-
-                            <div className="flex items-center justify-end gap-3 px-5 py-3 bg-gray-50 border-t border-gray-200">
+                      
+                      <AnimatePresence>
+                        {showModelDropdown && (
+                          <motion.div 
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: 10 }}
+                            className="absolute bottom-full left-0 mb-2 w-64 bg-white border border-gray-100 rounded-2xl shadow-2xl z-[100] p-2"
+                          >
+                            {(selectedTool === "Image Generation" ? imageModels : aiModels).map((model) => (
                               <button
-                                onClick={() => setShowFigmaDropdown(false)}
-                                className="px-4 py-1.5 text-sm font-medium text-gray-700 hover:text-gray-900 rounded-lg hover:bg-gray-100 transition-colors"
-                              >
-                                Cancel
-                              </button>
-                              <button
+                                key={model.id}
                                 onClick={() => {
-                                  console.log('Figma URL:', figmaUrl);
-                                  console.log('Use Default Token:', useDefaultToken);
-                                  setShowFigmaDropdown(false);
+                                  if (selectedTool === "Image Generation") setSelectedImageModel(model.name)
+                                  else setSelectedModel(model.name)
+                                  setShowModelDropdown(false)
                                 }}
-                                className="px-4 py-1.5 text-sm font-medium text-white bg-purple-600 hover:bg-purple-700 rounded-lg transition-colors shadow-sm"
+                                className="w-full text-left px-4 py-2.5 rounded-xl hover:bg-gray-50 text-sm flex items-center justify-between transition-colors"
                               >
-                                Import
+                                <span>{model.name}</span>
+                                {(selectedTool === "Image Generation" ? selectedImageModel : selectedModel) === model.name && <Check className="w-4 h-4 text-purple-600" />}
                               </button>
-                            </div>
-                          </div>
-                        </>
-                      )}
+                            ))}
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
                     </div>
-                  )}
 
-                  {/* Public/Private Toggle */}
-                  <button 
-                    onClick={() => setIsPublic(!isPublic)}
-                    className={`inline-flex items-center gap-2 px-3 py-2 text-xs rounded-lg transition-all border ${
-                      isPublic 
-                        ? 'bg-green-500 hover:bg-green-600 text-white border-green-600' 
-                        : 'bg-red-500 hover:bg-red-600 text-white border-red-600'
-                    }`}
-                  >
-                    {isPublic ? (
-                      <>
-                        <Globe className="w-3.5 h-3.5" />
-                        <span>Public</span>
-                      </>
-                    ) : (
-                      <>
-                        <Lock className="w-3.5 h-3.5" />
-                        <span>Private</span>
-                      </>
+                    {/* Aspect Ratio (Only for Image/Video) */}
+                    {(selectedTool === "Image Generation" || selectedTool === "Video Generation") && (
+                      <div className="relative">
+                        <button 
+                          onClick={() => setShowAspectRatioDropdown(!showAspectRatioDropdown)}
+                          className="flex items-center gap-2 px-4 py-2 text-sm font-semibold rounded-xl bg-white hover:bg-gray-50 border border-gray-200 shadow-sm text-gray-700"
+                        >
+                          <Images className="w-4 h-4" />
+                          <span>{selectedAspectRatio}</span>
+                          <ChevronDown className="w-4 h-4 opacity-50" />
+                        </button>
+                      </div>
                     )}
-                  </button>
+                  </div>
 
-                  {/* Microphone - Voice Input */}
-                  <VoiceInputButton 
-                    onTranscript={(text) => setInputValue(inputValue + (inputValue ? ' ' : '') + text)}
-                    className="p-2 rounded-lg bg-white hover:bg-gray-50 text-gray-600 hover:text-gray-900 transition-all border border-gray-200 hover:border-gray-300"
-                  />
+                  {/* Right: Actions */}
+                  <div className="flex items-center gap-3 w-full md:w-auto">
+                    <button 
+                      onClick={() => setIsPublic(!isPublic)}
+                      className={`flex-1 md:flex-none flex items-center justify-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all ${
+                        isPublic ? 'bg-emerald-50 text-emerald-700 border border-emerald-100' : 'bg-rose-50 text-rose-700 border border-rose-100'
+                      }`}
+                    >
+                      {isPublic ? <Globe className="w-4 h-4" /> : <Lock className="w-4 h-4" />}
+                      <span>{isPublic ? 'Public' : 'Private'}</span>
+                    </button>
 
-                  {/* Send Button */}
-                  <button 
-                    onClick={handleSendMessage}
-                    disabled={!inputValue.trim()}
-                    title="Start AI Chat" 
-                    className={`p-2.5 rounded-lg transition-all shadow-md hover:shadow-lg ${
-                      !inputValue.trim() 
-                        ? 'bg-gray-300 cursor-not-allowed' 
-                        : 'bg-primary text-white hover:bg-primary/90'
-                    }`}
-                  >
-                    <Send className="w-4 h-4" />
-                  </button>
+                    <VoiceInputButton 
+                      onTranscript={(text) => setInputValue(v => v + (v ? ' ' : '') + text)}
+                      className="p-2.5 rounded-xl bg-white hover:bg-gray-50 border border-gray-200 shadow-sm text-gray-600"
+                    />
+
+                    <button 
+                      onClick={handleSendMessage}
+                      disabled={!inputValue.trim()}
+                      className={`flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl text-sm font-bold shadow-lg transition-all ${
+                        !inputValue.trim() ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-gradient-to-r from-purple-600 to-blue-600 text-white hover:scale-[1.02] active:scale-[0.98] shadow-purple-200'
+                      }`}
+                    >
+                      <span>Send</span>
+                      <Send className="w-4 h-4" />
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* AI Tools Grid - Below Container - Navbar Style */}
-          <div className="mt-12 relative z-[60]">
-            <h3 className="text-center text-sm font-semibold text-gray-500 uppercase tracking-wider mb-6">
-              Explore AI Features
-            </h3>
-            <div className="flex items-center justify-center gap-3">
+          {/* Feature Dock */}
+          <div className="relative pt-4">
+            <div className="flex items-center justify-center flex-wrap gap-2">
               {aiTools.map((tool) => {
                 const isActive = selectedTool === tool.name
+                const Icon = tool.icon
                 return (
-                  <button
+                  <motion.button
                     key={tool.id}
-                    onClick={() => {
-                      console.log('Clicked tool:', tool.name)
-                      setSelectedTool(tool.name)
-                    }}
-                    style={{ position: 'relative', zIndex: 100 }}
-                    className={`group inline-flex items-center bg-background/5 border backdrop-blur-lg py-2.5 px-5 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 whitespace-nowrap cursor-pointer ${
+                    whileHover={{ y: -4 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => setSelectedTool(tool.name)}
+                    className={`relative flex items-center gap-2 px-6 py-3 rounded-2xl transition-all duration-300 ${
                       isActive 
-                        ? "border-primary/50 bg-primary/10" 
-                        : "border-border hover:bg-primary/5 hover:border-primary/30"
-                    }`}
+                        ? "bg-white border-white shadow-xl text-purple-600 scale-105 z-10" 
+                        : "bg-white/40 hover:bg-white/60 border-transparent text-gray-500 hover:text-gray-900"
+                    } border`}
                   >
-                    <span className={`text-sm font-semibold transition-colors ${
-                      isActive 
-                        ? "text-primary" 
-                        : "text-foreground/80 group-hover:text-primary"
-                    }`}>
-                      {tool.name}
-                    </span>
-                  </button>
+                    <Icon className={`w-4 h-4 ${isActive ? 'text-purple-600' : 'text-gray-400'}`} />
+                    <span className="text-sm font-bold">{tool.name}</span>
+                    {isActive && (
+                      <motion.div 
+                        layoutId="activeTool"
+                        className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 bg-purple-600 rounded-full"
+                      />
+                    )}
+                  </motion.button>
                 )
               })}
             </div>
           </div>
-
         </div>
-      </div>
+      </motion.div>
     </div>
   )
 }
