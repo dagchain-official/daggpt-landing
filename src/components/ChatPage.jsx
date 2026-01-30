@@ -71,6 +71,7 @@ export function ChatPage() {
   }, []);
 
   const handleGeneration = async (prompt, type, model, ratio) => {
+    console.log(`🚀 handleGeneration started: type=${type}, model=${model}, ratio=${ratio}`);
     setIsLoading(true);
     setLoadingText('Initializing intelligence...');
     setError(null);
@@ -132,12 +133,15 @@ export function ChatPage() {
   };
 
   const pollVideoStatus = async (opName) => {
+    console.log(`🎬 Starting polling for operation: ${opName}`);
     let done = false;
     let attempts = 0;
-    while (!done && attempts < 40) { // Max 20 mins
+    while (!done && attempts < 60) { // Max 15 mins (increased)
       attempts++;
       try {
+          console.log(`🔍 Polling attempt ${attempts} for ${opName}...`);
           const status = await vertexAIService.checkOperationStatus(opName);
+          console.log(`📊 Operation status:`, status);
           if (status.done) {
             done = true;
             if (status.error) throw new Error(status.error.message);

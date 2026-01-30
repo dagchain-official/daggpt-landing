@@ -373,8 +373,10 @@ app.post('/api/generate-image', async (req, res) => {
 
 // Video Generation (Long-Running)
 app.post('/api/generate-video', async (req, res) => {
+  console.log('➡️ Received request for /api/generate-video');
   try {
     const { prompt, modelName = "Veo 3.1 Cinematic", aspectRatio = "16:9" } = req.body;
+    console.log(`📝 Params: model=${modelName}, ratio=${aspectRatio}, prompt="${prompt.substring(0, 30)}..."`);
     if (!prompt) return res.status(400).json({ error: 'Prompt is required' });
 
     const modelId = VIDEO_MODELS[modelName] || "veo-3.1-generate-001";

@@ -27,8 +27,17 @@ class VertexAIService {
       }
     };
 
-    const response = await fetch(url, mergedOptions);
-    const contentType = response.headers.get('content-type');
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 60000); // 60s timeout
+
+    try {
+      const response = await fetch(url, {
+        ...mergedOptions,
+        signal: controller.signal
+      });
+      clearTimeout(timeoutId);
+      console.log(`🌐 Fetch ${options.method || 'GET'} ${url} | Status: ${response.status}`);
+      const contentType = response.headers.get('content-type');
 
     if (!response.ok) {
       let errorMessage = `Request failed with status ${response.status}`;
