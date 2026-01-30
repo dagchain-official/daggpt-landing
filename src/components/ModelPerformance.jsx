@@ -225,10 +225,12 @@ export function ModelPerformance() {
                               >
                                 <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity rounded-xl" />
                                 
-                                {/* Score at top of bar */}
-                                <div className="pt-3 text-[10px] font-black text-white/90 tracking-tighter z-10">
-                                  {model.score}
-                                </div>
+                                  {/* Score at top of bar */}
+                                  <div className={`pt-3 text-[10px] font-black tracking-tighter z-10 ${
+                                    (index % greenPalette.length) >= 3 ? 'text-[#132A13]' : 'text-white/90'
+                                  }`}>
+                                    {model.score}
+                                  </div>
 
                                 {/* Logo in circle at bottom of bar */}
                                 <div className="absolute -bottom-6 w-10 h-10 bg-white rounded-full shadow-xl flex items-center justify-center border border-slate-100 group-hover:scale-110 transition-transform z-20">
