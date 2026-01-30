@@ -19,70 +19,109 @@ export function Footer() {
     }
   ];
 
-  return (
-    <footer className="relative z-10 w-full pt-32 pb-12 px-4 overflow-hidden">
-      <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-16 mb-24">
-          {/* Brand Section */}
-          <div className="lg:col-span-2">
-            <div className="mb-8">
-              <Logo />
+    return (
+      <footer className="relative z-10 w-full pt-40 pb-16 px-6 overflow-hidden bg-transparent">
+        <div className="max-w-[1400px] mx-auto">
+          {/* Top Section with Newsletter */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 mb-32 pb-32 border-b border-slate-200/60">
+            <div>
+              <h2 className="text-4xl md:text-6xl font-black text-slate-900 mb-8 tracking-tighter leading-tight">
+                Stay at the edge <br />
+                <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">of AI Innovation.</span>
+              </h2>
+              <p className="text-xl text-slate-500 max-w-lg font-medium leading-relaxed">
+                Join 50,000+ creators receiving our weekly digest on model updates and creative workflows.
+              </p>
             </div>
-            <p className="text-slate-500 text-lg leading-relaxed mb-10 max-w-sm">
-              The world's most advanced creative AI ecosystem. Built for teams who design the future.
-            </p>
-            <div className="flex items-center gap-4">
-              {[Twitter, Github, Linkedin, Mail].map((Icon, i) => (
-                <motion.a
-                  key={i}
-                  href="#"
-                  whileHover={{ y: -4, scale: 1.1 }}
-                  className="w-12 h-12 rounded-2xl bg-white border border-slate-200 flex items-center justify-center text-slate-400 hover:text-purple-600 hover:border-purple-200 shadow-sm transition-all"
-                >
-                  <Icon className="w-5 h-5" />
-                </motion.a>
-              ))}
+            <div className="flex flex-col justify-center">
+              <div className="relative group max-w-md lg:ml-auto w-full">
+                <input 
+                  type="email" 
+                  placeholder="Enter your email" 
+                  className="w-full h-16 pl-8 pr-40 rounded-2xl bg-white border border-slate-200 text-slate-900 font-bold focus:outline-none focus:ring-4 focus:ring-purple-500/10 focus:border-purple-500 transition-all shadow-xl shadow-slate-200/50"
+                />
+                <button className="absolute right-2 top-2 bottom-2 px-8 bg-slate-900 hover:bg-black text-white rounded-xl text-xs font-black uppercase tracking-widest transition-all hover:shadow-lg hover:shadow-purple-500/20 active:scale-95">
+                  Subscribe
+                </button>
+              </div>
+              <p className="mt-4 text-[11px] text-slate-400 font-bold uppercase tracking-widest lg:text-right">No spam. Just pure inspiration.</p>
             </div>
           </div>
 
-          {/* Links Sections */}
-          {footerLinks.map((section, i) => (
-            <div key={i}>
-              <h4 className="text-sm font-black text-slate-900 uppercase tracking-[0.2em] mb-8">
-                {section.title}
-              </h4>
-              <ul className="space-y-4">
-                {section.links.map((link, j) => (
-                  <li key={j}>
-                    <a 
-                      href="#" 
-                      className="text-slate-500 hover:text-purple-600 transition-colors flex items-center group text-sm font-medium"
-                    >
-                      {link}
-                      <ArrowRight className="w-3 h-3 ml-2 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
-                    </a>
-                  </li>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-16 mb-24">
+            {/* Brand Section */}
+            <div className="lg:col-span-2">
+              <div className="mb-10 scale-125 origin-left">
+                <Logo />
+              </div>
+              <p className="text-slate-500 text-lg leading-relaxed mb-12 max-w-sm font-medium">
+                The world's most advanced creative AI ecosystem. Built for teams who design the future with precision and style.
+              </p>
+              <div className="flex items-center gap-4">
+                {[Twitter, Github, Linkedin, Mail].map((Icon, i) => (
+                  <motion.a
+                    key={i}
+                    href="#"
+                    whileHover={{ y: -6, scale: 1.1, backgroundColor: '#f8fafc' }}
+                    className="w-14 h-14 rounded-2xl bg-white border border-slate-200 flex items-center justify-center text-slate-400 hover:text-purple-600 hover:border-purple-300 shadow-xl shadow-slate-200/40 transition-all"
+                  >
+                    <Icon className="w-5 h-5" />
+                  </motion.a>
                 ))}
-              </ul>
+              </div>
             </div>
-          ))}
-        </div>
 
-        {/* Bottom Bar */}
-        <div className="pt-12 border-t border-slate-200 flex flex-col md:flex-row items-center justify-between gap-8">
-          <p className="text-slate-400 text-sm font-medium">
-            © 2026 DAG GPT. All rights reserved.
-          </p>
-          <div className="flex items-center gap-2 text-slate-400 text-sm font-medium">
-            <span>Made with</span>
-            <Heart className="w-4 h-4 text-rose-500 fill-rose-500" />
-            <span>by the Creative Team</span>
+            {/* Links Sections */}
+            {footerLinks.map((section, i) => (
+              <div key={i} className="lg:col-span-1">
+                <h4 className="text-[11px] font-black text-slate-900 uppercase tracking-[0.25em] mb-10">
+                  {section.title}
+                </h4>
+                <ul className="space-y-5">
+                  {section.links.map((link, j) => (
+                    <li key={j}>
+                      <a 
+                        href="#" 
+                        className="text-slate-500 hover:text-purple-600 transition-all flex items-center group text-[15px] font-semibold tracking-tight"
+                      >
+                        {link}
+                        <ArrowRight className="w-4 h-4 ml-2 opacity-0 -translate-x-3 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+
+          {/* Bottom Bar */}
+          <div className="pt-16 border-t border-slate-200/60 flex flex-col md:flex-row items-center justify-between gap-10">
+            <div className="flex items-center gap-8">
+              <p className="text-slate-400 text-sm font-bold tracking-tight">
+                © 2026 DAG GPT.
+              </p>
+              <div className="flex items-center gap-6">
+                <a href="#" className="text-xs font-black text-slate-400 hover:text-slate-900 uppercase tracking-widest transition-colors">Privacy</a>
+                <a href="#" className="text-xs font-black text-slate-400 hover:text-slate-900 uppercase tracking-widest transition-colors">Terms</a>
+              </div>
+            </div>
+            
+            <div className="px-6 py-3 bg-white/50 backdrop-blur-xl border border-slate-200 rounded-2xl shadow-sm flex items-center gap-3">
+              <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="text-[11px] font-black text-slate-600 uppercase tracking-[0.15em]">Systems Operational</span>
+            </div>
+
+            <div className="flex items-center gap-2 text-slate-400 text-sm font-bold">
+              <span>Made with</span>
+              <Heart className="w-4 h-4 text-rose-500 fill-rose-500 animate-bounce" />
+              <span>by the Creative Team</span>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Decorative Glow */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-purple-500/20 to-transparent" />
-    </footer>
-  );
+        {/* Decorative Background Elements */}
+        <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-purple-50/30 to-transparent pointer-events-none" />
+        <div className="absolute top-0 left-0 w-1/3 h-full bg-gradient-to-r from-blue-50/30 to-transparent pointer-events-none" />
+      </footer>
+    );
 }

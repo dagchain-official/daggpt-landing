@@ -43,21 +43,21 @@ function HexagonBackground({
     <div
       ref={containerRef}
       className={cn(
-        'fixed inset-0 size-full overflow-hidden bg-slate-50/50',
+        'fixed inset-0 size-full overflow-hidden bg-white z-0',
         className,
       )}
       {...props}
     >
       {/* Background Gradients for depth */}
-      <div className="absolute inset-0 z-0">
-        <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-purple-100/40 rounded-full blur-[120px]" />
-        <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-blue-100/30 rounded-full blur-[150px]" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle_at_center,transparent_0%,white_90%)]" />
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-purple-100/60 rounded-full blur-[120px]" />
+        <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-blue-100/40 rounded-full blur-[150px]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle_at_center,transparent_0%,white_80%)]" />
       </div>
 
         <motion.div 
           style={{ y }}
-          className="absolute top-[-50px] -left-0 size-full overflow-visible z-10 opacity-[0.7]"
+          className="absolute top-[-50px] -left-0 size-full overflow-visible z-10 opacity-[0.9] pointer-events-auto"
         >
           {Array.from({ length: gridDimensions.rows }).map((_, rowIndex) => (
             <div
@@ -76,8 +76,8 @@ function HexagonBackground({
                   <motion.div
                     key={`hexagon-${rowIndex}-${colIndex}`}
                     whileHover={{ 
-                      scale: 1.1,
-                      zIndex: 20,
+                      scale: 1.15,
+                      zIndex: 30,
                     }}
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
                     style={{
@@ -87,17 +87,17 @@ function HexagonBackground({
                       ...hexagonProps?.style,
                     }}
                     className={cn(
-                      'relative transition-all duration-300 group',
+                      'relative transition-all duration-300 group cursor-default',
                       '[clip-path:polygon(50%_0%,_100%_25%,_100%_75%,_50%_100%,_0%_75%,_0%_25%)]',
-                      'bg-slate-200/50 hover:bg-purple-500/20',
-                      'before:content-[""] before:absolute before:inset-[1px] before:bg-white/90 before:z-[1] before:transition-colors before:duration-300',
+                      'bg-slate-100/80 hover:bg-purple-500/30',
+                      'before:content-[""] before:absolute before:inset-[1px] before:bg-white/95 before:z-[1] before:transition-colors before:duration-300',
                       'before:[clip-path:polygon(50%_0%,_100%_25%,_100%_75%,_50%_100%,_0%_75%,_0%_25%)]',
-                      'group-hover:before:bg-purple-100/80',
-                      'hover:shadow-[0_0_30px_rgba(168,85,247,0.3)]',
+                      'group-hover:before:bg-purple-50/90',
+                      'hover:shadow-[0_0_40px_rgba(168,85,247,0.4)]',
                       hexagonProps?.className,
                     )}
                   >
-                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-br from-purple-500/20 to-blue-500/10 z-[2]" />
+                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-br from-purple-500/30 to-blue-500/20 z-[2]" />
                   </motion.div>
                 ),
               )}
@@ -106,8 +106,10 @@ function HexagonBackground({
         </motion.div>
       
       {/* Content overlay */}
-      <div className="relative z-20 w-full h-full">
-        {children}
+      <div className="relative z-20 w-full h-full pointer-events-none">
+        <div className="w-full h-full pointer-events-auto">
+          {children}
+        </div>
       </div>
     </div>
   );

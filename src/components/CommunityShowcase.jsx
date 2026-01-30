@@ -15,43 +15,59 @@ export function CommunityShowcase() {
 
     const showcaseGroups = [
       {
-        prompt: 'Build me a Portfolio website',
+        prompt: 'Build me a Premium Enterprise SaaS',
         category: 'Website',
         items: [
-          { id: 1, model: 'GLM 4.7', preview: 'https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=800&h=600&fit=crop' },
-          { id: 2, model: 'Grok 4.1 Fast', preview: 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?w=800&h=600&fit=crop' },
-          { id: 3, model: 'Claude 4.5 Sonnet', preview: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop' },
-          { id: 4, model: 'DeepSeek-V3-0324', preview: 'https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?w=800&h=600&fit=crop' }
+          { id: 1, model: 'GLM 4.7', preview: '/images/website01.jpg' },
+          { id: 2, model: 'Grok 4.1 Fast', preview: '/images/website02.jpg' },
+          { id: 3, model: 'Claude 4.5 Sonnet', preview: '/images/website03.jpg' },
+          { id: 4, model: 'DeepSeek-V3', preview: '/images/website04.jpg' },
+          { id: 5, model: 'GPT-4o', preview: '/images/website05.jpg' },
+          { id: 6, model: 'Llama 3.1 405B', preview: '/images/website06.jpg' },
+          { id: 7, model: 'Gemini 1.5 Pro', preview: '/images/website07.jpg' },
+          { id: 8, model: 'Mistral Large 2', preview: '/images/website08.jpg' }
         ]
       },
       {
-        prompt: 'Photorealistic sunset over mountains',
+        prompt: 'Photorealistic architectural visualization',
         category: 'Images',
         items: [
-          { id: 9, model: 'DALL-E 3', preview: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop' },
-          { id: 10, model: 'Midjourney v6', preview: 'https://images.unsplash.com/photo-1540979388789-6cee28a1cdc9?w=800&h=600&fit=crop' },
-          { id: 11, model: 'Stable Diffusion XL', preview: 'https://images.unsplash.com/photo-1519681393784-d120267933ba?w=800&h=600&fit=crop' },
-          { id: 12, model: 'Flux Pro', preview: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&h=600&fit=crop' }
+          { id: 9, model: 'DALL-E 3', preview: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=500&fit=crop' },
+          { id: 10, model: 'Midjourney v6', preview: 'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=800&h=500&fit=crop' },
+          { id: 11, model: 'Stable Diffusion XL', preview: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&h=500&fit=crop' },
+          { id: 12, model: 'Flux Pro', preview: 'https://images.unsplash.com/photo-1600585154526-990dcea4d4dd?w=800&h=500&fit=crop' },
+          { id: 13, model: 'Midjourney v6.1', preview: 'https://images.unsplash.com/photo-1600573472591-ee6b68d14c68?w=800&h=500&fit=crop' },
+          { id: 14, model: 'DALL-E 3', preview: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=800&h=500&fit=crop' },
+          { id: 15, model: 'Stable Diffusion 3', preview: 'https://images.unsplash.com/photo-1600121848594-d8644e57abab?w=800&h=500&fit=crop' },
+          { id: 16, model: 'Flux.1 Dev', preview: 'https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800&h=500&fit=crop' }
         ]
       },
       {
-        prompt: 'Cyberpunk city street at night',
-        category: 'Images',
+        prompt: 'Cinematic drone shot of Iceland',
+        category: 'Videos',
         items: [
-          { id: 13, model: 'Midjourney v6.1', preview: 'https://images.unsplash.com/photo-1605810230434-7631ac76ec81?w=800&h=600&fit=crop' },
-          { id: 14, model: 'DALL-E 3', preview: 'https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=800&h=600&fit=crop' },
-          { id: 15, model: 'Stable Diffusion 3', preview: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=800&h=600&fit=crop' },
-          { id: 16, model: 'Flux.1 Dev', preview: 'https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=800&h=600&fit=crop' }
+          { id: 17, model: 'Sora', preview: 'https://images.unsplash.com/photo-1476610182048-b716b8518aae?w=800&h=500&fit=crop' },
+          { id: 18, model: 'Kling AI', preview: 'https://images.unsplash.com/photo-1504109586057-7a2ae83d1338?w=800&h=500&fit=crop' },
+          { id: 19, model: 'Runway Gen-3', preview: 'https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=800&h=500&fit=crop' },
+          { id: 20, model: 'Luma Dream Machine', preview: 'https://images.unsplash.com/photo-1533240332313-0db49b459ad6?w=800&h=500&fit=crop' },
+          { id: 21, model: 'Pika 1.5', preview: 'https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=800&h=500&fit=crop' },
+          { id: 22, model: 'Haiper 2.0', preview: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800&h=500&fit=crop' },
+          { id: 23, model: 'Stable Video', preview: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&h=500&fit=crop' },
+          { id: 24, model: 'Mochi-1', preview: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800&h=500&fit=crop' }
         ]
       },
       {
-        prompt: 'Modern SaaS Dashboard UI',
-        category: 'Website',
+        prompt: 'Lo-fi hip hop beat for studying',
+        category: 'Music',
         items: [
-          { id: 17, model: 'GPT-4o Vision', preview: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop' },
-          { id: 18, model: 'Claude 3.5 Opus', preview: 'https://images.unsplash.com/photo-1542744094-24638eff58bb?w=800&h=600&fit=crop' },
-          { id: 19, model: 'Gemini 1.5 Pro', preview: 'https://images.unsplash.com/photo-1551434678-e076c223a692?w=800&h=600&fit=crop' },
-          { id: 20, model: 'DeepSeek-Coder-V2', preview: 'https://images.unsplash.com/photo-1504868584819-f8eec0b4457d?w=800&h=600&fit=crop' }
+          { id: 25, model: 'Suno v3.5', preview: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=800&h=500&fit=crop' },
+          { id: 26, model: 'Udio 1.5', preview: 'https://images.unsplash.com/photo-1514525253342-b0bb047622ff?w=800&h=500&fit=crop' },
+          { id: 27, model: 'MusicLM', preview: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=800&h=500&fit=crop' },
+          { id: 28, model: 'Stable Audio 2', preview: 'https://images.unsplash.com/photo-1493225255756-d9584f8606e9?w=800&h=500&fit=crop' },
+          { id: 29, model: 'AIVA', preview: 'https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=800&h=500&fit=crop' },
+          { id: 30, model: 'Amper Music', preview: 'https://images.unsplash.com/photo-1459749411177-042180ce673c?w=800&h=500&fit=crop' },
+          { id: 31, model: 'Soundraw', preview: 'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=800&h=500&fit=crop' },
+          { id: 32, model: 'Jukedeck', preview: 'https://images.unsplash.com/photo-1420161900862-9a86fa1f5c79?w=800&h=500&fit=crop' }
         ]
       }
     ];
@@ -62,7 +78,7 @@ export function CommunityShowcase() {
 
     return (
       <section className="w-full py-32 px-4 bg-transparent relative z-10 overflow-hidden" id="community">
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-[1400px] mx-auto">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -107,7 +123,7 @@ export function CommunityShowcase() {
             <AnimatePresence mode="wait">
               {filteredGroups.map((group, groupIndex) => (
                 <motion.div 
-                  key={groupIndex}
+                  key={group.category + groupIndex}
                   initial={{ opacity: 0, y: 40 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -40 }}
@@ -117,7 +133,9 @@ export function CommunityShowcase() {
                     <div className="flex items-center gap-6">
                       <div className="w-16 h-16 rounded-[1.5rem] bg-white border border-slate-200 flex items-center justify-center shadow-lg">
                         <span className="text-3xl">
-                          {group.category === 'Website' ? '🌐' : '🖼️'}
+                          {group.category === 'Website' ? '🌐' : 
+                           group.category === 'Images' ? '🖼️' :
+                           group.category === 'Videos' ? '🎥' : '🎵'}
                         </span>
                       </div>
                       <div>
@@ -133,12 +151,12 @@ export function CommunityShowcase() {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 px-4">
                     {group.items.map((item, i) => (
                       <motion.div
                         key={item.id}
                         whileHover={{ y: -12, scale: 1.02 }}
-                        className="group relative bg-white backdrop-blur-3xl border border-slate-200/50 rounded-[2.5rem] overflow-hidden shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] hover:shadow-[0_40px_80px_-15px_rgba(0,0,0,0.12)] transition-all duration-500"
+                        className="group relative bg-white backdrop-blur-3xl border border-slate-200/50 rounded-[2rem] overflow-hidden shadow-[0_15px_30px_-15px_rgba(0,0,0,0.05)] hover:shadow-[0_40px_80px_-15px_rgba(0,0,0,0.12)] transition-all duration-500"
                       >
                         <div className="relative aspect-[16/10] overflow-hidden">
                           <img 
@@ -146,23 +164,23 @@ export function CommunityShowcase() {
                             alt={item.model}
                             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[1.5s] ease-out"
                           />
-                          <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                          <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                           
-                          <div className="absolute bottom-6 left-6 right-6 flex items-center justify-between opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-500">
-                            <button className="p-3 bg-white/90 backdrop-blur-md rounded-2xl flex items-center justify-center hover:bg-white border border-slate-200 shadow-xl transition-all">
-                              <Maximize2 className="w-4 h-4 text-slate-900" />
+                          <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-500">
+                            <button className="p-2.5 bg-white/90 backdrop-blur-md rounded-xl flex items-center justify-center hover:bg-white border border-slate-200 shadow-xl transition-all">
+                              <Maximize2 className="w-3.5 h-3.5 text-slate-900" />
                             </button>
+                            <span className="text-[9px] font-black text-white uppercase tracking-widest px-3 py-1.5 bg-black/20 backdrop-blur-md rounded-lg border border-white/20">
+                              {item.model}
+                            </span>
                           </div>
                         </div>
 
-                        <div className="p-8">
+                        <div className="p-5">
                           <div className="flex items-center justify-between">
-                            <div>
-                              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-1.5">Model</p>
-                              <p className="text-sm font-black text-slate-900 tracking-tight">{item.model}</p>
-                            </div>
-                            <div className="w-10 h-10 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center transition-colors group-hover:bg-purple-50 group-hover:border-purple-100">
-                              <Sparkles className="w-4 h-4 text-slate-300 group-hover:text-purple-600 transition-colors" />
+                            <p className="text-[10px] font-black text-slate-900 tracking-tight uppercase">Featured Design</p>
+                            <div className="w-8 h-8 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-center transition-colors group-hover:bg-purple-50 group-hover:border-purple-100">
+                              <Sparkles className="w-3.5 h-3.5 text-slate-300 group-hover:text-purple-600 transition-colors" />
                             </div>
                           </div>
                         </div>
