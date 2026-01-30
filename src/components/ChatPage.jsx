@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import ReactMarkdown from 'react-markdown';
@@ -9,22 +9,14 @@ import {
   Send, 
   ArrowLeft, 
   Copy, 
-  Check, 
-  RefreshCw, 
   Sparkles, 
-  MessageSquare, 
   History, 
-  MoreHorizontal, 
   Plus, 
   User, 
   Bot,
-  Image as ImageIcon,
-  Video as VideoIcon,
   Music as MusicIcon,
-  Code2,
   Download,
-  ExternalLink,
-  Play
+  ExternalLink
 } from 'lucide-react';
 import vertexAIService from '../services/vertexAIService';
 import VoiceInputButton from './VoiceInputButton';
@@ -39,7 +31,7 @@ export function ChatPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [loadingText, setLoadingText] = useState('');
   const [error, setError] = useState(null);
-  const [history, setHistory] = useState([
+  const [history] = useState([
     { id: 1, title: initialMessage?.substring(0, 30) + '...' || 'New Chat', active: true },
     { id: 2, title: 'Previous Concept Design', active: false },
     { id: 3, title: 'AI Ethics Discussion', active: false },
@@ -70,7 +62,7 @@ export function ChatPage() {
     }
   }, []);
 
-  const handleGeneration = async (prompt, type, model, ratio) => {
+  const handleGeneration = useCallback(async (prompt, type, model, ratio) => {
     console.log(`🚀 handleGeneration started: type=${type}, model=${model}, ratio=${ratio}`);
     setIsLoading(true);
     setLoadingText('Initializing intelligence...');
@@ -130,9 +122,9 @@ export function ChatPage() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [messages]);
 
-  const pollVideoStatus = async (opName) => {
+  const pollVideoStatus = useCallback(async (opName) => {
     console.log(`🎬 Starting polling for operation: ${opName}`);
     let done = false;
     let attempts = 0;
@@ -168,7 +160,7 @@ export function ChatPage() {
         break;
       }
     }
-  };
+  }, []);
 
   const handleSendMessage = async () => {
     if (!inputValue.trim() || isLoading) return;

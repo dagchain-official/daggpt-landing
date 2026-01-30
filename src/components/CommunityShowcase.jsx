@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Maximize2, Copy, Sparkles, Layout, Image as ImageIcon, Video, Music } from 'lucide-react';
+import { Maximize2, Sparkles, Layout, Image as ImageIcon, Video, Music } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export function CommunityShowcase() {

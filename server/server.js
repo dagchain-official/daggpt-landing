@@ -430,14 +430,13 @@ app.post('/api/generate-video', async (req, res) => {
   }
 });
 
-// Polling endpoint for long-running operations (Wildcard to handle slashes)
-app.get('/api/operation/*', async (req, res) => {
+// Polling endpoint for long-running operations
+app.get('/api/operation', async (req, res) => {
   try {
-    // Extract everything after /api/operation/
-    const operationName = req.params[0];
+    const operationName = req.query.name;
     if (!operationName) return res.status(400).json({ error: 'Operation name is required' });
 
-    console.log(`🔍 Checking operation: ${operationName}`);
+    console.log(`🔍 Checking operation status: ${operationName}`);
 
     const client = await auth.getClient();
     const accessToken = await client.getAccessToken();

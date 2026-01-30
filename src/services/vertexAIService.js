@@ -160,8 +160,8 @@ class VertexAIService {
    */
   async checkOperationStatus(operationName) {
     try {
-      // Use wildcard route in backend that handles slashes
-      return await this.safeFetch(`${this.baseURL}/operation/${encodeURIComponent(operationName)}`);
+      // Use query parameter to avoid path regex issues in Express 5
+      return await this.safeFetch(`${this.baseURL}/operation?name=${encodeURIComponent(operationName)}`);
     } catch (error) {
       console.error('Error checking operation:', error);
       throw error;
