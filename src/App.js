@@ -22,35 +22,46 @@ function HomePage() {
   ];
 
   return (
-    <div className="min-h-screen w-full relative bg-slate-50 text-slate-900 selection:bg-purple-500/10">
-      {/* Premium Hexagon Background */}
-      <HexagonBackground />
-      
-      {/* Logo */}
-      <div className="fixed top-6 left-8 z-50">
-        <Logo />
-      </div>
-      
+    <HexagonBackground>
+      <div className="min-h-screen w-full relative text-slate-900 selection:bg-purple-500/10 pointer-events-none">
+        {/* Logo */}
+        <div className="fixed top-6 left-8 z-50 pointer-events-auto">
+          <Logo />
+        </div>
+        
         {/* Navbar */}
-        <NavBar items={navItems} />
+        <div className="pointer-events-auto">
+          <NavBar items={navItems} />
+        </div>
         
         {/* Hero Section */}
-        <HeroSection />
+        <div className="pointer-events-auto">
+          <HeroSection />
+        </div>
         
         {/* Main Content - Chatbox Container */}
-        <ChatboxContainer />
+        <div className="pointer-events-auto">
+          <ChatboxContainer />
+        </div>
         
         {/* Model Performance Section */}
-      <ModelPerformance />
-      
+        <div className="pointer-events-auto">
+          <ModelPerformance />
+        </div>
+        
         {/* Community Showcase Section */}
-        <CommunityShowcase />
+        <div className="pointer-events-auto">
+          <CommunityShowcase />
+        </div>
         
         {/* Premium Footer */}
-        <Footer />
+        <div className="pointer-events-auto">
+          <Footer />
+        </div>
       </div>
-    );
-  }
+    </HexagonBackground>
+  );
+}
 
 function App() {
   return (

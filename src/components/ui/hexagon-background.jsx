@@ -55,59 +55,59 @@ function HexagonBackground({
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle_at_center,transparent_0%,white_80%)]" />
       </div>
 
-        <motion.div 
-          style={{ y }}
-          className="absolute top-[-50px] -left-0 size-full overflow-visible z-10 opacity-[0.9] pointer-events-auto"
-        >
-          {Array.from({ length: gridDimensions.rows }).map((_, rowIndex) => (
-            <div
-              key={`row-${rowIndex}`}
-              style={{
-                marginTop: computedMarginTop,
-                marginLeft:
-                  (rowIndex % 2 === 0
-                    ? evenRowMarginLeft
-                    : oddRowMarginLeft),
-              }}
-              className="flex flex-nowrap"
-            >
-              {Array.from({ length: gridDimensions.columns }).map(
-                (_, colIndex) => (
-                  <motion.div
-                    key={`hexagon-${rowIndex}-${colIndex}`}
-                    whileHover={{ 
-                      scale: 1.15,
-                      zIndex: 30,
-                    }}
-                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                    style={{
-                      width: hexagonWidth,
-                      height: hexagonHeight,
-                      marginLeft: hexagonMargin,
-                      ...hexagonProps?.style,
-                    }}
-                    className={cn(
-                      'relative transition-all duration-300 group cursor-default',
-                      '[clip-path:polygon(50%_0%,_100%_25%,_100%_75%,_50%_100%,_0%_75%,_0%_25%)]',
-                      'bg-slate-100/80 hover:bg-purple-500/30',
-                      'before:content-[""] before:absolute before:inset-[1px] before:bg-white/95 before:z-[1] before:transition-colors before:duration-300',
-                      'before:[clip-path:polygon(50%_0%,_100%_25%,_100%_75%,_50%_100%,_0%_75%,_0%_25%)]',
-                      'group-hover:before:bg-purple-50/90',
-                      'hover:shadow-[0_0_40px_rgba(168,85,247,0.4)]',
-                      hexagonProps?.className,
-                    )}
-                  >
-                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-br from-purple-500/30 to-blue-500/20 z-[2]" />
-                  </motion.div>
-                ),
-              )}
-            </div>
-          ))}
-        </motion.div>
+      <motion.div 
+        style={{ y }}
+        className="absolute top-[-50px] -left-0 size-full overflow-visible z-10 opacity-[0.9] pointer-events-auto"
+      >
+        {Array.from({ length: gridDimensions.rows }).map((_, rowIndex) => (
+          <div
+            key={`row-${rowIndex}`}
+            style={{
+              marginTop: computedMarginTop,
+              marginLeft:
+                (rowIndex % 2 === 0
+                  ? evenRowMarginLeft
+                  : oddRowMarginLeft),
+            }}
+            className="flex flex-nowrap"
+          >
+            {Array.from({ length: gridDimensions.columns }).map(
+              (_, colIndex) => (
+                <motion.div
+                  key={`hexagon-${rowIndex}-${colIndex}`}
+                  whileHover={{ 
+                    scale: 1.1,
+                    zIndex: 50,
+                  }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  style={{
+                    width: hexagonWidth,
+                    height: hexagonHeight,
+                    marginLeft: hexagonMargin,
+                    ...hexagonProps?.style,
+                  }}
+                  className={cn(
+                    'relative transition-all duration-300 group cursor-default',
+                    '[clip-path:polygon(50%_0%,_100%_25%,_100%_75%,_50%_100%,_0%_75%,_0%_25%)]',
+                    'bg-slate-200/40 hover:bg-purple-500/30',
+                    'before:content-[""] before:absolute before:inset-[1px] before:bg-white/90 before:z-[1] before:transition-colors before:duration-300',
+                    'before:[clip-path:polygon(50%_0%,_100%_25%,_100%_75%,_50%_100%,_0%_75%,_0%_25%)]',
+                    'group-hover:before:bg-purple-100/70',
+                    'hover:shadow-[0_0_30px_rgba(168,85,247,0.25)]',
+                    hexagonProps?.className,
+                  )}
+                >
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-br from-purple-500/20 to-blue-500/10 z-[2]" />
+                </motion.div>
+              ),
+            )}
+          </div>
+        ))}
+      </motion.div>
       
-      {/* Content overlay */}
+      {/* Content overlay - ensure it's transparent to events by default */}
       <div className="relative z-20 w-full h-full pointer-events-none">
-        <div className="w-full h-full pointer-events-auto">
+        <div className="w-full h-full">
           {children}
         </div>
       </div>
