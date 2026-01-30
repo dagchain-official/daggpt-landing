@@ -34,9 +34,9 @@ export function CommunityShowcase() {
       items: [
         { id: 9, model: 'DALL-E 3', preview: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=500&fit=crop' },
         { id: 10, model: 'Midjourney v6', preview: 'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=800&h=500&fit=crop' },
-        { id: 11, model: 'Flux Pro', preview: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&h=500&fit=crop' },
-        { id: 12, model: 'SDXL', preview: 'https://images.unsplash.com/photo-1600508774834-4b3c40bbad99?w=800&h=500&fit=crop' },
-        { id: 13, model: 'Midjourney v6.1', preview: 'https://images.unsplash.com/photo-1600573472591-ee6b68d14c68?w=800&h=500&fit=crop' },
+          { id: 11, model: 'Flux Pro', preview: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&h=500&fit=crop' },
+          { id: 12, model: 'SDXL', preview: 'https://images.unsplash.com/photo-1480074568708-e7b720bb3f09?w=800&h=500&fit=crop' },
+          { id: 13, model: 'Midjourney v6.1', preview: 'https://images.unsplash.com/photo-1600573472591-ee6b68d14c68?w=800&h=500&fit=crop' },
         { id: 14, model: 'DALL-E 3', preview: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=800&h=500&fit=crop' },
         { id: 15, model: 'SD 3.5', preview: 'https://images.unsplash.com/photo-1600121848594-d8644e57abab?w=800&h=500&fit=crop' },
         { id: 16, model: 'Flux.1 Dev', preview: 'https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800&h=500&fit=crop' }
@@ -60,12 +60,12 @@ export function CommunityShowcase() {
       prompt: 'Lo-fi hip hop beat for studying',
       category: 'Music',
       items: [
-        { id: 25, model: 'Suno v3.5', preview: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=800&h=500&fit=crop' },
-        { id: 26, model: 'Udio 1.5', preview: 'https://images.unsplash.com/photo-1453738773917-9c3eff1db985?w=800&h=500&fit=crop' },
-        { id: 27, model: 'MusicLM', preview: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=800&h=500&fit=crop' },
-        { id: 28, model: 'Stable Audio', preview: 'https://images.unsplash.com/photo-1493225255756-d9584f8606e9?w=800&h=500&fit=crop' },
-        { id: 29, model: 'AIVA', preview: 'https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=800&h=500&fit=crop' },
-        { id: 30, model: 'Amper', preview: 'https://images.unsplash.com/photo-1516280440614-37939bbacd81?w=800&h=500&fit=crop' },
+          { id: 25, model: 'Suno v3.5', preview: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=800&h=500&fit=crop' },
+          { id: 26, model: 'Udio 1.5', preview: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=800&h=500&fit=crop' },
+          { id: 27, model: 'MusicLM', preview: 'https://images.unsplash.com/photo-1493225255756-d9584f8606e9?w=800&h=500&fit=crop' },
+          { id: 28, model: 'Stable Audio', preview: 'https://images.unsplash.com/photo-1514849122862-74479f854956?w=800&h=500&fit=crop' },
+          { id: 29, model: 'AIVA', preview: 'https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=800&h=500&fit=crop' },
+          { id: 30, model: 'Amper', preview: 'https://images.unsplash.com/photo-1459749411177-042180ce6742?w=800&h=500&fit=crop' },
         { id: 31, model: 'Soundraw', preview: 'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=800&h=500&fit=crop' },
         { id: 32, model: 'Jukedeck', preview: 'https://images.unsplash.com/photo-1420161900862-9a86fa1f5c79?w=800&h=500&fit=crop' }
       ]
