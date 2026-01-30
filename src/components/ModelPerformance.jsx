@@ -122,7 +122,7 @@ export function ModelPerformance() {
             className="text-4xl md:text-6xl font-black text-[#001219] mb-8 tracking-tighter"
           >
             The Intelligence <br />
-            <span className="bg-gradient-to-r from-[#10002B] via-[#5A189A] to-[#C77DFF] bg-clip-text text-transparent font-black tracking-tighter">Leaderboard</span>
+            <span className="bg-gradient-to-r from-[#132A13] via-[#31572C] to-[#90A955] bg-clip-text text-transparent font-black tracking-tighter">Leaderboard</span>
           </motion.h2>
           
             <motion.p 
@@ -140,9 +140,9 @@ export function ModelPerformance() {
             {/* Stats Cards */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
               {[
-                { label: "Total Models", value: `${modelData.length}+`, icon: TrendingUp, color: "text-[#10002B]" },
-                { label: "Avg Latency", value: "0.8s", icon: Zap, color: "text-[#5A189A]" },
-                { label: "Uptime", value: "99.99%", icon: Clock, color: "text-[#9D4EDD]" }
+                { label: "Total Models", value: `${modelData.length}+`, icon: TrendingUp, color: "text-[#132A13]" },
+                { label: "Avg Latency", value: "0.8s", icon: Zap, color: "text-[#31572C]" },
+                { label: "Uptime", value: "99.99%", icon: Clock, color: "text-[#4F772D]" }
               ].map((stat, i) => (
               <motion.div 
                 key={i}
@@ -176,11 +176,11 @@ export function ModelPerformance() {
               <h3 className="text-2xl font-black text-[#001219] tracking-tighter">Elo Rating Distribution</h3>
                   <div className="flex items-center gap-6">
                     <div className="flex items-center gap-2">
-                      <div className="w-2.5 h-2.5 bg-[#10002B] rounded-full shadow-[0_0_10px_rgba(16,0,43,0.3)]" />
+                      <div className="w-2.5 h-2.5 bg-[#132A13] rounded-full shadow-[0_0_10px_rgba(19,42,19,0.3)]" />
                       <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Ultra Class</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <div className="w-2.5 h-2.5 bg-[#7B2CBF] rounded-full shadow-[0_0_10px_rgba(123,44,191,0.3)]" />
+                      <div className="w-2.5 h-2.5 bg-[#4F772D] rounded-full shadow-[0_0_10px_rgba(79,119,45,0.3)]" />
                       <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Pro Class</span>
                     </div>
                   </div>
@@ -190,10 +190,10 @@ export function ModelPerformance() {
           <div className="overflow-x-auto pb-8 scrollbar-hide">
             {loading ? (
               <div className="flex items-center justify-center h-[400px]">
-                <div className="w-12 h-12 border-4 border-slate-100 border-t-[#5A189A] rounded-full animate-spin" />
+                <div className="w-12 h-12 border-4 border-slate-100 border-t-[#31572C] rounded-full animate-spin" />
               </div>
             ) : (
-                  <div className="flex items-end justify-start gap-6 min-w-max px-2" style={{ height: '500px' }}>
+                  <div className="flex items-end justify-start gap-4 min-w-max px-2" style={{ height: '550px' }}>
                   {modelData.map((model, index) => {
                     const minScore = Math.min(...modelData.map(m => m.score));
                     const maxScore = Math.max(...modelData.map(m => m.score));
@@ -202,63 +202,54 @@ export function ModelPerformance() {
                     let heightPercentage;
                       if (scoreRange > 0) {
                         const normalized = (model.score - minScore) / scoreRange;
-                        heightPercentage = (normalized * 25) + 65; 
+                        heightPercentage = (normalized * 30) + 60; 
                       } else {
                       heightPercentage = 75;
                     }
                     
-                      const purplePalette = ['#10002B', '#240046', '#3C096C', '#5A189A', '#7B2CBF', '#9D4EDD', '#C77DFF', '#E0AAFF'];
-                      const isUltraClass = model.score >= 1400;
+                      const greenPalette = ['#132A13', '#31572C', '#4F772D', '#90A955', '#ECF39E'];
                     
                       return (
                           <div 
                             key={`${model.name}-${index}`}
-                            className="flex flex-col items-center gap-4 group cursor-pointer min-w-[120px]"
+                            className="flex flex-col items-center gap-4 group cursor-pointer min-w-[90px]"
                           >
-                            <div className="relative flex items-end justify-center w-24 h-[400px]">
+                            <div className="relative flex items-end justify-center w-12 h-[420px]">
                               <motion.div 
                                 initial={{ height: 0, opacity: 0 }}
                                 whileInView={{ height: `${heightPercentage}%`, opacity: 1 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: index * 0.03, duration: 1, ease: [0.16, 1, 0.3, 1] }}
-                                style={{ background: `linear-gradient(to top, ${purplePalette[index % purplePalette.length]}, ${purplePalette[(index + 1) % purplePalette.length]})` }}
-                                className={`w-full rounded-2xl transition-all duration-500 group-hover:scale-x-110 group-hover:brightness-110 relative flex items-center justify-center shadow-lg border border-white/20`}
+                                style={{ backgroundColor: greenPalette[index % greenPalette.length] }}
+                                className={`w-full rounded-xl transition-all duration-500 group-hover:scale-x-105 group-hover:brightness-110 relative flex flex-col items-center shadow-lg border border-white/10`}
                               >
-                                <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl" />
+                                <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity rounded-xl" />
                                 
-                                <div 
-                                  className="flex flex-row items-center gap-3 text-white font-bold"
-                                  style={{ 
-                                    transform: 'rotate(-90deg)',
-                                    whiteSpace: 'nowrap',
-                                    zIndex: 5
-                                  }}
-                                >
-                                  <div className="w-5 h-5 flex items-center justify-center flex-shrink-0 scale-90 filter brightness-200">
+                                {/* Score at top of bar */}
+                                <div className="pt-3 text-[10px] font-black text-white/90 tracking-tighter z-10">
+                                  {model.score}
+                                </div>
+
+                                {/* Logo in circle at bottom of bar */}
+                                <div className="absolute -bottom-6 w-10 h-10 bg-white rounded-full shadow-xl flex items-center justify-center border border-slate-100 group-hover:scale-110 transition-transform z-20">
+                                  <div className="w-6 h-6 flex items-center justify-center filter brightness-100">
                                     {getCompanyLogo(model.organization)}
                                   </div>
-                                  <span className="text-[10px] uppercase tracking-[0.2em] font-black drop-shadow-sm">
-                                    {model.name}
-                                  </span>
                                 </div>
                               </motion.div>
                             
                             <div className="absolute -top-12 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-20">
                               <div className="px-4 py-2 bg-[#001219] text-white text-[11px] font-black rounded-xl shadow-2xl flex flex-col items-center border border-white/10">
-                                <span className="text-[#C77DFF] text-[8px] uppercase tracking-widest mb-1">ELO RATING</span>
+                                <span className="text-[#ECF39E] text-[8px] uppercase tracking-widest mb-1">ELO RATING</span>
                                 {model.score}
                               </div>
                             </div>
                           </div>
 
-                        <div className="text-center mt-2">
-                          <p className="text-xs font-black text-slate-900 tracking-tighter">{model.score}</p>
-                          <div className="flex items-center justify-center gap-1.5 mt-1.5 opacity-60 group-hover:opacity-100 transition-opacity">
-                            <div className="w-3 h-3 flex items-center justify-center scale-75">
-                              {getCompanyLogo(model.organization)}
-                            </div>
-                            <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">{model.organization}</p>
-                          </div>
+                        <div className="text-center mt-8">
+                          <p className="text-[10px] font-black text-slate-800 tracking-tighter leading-tight uppercase max-w-[80px] line-clamp-2">
+                            {model.name}
+                          </p>
                         </div>
                       </div>
                     );
