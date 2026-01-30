@@ -254,16 +254,18 @@ export function ChatPage() {
                 transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: index * 0.1 }}
                 className={`flex gap-6 ${msg.role === 'user' ? 'flex-row-reverse' : 'flex-row'}`}
               >
-                    {/* Avatar */}
-                    <div className={`w-10 h-10 rounded-2xl flex-shrink-0 flex items-center justify-center border shadow-sm ${
-                      msg.role === 'user' ? 'bg-white border-slate-200' : 'bg-white border-slate-200/50'
-                    }`}>
-                      {msg.role === 'user' ? (
-                        <User className="w-5 h-5 text-slate-400" />
-                      ) : (
-                        <img src="/DAGGPT-01.jpg" className="w-6 h-6 object-contain" alt="DAG GPT" />
-                      )}
-                    </div>
+                      {/* Avatar */}
+                      <div className={`w-10 h-10 flex-shrink-0 flex items-center justify-center ${
+                        msg.role === 'user' ? '' : ''
+                      }`}>
+                        {msg.role === 'user' ? (
+                          <div className="w-10 h-10 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center shadow-sm">
+                            <User className="w-5 h-5 text-slate-400" />
+                          </div>
+                        ) : (
+                          <img src="/DAGGPT-01.jpg" className="w-10 h-10 object-contain" alt="DAG GPT" />
+                        )}
+                      </div>
 
                 {/* Bubble Container */}
                 <div className={`flex flex-col gap-3 max-w-[80%] ${msg.role === 'user' ? 'items-end' : 'items-start'}`}>
@@ -369,8 +371,9 @@ export function ChatPage() {
               animate={{ opacity: 1, y: 0 }}
               className="flex gap-6"
             >
-              <div className="w-10 h-10 rounded-2xl bg-white flex items-center justify-center border border-slate-200/50 shadow-sm animate-pulse">
-                <img src="/DAGGPT-01.jpg" className="w-6 h-6 object-contain" alt="DAG GPT" />
+              {/* Loading Avatar */}
+              <div className="w-10 h-10 flex items-center justify-center animate-pulse">
+                <img src="/DAGGPT-01.jpg" className="w-10 h-10 object-contain" alt="DAG GPT" />
               </div>
                 <div className="flex flex-col gap-3 w-full max-w-[80%]">
                   {selectedFunction === "Video Generation" && (
@@ -412,27 +415,62 @@ export function ChatPage() {
                         {/* Centered Creative Suite UI */}
                         <div className="absolute inset-0 flex items-center justify-center z-20">
                            <div className="flex flex-col items-center gap-8">
-                              <div className="relative">
-                                 {/* Glowing Aura - Soft Indigo */}
-                                 <motion.div 
-                                    animate={{ 
-                                       scale: [1, 1.2, 1],
-                                       opacity: [0.1, 0.2, 0.1]
-                                    }}
-                                    transition={{ duration: 5, repeat: Infinity }}
-                                    className="absolute inset-[-40px] bg-indigo-200 rounded-full blur-[60px]"
-                                 />
-                                 
-                                 {/* Central Lens/Icon Container */}
-                                 <div className="relative w-24 h-24 bg-white border border-slate-200 rounded-[2.5rem] flex items-center justify-center shadow-[0_20px_40px_-10px_rgba(0,0,0,0.05)] overflow-hidden">
+                                 {/* Synthetic Lens / AI Core - Premium Animation */}
+                                 <div className="relative w-32 h-32 flex items-center justify-center group">
+                                    {/* Outer Rotating Ring 1 */}
                                     <motion.div 
                                       animate={{ rotate: 360 }}
-                                      transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-                                      className="absolute inset-0 border-[3px] border-dashed border-slate-100 rounded-full scale-125"
+                                      transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+                                      className="absolute inset-0 border border-indigo-500/10 rounded-full"
                                     />
-                                    <Sparkles className="w-10 h-10 text-indigo-500 animate-pulse" />
+                                    {/* Outer Rotating Ring 2 (Counter-clockwise) */}
+                                    <motion.div 
+                                      animate={{ rotate: -360 }}
+                                      transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
+                                      className="absolute inset-4 border border-indigo-200/30 rounded-full border-dashed"
+                                    />
+                                    {/* Pulsing Core */}
+                                    <motion.div 
+                                      animate={{ 
+                                         scale: [1, 1.1, 1],
+                                         opacity: [0.8, 1, 0.8]
+                                      }}
+                                      transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                                      className="w-16 h-16 bg-white border border-slate-100 rounded-[2rem] flex items-center justify-center shadow-xl z-10"
+                                    >
+                                       <div className="relative w-10 h-10">
+                                          <motion.div 
+                                             animate={{ 
+                                                scale: [1, 1.5, 1],
+                                                rotate: [0, 90, 180, 270, 360]
+                                             }}
+                                             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                                             className="absolute inset-0 bg-indigo-500/10 rounded-lg blur-sm"
+                                          />
+                                          <Sparkles className="w-10 h-10 text-indigo-500 relative z-10" />
+                                       </div>
+                                    </motion.div>
+                                    {/* Floating Particles/Dots around the core */}
+                                    {[...Array(4)].map((_, i) => (
+                                      <motion.div
+                                        key={i}
+                                        animate={{ 
+                                          rotate: 360,
+                                          scale: [1, 0.8, 1]
+                                        }}
+                                        transition={{ 
+                                          rotate: { duration: 10 + i * 2, repeat: Infinity, ease: "linear" },
+                                          scale: { duration: 2, repeat: Infinity, ease: "easeInOut", delay: i * 0.5 }
+                                        }}
+                                        className="absolute w-1.5 h-1.5 bg-indigo-400 rounded-full"
+                                        style={{ 
+                                          top: '50%', 
+                                          left: '50%', 
+                                          transformOrigin: `${35 + i * 5}px ${35 + i * 5}px` 
+                                        }}
+                                      />
+                                    ))}
                                  </div>
-                              </div>
 
                               <div className="flex flex-col items-center gap-4 text-center px-6">
                                  <div className="space-y-1.5">
