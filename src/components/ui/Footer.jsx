@@ -61,7 +61,7 @@ export function Footer() {
                 {[Twitter, Github, Linkedin, Mail].map((Icon, i) => (
                   <motion.a
                     key={i}
-                    href="#"
+                    href="/"
                     whileHover={{ y: -6, scale: 1.1, backgroundColor: '#f8fafc' }}
                     className="w-14 h-14 rounded-2xl bg-white border border-slate-200 flex items-center justify-center text-slate-400 hover:text-purple-600 hover:border-purple-300 shadow-xl shadow-slate-200/40 transition-all"
                   >
@@ -81,7 +81,7 @@ export function Footer() {
                   {section.links.map((link, j) => (
                     <li key={j}>
                       <a 
-                        href="#" 
+                        href="/" 
                         className="text-slate-500 hover:text-purple-600 transition-all flex items-center group text-[15px] font-semibold tracking-tight"
                       >
                         {link}
@@ -101,8 +101,8 @@ export function Footer() {
                 © 2026 DAG GPT.
               </p>
               <div className="flex items-center gap-6">
-                <a href="#" className="text-xs font-black text-slate-400 hover:text-slate-900 uppercase tracking-widest transition-colors">Privacy</a>
-                <a href="#" className="text-xs font-black text-slate-400 hover:text-slate-900 uppercase tracking-widest transition-colors">Terms</a>
+                <a href="/" className="text-xs font-black text-slate-400 hover:text-slate-900 uppercase tracking-widest transition-colors">Privacy</a>
+                <a href="/" className="text-xs font-black text-slate-400 hover:text-slate-900 uppercase tracking-widest transition-colors">Terms</a>
               </div>
             </div>
             

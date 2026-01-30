@@ -80,12 +80,11 @@ const getCompanyLogo = (organization) => {
   return LogoComponent ? <LogoComponent /> : null;
 };
 
-export function ModelPerformance() {
-  const [modelData, setModelData] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [lastUpdated, setLastUpdated] = useState(null);
+  export function ModelPerformance() {
+    const [modelData, setModelData] = useState([]);
+    const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
+    useEffect(() => {
     fetchLeaderboardData();
   }, []);
 
@@ -93,17 +92,15 @@ export function ModelPerformance() {
     setLoading(true);
     try {
       const data = await leaderboardService.fetchModelLeaderboard();
-      if (data && data.length > 0) {
-        setModelData(data);
-      } else {
+        if (data && data.length > 0) {
+          setModelData(data);
+        } else {
+          setModelData(leaderboardService.getFallbackData());
+        }
+      } catch (error) {
+        console.error('Failed to fetch leaderboard:', error);
         setModelData(leaderboardService.getFallbackData());
-      }
-      setLastUpdated(new Date());
-    } catch (error) {
-      console.error('Failed to fetch leaderboard:', error);
-      setModelData(leaderboardService.getFallbackData());
-      setLastUpdated(new Date());
-    } finally {
+      } finally {
       setLoading(false);
     }
   };
