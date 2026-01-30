@@ -137,20 +137,24 @@ export function ChatPage() {
     while (!done && attempts < 40) { // Max 20 mins
       attempts++;
       try {
-        const status = await vertexAIService.checkOperationStatus(opName);
-        if (status.done) {
-          done = true;
-          if (status.error) throw new Error(status.error.message);
-          
-          const videoData = status.response.videos?.[0];
-          setMessages(prev => [...prev, { 
-            role: 'model', 
-            type: 'video',
-            content: 'Your cinematic video has been generated.',
-            videoUrl: videoData.gcsUri || videoData.bytesBase64Encoded // Adjust based on actual API response
-          }]);
-          setIsLoading(false);
-        } else {
+          const status = await vertexAIService.checkOperationStatus(opName);
+          if (status.done) {
+            done = true;
+            if (status.error) throw new Error(status.error.message);
+            
+            // Veo 3.1 returns generatedVideos array
+            const videoData = status.response.generatedVideos?.[0] || status.response.videos?.[0];
+            if (!videoData) throw new Error('No video data in response');
+
+            setMessages(prev => [...prev, { 
+              role: 'model', 
+              type: 'video',
+              content: 'Your cinematic video has been generated.',
+              videoUrl: videoData.video?.bytesBase64Encoded || videoData.bytesBase64Encoded || videoData.gcsUri,
+              mimeType: videoData.video?.mimeType || videoData.mimeType || 'video/mp4'
+            }]);
+            setIsLoading(false);
+          } else {
           setLoadingText(`Generating video... (${attempts * 2}%)`);
           await new Promise(r => setTimeout(r, 15000)); // Poll every 15s
         }
@@ -257,32 +261,46 @@ export function ChatPage() {
                 <div className={`flex flex-col gap-3 max-w-[80%] ${msg.role === 'user' ? 'items-end' : 'items-start'}`}>
                   
                   {/* Message Bubble */}
-                  <div className={`relative px-8 py-6 rounded-[2rem] shadow-sm border ${
-                    msg.role === 'user' 
-                      ? 'bg-slate-50 border-slate-100 text-slate-900' 
-                      : 'bg-white border-slate-200/50 text-slate-800'
-                  }`}>
-                    {/* User Prompt Header Style (for initial message) */}
-                    {index === 0 && msg.role === 'user' && (
-                      <div className="mb-4 flex items-center gap-2 opacity-40">
-                        <Sparkles className="w-3 h-3" />
-                        <span className="text-[9px] font-black uppercase tracking-[0.2em]">Initial Directives</span>
-                      </div>
-                    )}
-
-                    {/* Rendering Content based on Type */}
-                    {msg.type === 'image' ? (
-                      <div className="space-y-6">
-                        <div className="relative rounded-2xl overflow-hidden border border-slate-200 bg-slate-50 aspect-square md:aspect-video flex items-center justify-center">
-                          <img 
-                            src={`data:${msg.mimeType};base64,${msg.imageData}`} 
-                            alt="AI Generated" 
-                            className="w-full h-full object-contain"
-                          />
+                    <div className={`relative px-8 py-6 rounded-[2rem] shadow-sm border ${
+                      msg.role === 'user' 
+                        ? 'bg-slate-50 border-slate-100 text-slate-900' 
+                        : 'bg-white border-slate-200/50 text-slate-800'
+                    }`}>
+                      {/* User Prompt Header Style (for initial message) */}
+                      {index === 0 && msg.role === 'user' && (
+                        <div className="mb-4 flex items-center gap-2 opacity-40">
+                          <Sparkles className="w-3 h-3" />
+                          <span className="text-[9px] font-black uppercase tracking-[0.2em]">Initial Directives</span>
                         </div>
-                        <p className="text-sm font-medium text-slate-500 italic">{msg.content}</p>
-                      </div>
-                    ) : msg.type === 'music' ? (
+                      )}
+
+                      {/* Rendering Content based on Type */}
+                      {msg.type === 'image' ? (
+                        <div className="space-y-6">
+                          <div className="relative rounded-2xl overflow-hidden border border-slate-200 bg-slate-50 aspect-square md:aspect-video flex items-center justify-center">
+                            <img 
+                              src={`data:${msg.mimeType};base64,${msg.imageData}`} 
+                              alt="AI Generated" 
+                              className="w-full h-full object-contain"
+                            />
+                          </div>
+                          <p className="text-sm font-medium text-slate-500 italic">{msg.content}</p>
+                        </div>
+                      ) : msg.type === 'video' ? (
+                        <div className="space-y-6">
+                          <div className="relative rounded-2xl overflow-hidden border border-slate-200 bg-slate-900 aspect-video flex items-center justify-center">
+                            <video 
+                              src={msg.videoUrl.startsWith('gs://') ? null : `data:${msg.mimeType};base64,${msg.videoUrl}`}
+                              controls
+                              autoPlay
+                              className="w-full h-full object-contain"
+                            >
+                              Your browser does not support the video tag.
+                            </video>
+                          </div>
+                          <p className="text-sm font-medium text-slate-500 italic">{msg.content}</p>
+                        </div>
+                      ) : msg.type === 'music' ? (
                       <div className="space-y-6 bg-slate-50 p-6 rounded-2xl border border-slate-200">
                          <div className="flex items-center gap-4">
                             <div className="w-12 h-12 bg-emerald-500 rounded-xl flex items-center justify-center text-white">

@@ -389,7 +389,7 @@ app.post('/api/generate-video', async (req, res) => {
       parameters: {
         durationSeconds: 8,
         generateAudio: true,
-        aspectRatio: aspectRatio === "Landscape (16:9)" ? "16:9" : (aspectRatio === "Portrait (9:16)" ? "9:16" : "1:1"),
+        aspectRatio: ASPECT_RATIOS[aspectRatio] || "16:9",
         resolution: "1080p",
         sampleCount: 1,
         personGeneration: "allow_adult"
