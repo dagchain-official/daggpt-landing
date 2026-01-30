@@ -10,6 +10,7 @@ import { ChatPage } from './components/ChatPage';
 import { ImageGenerationPage } from './components/ImageGenerationPage';
 import { ModelPerformance } from './components/ModelPerformance';
 import { CommunityShowcase } from './components/CommunityShowcase';
+import { Footer } from './components/ui/Footer';
 
 function HomePage() {
   const navItems = [
@@ -42,11 +43,14 @@ function HomePage() {
         {/* Model Performance Section */}
       <ModelPerformance />
       
-      {/* Community Showcase Section */}
-      <CommunityShowcase />
-    </div>
-  );
-}
+        {/* Community Showcase Section */}
+        <CommunityShowcase />
+        
+        {/* Premium Footer */}
+        <Footer />
+      </div>
+    );
+  }
 
 function App() {
   return (
