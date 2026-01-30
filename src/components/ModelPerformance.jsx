@@ -207,13 +207,10 @@ export function ModelPerformance() {
                     heightPercentage = 70;
                   }
                   
-                  const barGradients = [
-                    'from-purple-600 via-purple-500 to-purple-400',
-                    'from-blue-600 via-blue-500 to-blue-400',
-                    'from-cyan-600 via-cyan-500 to-cyan-400',
-                    'from-indigo-600 via-indigo-500 to-indigo-400',
-                  ];
-                  const gradient = barGradients[index % barGradients.length];
+                    const isUltraClass = model.score >= 1400;
+                    const gradient = isUltraClass 
+                      ? 'from-purple-600 via-purple-500 to-purple-400'
+                      : 'from-blue-600 via-blue-500 to-blue-400';
                   
                     return (
                       <div 
