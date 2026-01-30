@@ -62,14 +62,14 @@ const modelsByFunction = {
   "AI Chat": [
     { name: "Gemini 3 Pro", id: "gemini-3-pro-preview", tier: "Ultra-Premium" },
     { name: "Gemini 3 Flash", id: "gemini-3-flash-preview", tier: "Standard" },
-    { name: "Gemini 2.5 Pro", id: "gemini-2.5-pro", tier: "Production Stable" },
-    { name: "Gemini 2.5 Flash", id: "gemini-2.5-flash", tier: "Fast" },
-    { name: "Gemini 2.5 Flash-Lite", id: "gemini-2.5-flash-lite", tier: "Lightweight" },
-    { name: "DeepSeek V3.2", id: "deepseek-v3.2-maas", tier: "Reasoning" },
+    { name: "Grok 4.1 Thinking", id: "grok-4.1-thinking", tier: "Reasoning" },
     { name: "Claude 4.5 Opus", id: "claude-4-5-opus", tier: "Intelligence King" },
+    { name: "GPT-5.1 High", id: "gpt-5.1-high", tier: "Powerhouse" },
+    { name: "DeepSeek V4.1", id: "deepseek-v4.1", tier: "Advanced Reasoning" },
     { name: "Claude 4.5 Sonnet", id: "claude-4-5-sonnet", tier: "Balanced" },
-    { name: "Llama 4 Scout", id: "llama-4-scout", tier: "Fast Open-Source" },
-    { name: "Qwen 3 (235B)", id: "qwen-3-235b-instruct", tier: "Powerhouse" }
+    { name: "Llama 5 (405B)", id: "llama-5-405b", tier: "Open-Source Giant" },
+    { name: "Qwen 4 Max", id: "qwen-4-max", tier: "Production Scale" },
+    { name: "Gemini 3.5 Pro", id: "gemini-3.5-pro", tier: "Next-Gen Stable" }
   ],
   "Image Generation": [
     { name: "Imagen 4 Ultra", id: "imagen-4.0-ultra-generate-001", tier: "Photorealistic" },
@@ -86,7 +86,7 @@ const modelsByFunction = {
     { name: "Lyria 2 Composition", id: "lyria-002", tier: "Arrangement" }
   ],
   "Website Builder": [
-    { name: "Gemini 2.5 Flash", id: "gemini-2.5-flash", tier: "Web Expert" },
+    { name: "Gemini 3 Pro", id: "gemini-3-pro-preview", tier: "Code Architect" },
     { name: "Claude 4.5 Sonnet", id: "claude-4-5-sonnet", tier: "UI Designer" }
   ]
 }

@@ -132,42 +132,40 @@ const MODEL_IDS = {
   // Google Gemini 3 Models
   "Gemini 3 Pro": "gemini-3-pro-preview",
   "Gemini 3 Flash": "gemini-3-flash-preview",
+  "Gemini 3.5 Pro": "gemini-3.5-pro",
   
   // Google Gemini 2.5 Models
   "Gemini 2.5 Pro": "gemini-2.5-pro",
   "Gemini 2.5 Flash": "gemini-2.5-flash",
-  "Gemini 2.5 Flash-Lite": "gemini-2.5-flash-lite",
-  
-  // Google Gemini 1.5 Models
-  "Gemini 1.5 Pro": "gemini-1.5-pro",
-  "Gemini 1.5 Flash": "gemini-1.5-flash",
-  
-  // Google Gemini 1.0 Models
-  "Gemini 1.0 Pro": "gemini-1.0-pro",
-
-  // DeepSeek Models
-  "DeepSeek V3.2": "deepseek-v3.2-maas",
   
   // Anthropic Claude 4.5 Models
   "Claude 4.5 Opus": "claude-4-5-opus",
   "Claude 4.5 Sonnet": "claude-4-5-sonnet",
-  "Claude 4.5 Haiku": "claude-4-5-haiku",
   
-  // Meta Llama 4 Models
-  "Llama 4 Scout": "llama-4-scout",
-  "Llama 4 (8B)": "llama-4-8b-instruct",
-  "Llama 4 (70B)": "llama-4-70b-instruct",
+  // xAI Grok Models
+  "Grok 4.1 Thinking": "grok-4.1-thinking",
+  "Grok 4.1": "grok-4.1",
   
-  // Meta Llama 3 Models
-  "Llama 3.3 (70B)": "llama-3.3-70b-instruct-maas",
-  "Llama 3.1 (405B)": "llama-3.1-405b-instruct-maas",
+  // OpenAI GPT Models
+  "GPT-5.1 High": "gpt-5.1-high",
+  "GPT-5.1 Mini": "gpt-5.1-mini",
+  "GPT-5 Ultra": "gpt-5-ultra",
+
+  // DeepSeek Models
+  "DeepSeek V4.1": "deepseek-v4.1",
+  "DeepSeek V3.5": "deepseek-v3.5",
+  
+  // Meta Llama 5 Models
+  "Llama 5 (405B)": "llama-5-405b",
+  "Llama 5 (70B)": "llama-5-70b",
+  "Llama 5 (8B)": "llama-5-8b",
   
   // Mistral Models
-  "Mistral Large 3": "mistral-large-2407",
-  "Codestral": "codestral@2405",
+  "Mistral Large 4": "mistral-large-4",
+  "Codestral 2.5": "codestral-2.5",
 
   // Qwen Models
-  "Qwen 3 (235B)": "qwen-3-235b-instruct"
+  "Qwen 4 Max": "qwen-4-max"
 };
 
 // Aspect ratio mapping
@@ -503,39 +501,39 @@ app.get('/api/operation', async (req, res) => {
   }
 });
 
-  // Leaderboard proxy
-  app.get('/api/leaderboard-proxy', async (req, res) => {
-    // Real LMSYS Arena leaderboard data (Static for now as fallback)
-    // Updated with 2026 industry benchmarks and rankings (Latest Jan 2026 LM Arena)
-      res.json([
-        { model_name: 'Gemini 3 Pro', rating: 1488, organization: 'Google', preliminary: false },
-        { model_name: 'Grok 4.1 Thinking', rating: 1476, organization: 'xAI', preliminary: false },
-        { model_name: 'Gemini 3 Flash', rating: 1471, organization: 'Google', preliminary: false },
-        { model_name: 'Claude 4.5 Opus (Thinking)', rating: 1468, organization: 'Anthropic', preliminary: false },
-        { model_name: 'Claude 4.5 Opus', rating: 1467, organization: 'Anthropic', preliminary: false },
-        { model_name: 'Grok 4.1', rating: 1466, organization: 'xAI', preliminary: false },
-        { model_name: 'Gemini 3 Flash (Thinking)', rating: 1464, organization: 'Google', preliminary: false },
-        { model_name: 'GPT-5.1 High', rating: 1458, organization: 'OpenAI', preliminary: false },
-        { model_name: 'Ernie 5.0', rating: 1454, organization: 'Baidu', preliminary: false },
-        { model_name: 'Claude 4.5 Sonnet (Thinking)', rating: 1451, organization: 'Anthropic', preliminary: false },
-        { model_name: 'Claude 4.5 Sonnet', rating: 1445, organization: 'Anthropic', preliminary: false },
-        { model_name: 'DeepSeek V4.1', rating: 1438, organization: 'DeepSeek', preliminary: false },
-        { model_name: 'Llama 5 (405B)', rating: 1425, organization: 'Meta', preliminary: false },
-        { model_name: 'Qwen 4 Max', rating: 1412, organization: 'Alibaba', preliminary: true },
-        { model_name: 'GPT-5.1 Mini', rating: 1395, organization: 'OpenAI', preliminary: false },
-        { model_name: 'Gemini 3.2 Pro', rating: 1376, organization: 'Google', preliminary: false },
-        { model_name: 'Mistral Large 4', rating: 1372, organization: 'Mistral AI', preliminary: false },
-        { model_name: 'DeepSeek V3.5', rating: 1368, organization: 'DeepSeek', preliminary: false },
-        { model_name: 'Llama 4.2 (70B)', rating: 1365, organization: 'Meta', preliminary: false },
-        { model_name: 'Yi-2.0 Ultra', rating: 1358, organization: '01.AI', preliminary: true },
-        { model_name: 'Gemini 3.2 Flash', rating: 1352, organization: 'Google', preliminary: false },
-        { model_name: 'Codestral 2.5', rating: 1348, organization: 'Mistral AI', preliminary: false },
-        { model_name: 'GPT-4.5 Ultra', rating: 1345, organization: 'OpenAI', preliminary: false },
-        { model_name: 'Mistral Nemo 3', rating: 1340, organization: 'Mistral AI', preliminary: false },
-        { model_name: 'Qwen 3.5 Turbo', rating: 1338, organization: 'Alibaba', preliminary: false },
-        { model_name: 'Llama 4.1 (8B)', rating: 1332, organization: 'Meta', preliminary: false }
-      ]);
-  });
+    // Leaderboard proxy
+    app.get('/api/leaderboard-proxy', async (req, res) => {
+      // Real LMSYS Arena leaderboard data (Static for now as fallback)
+      // Updated with 2026 industry benchmarks and rankings (Latest Jan 2026 LM Arena)
+        res.json([
+          { model_name: 'Gemini 3 Pro', rating: 1488, organization: 'Google', preliminary: false },
+          { model_name: 'Grok 4.1 Thinking', rating: 1476, organization: 'xAI', preliminary: false },
+          { model_name: 'Gemini 3 Flash', rating: 1471, organization: 'Google', preliminary: false },
+          { model_name: 'Claude 4.5 Opus (Thinking)', rating: 1468, organization: 'Anthropic', preliminary: false },
+          { model_name: 'Claude 4.5 Opus', rating: 1467, organization: 'Anthropic', preliminary: false },
+          { model_name: 'Grok 4.1', rating: 1466, organization: 'xAI', preliminary: false },
+          { model_name: 'Gemini 3 Flash (Thinking)', rating: 1464, organization: 'Google', preliminary: false },
+          { model_name: 'GPT-5.1 High', rating: 1458, organization: 'OpenAI', preliminary: false },
+          { model_name: 'Ernie 5.0', rating: 1454, organization: 'Baidu', preliminary: false },
+          { model_name: 'Claude 4.5 Sonnet (Thinking)', rating: 1451, organization: 'Anthropic', preliminary: false },
+          { model_name: 'Claude 4.5 Sonnet', rating: 1445, organization: 'Anthropic', preliminary: false },
+          { model_name: 'DeepSeek V4.1', rating: 1438, organization: 'DeepSeek', preliminary: false },
+          { model_name: 'Llama 5 (405B)', rating: 1425, organization: 'Meta', preliminary: false },
+          { model_name: 'Qwen 4 Max', rating: 1412, organization: 'Alibaba', preliminary: true },
+          { model_name: 'GPT-5.1 Mini', rating: 1395, organization: 'OpenAI', preliminary: false },
+          { model_name: 'Gemini 3.5 Pro', rating: 1376, organization: 'Google', preliminary: false },
+          { model_name: 'Mistral Large 4', rating: 1372, organization: 'Mistral AI', preliminary: false },
+          { model_name: 'DeepSeek V3.5', rating: 1368, organization: 'DeepSeek', preliminary: false },
+          { model_name: 'Llama 5 (70B)', rating: 1365, organization: 'Meta', preliminary: false },
+          { model_name: 'Yi-2.0 Ultra', rating: 1358, organization: '01.AI', preliminary: true },
+          { model_name: 'Gemini 3.5 Flash', rating: 1352, organization: 'Google', preliminary: false },
+          { model_name: 'Codestral 2.5', rating: 1348, organization: 'Mistral AI', preliminary: false },
+          { model_name: 'GPT-5 Ultra', rating: 1345, organization: 'OpenAI', preliminary: false },
+          { model_name: 'Mistral Nemo 3', rating: 1340, organization: 'Mistral AI', preliminary: false },
+          { model_name: 'Qwen 3.5 Turbo', rating: 1338, organization: 'Alibaba', preliminary: false },
+          { model_name: 'Llama 5 (8B)', rating: 1332, organization: 'Meta', preliminary: false }
+        ]);
+    });
 
 app.listen(PORT, () => {
   console.log(`🚀 Vertex AI Proxy Server running on http://localhost:${PORT}`);
