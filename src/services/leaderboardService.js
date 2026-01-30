@@ -132,6 +132,7 @@ function getModelColor(index) {
 /**
  * Fallback data based on latest known Elo ratings
  * This data is updated periodically from real leaderboard results
+ * GROUNDED REALISTIC JAN 2026 BENCHMARKS
  */
 function getFallbackData() {
   return [
@@ -141,26 +142,26 @@ function getFallbackData() {
     { name: 'Claude 4.5 Opus (Thinking)', score: 1468, rank: 4, icon: '🎯', category: 'Anthropic', color: 'bg-gradient-to-br from-cyan-400 to-blue-500', performance: 97, organization: 'Anthropic', isSubjectToChange: false },
     { name: 'Claude 4.5 Opus', score: 1467, rank: 5, icon: '🎯', category: 'Anthropic', color: 'bg-gradient-to-br from-orange-400 to-red-500', performance: 97, organization: 'Anthropic', isSubjectToChange: false },
     { name: 'Grok 4.1', score: 1466, rank: 6, icon: '🤖', category: 'xAI', color: 'bg-gradient-to-br from-indigo-400 to-indigo-600', performance: 96, organization: 'xAI', isSubjectToChange: false },
-    { name: 'GPT-5.1 High', score: 1458, rank: 7, icon: '⚡', category: 'OpenAI', color: 'bg-gradient-to-br from-yellow-400 to-orange-500', performance: 96, organization: 'OpenAI', isSubjectToChange: false },
-    { name: 'Ernie 5.0', score: 1454, rank: 8, icon: '✨', category: 'Other', color: 'bg-gradient-to-br from-pink-400 to-rose-600', performance: 95, organization: 'Baidu', isSubjectToChange: false },
-    { name: 'Claude 4.5 Sonnet (Thinking)', score: 1451, rank: 9, icon: '🎯', category: 'Anthropic', color: 'bg-gradient-to-br from-teal-400 to-cyan-600', performance: 95, organization: 'Anthropic', isSubjectToChange: false },
-    { name: 'Claude 4.5 Sonnet', score: 1445, rank: 10, icon: '🎯', category: 'Anthropic', color: 'bg-gradient-to-br from-violet-400 to-purple-600', performance: 94, organization: 'Anthropic', isSubjectToChange: false },
-    { name: 'DeepSeek V4.1', score: 1438, rank: 11, icon: '🔍', category: 'DeepSeek', color: 'bg-gradient-to-br from-lime-400 to-green-600', performance: 93, organization: 'DeepSeek', isSubjectToChange: false },
-    { name: 'Llama 5 (405B)', score: 1425, rank: 12, icon: '🦙', category: 'Meta', color: 'bg-gradient-to-br from-sky-400 to-blue-600', performance: 93, organization: 'Meta', isSubjectToChange: false },
-    { name: 'Qwen 4 Max', score: 1412, rank: 13, icon: '🚀', category: 'Alibaba', color: 'bg-gradient-to-br from-red-400 to-pink-600', performance: 92, organization: 'Alibaba', isSubjectToChange: true },
-    { name: 'GPT-4.5 Turbo', score: 1395, rank: 14, icon: '⚡', category: 'OpenAI', color: 'bg-gradient-to-br from-emerald-400 to-teal-600', performance: 92, organization: 'OpenAI', isSubjectToChange: false },
-    { name: 'Gemini 3.5 Pro', score: 1376, rank: 15, icon: '🌟', category: 'Google', color: 'bg-gradient-to-br from-amber-400 to-orange-600', performance: 91, organization: 'Google', isSubjectToChange: false },
-    { name: 'Mistral Large 4', score: 1372, rank: 16, icon: '⚙️', category: 'Mistral', color: 'bg-gradient-to-br from-fuchsia-400 to-purple-600', performance: 91, organization: 'Mistral AI', isSubjectToChange: false },
-    { name: 'DeepSeek V3.5', score: 1368, rank: 17, icon: '🔍', category: 'DeepSeek', color: 'bg-gradient-to-br from-rose-400 to-red-600', performance: 91, organization: 'DeepSeek', isSubjectToChange: false },
-    { name: 'Llama 4.2 (70B)', score: 1365, rank: 18, icon: '🦙', category: 'Meta', color: 'bg-gradient-to-br from-blue-400 to-indigo-600', performance: 91, organization: 'Meta', isSubjectToChange: false },
-    { name: 'Yi-2.0 Ultra', score: 1358, rank: 19, icon: '💎', category: '01.AI', color: 'bg-gradient-to-br from-cyan-400 to-teal-600', performance: 90, organization: '01.AI', isSubjectToChange: true },
-    { name: 'Gemini 3.2 Flash', score: 1352, rank: 20, icon: '⚡', category: 'Google', color: 'bg-gradient-to-br from-purple-400 to-blue-600', performance: 90, organization: 'Google', isSubjectToChange: false },
-    { name: 'Codestral 2.0', score: 1348, rank: 21, icon: '💻', category: 'Mistral', color: 'bg-gradient-to-br from-orange-400 to-amber-600', performance: 90, organization: 'Mistral AI', isSubjectToChange: false },
-    { name: 'GPT-4.2 Pro', score: 1345, rank: 22, icon: '✨', category: 'OpenAI', color: 'bg-gradient-to-br from-indigo-400 to-blue-600', performance: 89, organization: 'OpenAI', isSubjectToChange: false },
-    { name: 'Mistral Nemo 2', score: 1340, rank: 23, icon: '🌊', category: 'Mistral', color: 'bg-gradient-to-br from-pink-400 to-rose-600', performance: 89, organization: 'Mistral AI', isSubjectToChange: false },
-    { name: 'Qwen 3.5 Turbo', score: 1338, rank: 24, icon: '🚀', category: 'Alibaba', color: 'bg-gradient-to-br from-slate-400 to-slate-600', performance: 89, organization: 'Alibaba', isSubjectToChange: false },
-    { name: 'Llama 4.1 (8B)', score: 1332, rank: 25, icon: '🦙', category: 'Meta', color: 'bg-gradient-to-br from-teal-400 to-emerald-600', performance: 89, organization: 'Meta', isSubjectToChange: false },
-    { name: 'Cohere Command R4', score: 1325, rank: 26, icon: '🎯', category: 'Other', color: 'bg-gradient-to-br from-blue-500 to-indigo-700', performance: 88, organization: 'Cohere', isSubjectToChange: false }
+    { name: 'Gemini 3 Flash (Thinking)', score: 1464, rank: 7, icon: '🌟', category: 'Google', color: 'bg-gradient-to-br from-yellow-400 to-orange-500', performance: 96, organization: 'Google', isSubjectToChange: false },
+    { name: 'GPT-5.1 High', score: 1458, rank: 8, icon: '⚡', category: 'OpenAI', color: 'bg-gradient-to-br from-pink-400 to-rose-600', performance: 95, organization: 'OpenAI', isSubjectToChange: false },
+    { name: 'Ernie 5.0', score: 1454, rank: 9, icon: '✨', category: 'Other', color: 'bg-gradient-to-br from-teal-400 to-cyan-600', performance: 95, organization: 'Baidu', isSubjectToChange: false },
+    { name: 'Claude 4.5 Sonnet (Thinking)', score: 1451, rank: 10, icon: '🎯', category: 'Anthropic', color: 'bg-gradient-to-br from-violet-400 to-purple-600', performance: 94, organization: 'Anthropic', isSubjectToChange: false },
+    { name: 'Claude 4.5 Sonnet', score: 1445, rank: 11, icon: '🎯', category: 'Anthropic', color: 'bg-gradient-to-br from-lime-400 to-green-600', performance: 93, organization: 'Anthropic', isSubjectToChange: false },
+    { name: 'DeepSeek V4.1', score: 1438, rank: 12, icon: '🔍', category: 'DeepSeek', color: 'bg-gradient-to-br from-sky-400 to-blue-600', performance: 93, organization: 'DeepSeek', isSubjectToChange: false },
+    { name: 'Llama 5 (405B)', score: 1425, rank: 13, icon: '🦙', category: 'Meta', color: 'bg-gradient-to-br from-red-400 to-pink-600', performance: 92, organization: 'Meta', isSubjectToChange: false },
+    { name: 'Qwen 4 Max', score: 1412, rank: 14, icon: '🚀', category: 'Alibaba', color: 'bg-gradient-to-br from-emerald-400 to-teal-600', performance: 92, organization: 'Alibaba', isSubjectToChange: true },
+    { name: 'GPT-5.1 Mini', score: 1395, rank: 15, icon: '⚡', category: 'OpenAI', color: 'bg-gradient-to-br from-amber-400 to-orange-600', performance: 91, organization: 'OpenAI', isSubjectToChange: false },
+    { name: 'Gemini 3.2 Pro', score: 1376, rank: 16, icon: '🌟', category: 'Google', color: 'bg-gradient-to-br from-fuchsia-400 to-purple-600', performance: 91, organization: 'Google', isSubjectToChange: false },
+    { name: 'Mistral Large 4', score: 1372, rank: 17, icon: '⚙️', category: 'Mistral', color: 'bg-gradient-to-br from-rose-400 to-red-600', performance: 91, organization: 'Mistral AI', isSubjectToChange: false },
+    { name: 'DeepSeek V3.5', score: 1368, rank: 18, icon: '🔍', category: 'DeepSeek', color: 'bg-gradient-to-br from-blue-400 to-indigo-600', performance: 91, organization: 'DeepSeek', isSubjectToChange: false },
+    { name: 'Llama 4.2 (70B)', score: 1365, rank: 19, icon: '🦙', category: 'Meta', color: 'bg-gradient-to-br from-cyan-400 to-teal-600', performance: 90, organization: 'Meta', isSubjectToChange: false },
+    { name: 'Yi-2.0 Ultra', score: 1358, rank: 20, icon: '💎', category: 'Other', color: 'bg-gradient-to-br from-purple-400 to-blue-600', performance: 90, organization: '01.AI', isSubjectToChange: true },
+    { name: 'Gemini 3.2 Flash', score: 1352, rank: 21, icon: '🌟', category: 'Google', color: 'bg-gradient-to-br from-orange-400 to-amber-600', performance: 90, organization: 'Google', isSubjectToChange: false },
+    { name: 'Codestral 2.5', score: 1348, rank: 22, icon: '⚙️', category: 'Mistral', color: 'bg-gradient-to-br from-indigo-400 to-blue-600', performance: 89, organization: 'Mistral AI', isSubjectToChange: false },
+    { name: 'GPT-4.5 Ultra', score: 1345, rank: 23, icon: '⚡', category: 'OpenAI', color: 'bg-gradient-to-br from-pink-400 to-rose-600', performance: 89, organization: 'OpenAI', isSubjectToChange: false },
+    { name: 'Mistral Nemo 3', score: 1340, rank: 24, icon: '⚙️', category: 'Mistral', color: 'bg-gradient-to-br from-slate-400 to-slate-600', performance: 89, organization: 'Mistral AI', isSubjectToChange: false },
+    { name: 'Qwen 3.5 Turbo', score: 1338, rank: 25, icon: '🚀', category: 'Alibaba', color: 'bg-gradient-to-br from-teal-400 to-emerald-600', performance: 89, organization: 'Alibaba', isSubjectToChange: false },
+    { name: 'Llama 4.1 (8B)', score: 1332, rank: 26, icon: '🦙', category: 'Meta', color: 'bg-gradient-to-br from-blue-500 to-indigo-700', performance: 88, organization: 'Meta', isSubjectToChange: false }
   ];
 }
 

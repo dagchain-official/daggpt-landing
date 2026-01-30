@@ -213,35 +213,36 @@ export function ModelPerformance() {
                         : 'from-[#005F73] via-[#0A9396] to-[#94D2BD]';
                     
                       return (
-                        <div 
-                          key={`${model.name}-${index}`}
-                          className="flex flex-col items-center gap-4 group cursor-pointer min-w-[100px]"
-                        >
-                          <div className="relative flex items-end justify-center w-20 h-[360px]">
-                            <motion.div 
-                              initial={{ height: 0, opacity: 0 }}
-                              whileInView={{ height: `${heightPercentage}%`, opacity: 1 }}
-                              viewport={{ once: true }}
-                              transition={{ delay: index * 0.03, duration: 1, ease: [0.16, 1, 0.3, 1] }}
-                              className={`w-full rounded-2xl bg-gradient-to-t ${gradient} transition-all duration-500 group-hover:scale-x-110 group-hover:brightness-110 relative flex items-center justify-center overflow-hidden shadow-lg border border-white/20`}
-                            >
-                              <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity" />
-                              
-                              <div 
-                                className="flex flex-row items-center gap-3 text-white font-bold"
-                                style={{ 
-                                  transform: 'rotate(-90deg)',
-                                  whiteSpace: 'nowrap',
-                                }}
+                          <div 
+                            key={`${model.name}-${index}`}
+                            className="flex flex-col items-center gap-4 group cursor-pointer min-w-[120px]"
+                          >
+                            <div className="relative flex items-end justify-center w-24 h-[400px]">
+                              <motion.div 
+                                initial={{ height: 0, opacity: 0 }}
+                                whileInView={{ height: `${heightPercentage}%`, opacity: 1 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: index * 0.03, duration: 1, ease: [0.16, 1, 0.3, 1] }}
+                                className={`w-full rounded-2xl bg-gradient-to-t ${gradient} transition-all duration-500 group-hover:scale-x-110 group-hover:brightness-110 relative flex items-center justify-center shadow-lg border border-white/20`}
                               >
-                                <div className="w-5 h-5 flex items-center justify-center flex-shrink-0 scale-90 filter grayscale brightness-200">
-                                  {getCompanyLogo(model.organization)}
+                                <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl" />
+                                
+                                <div 
+                                  className="flex flex-row items-center gap-3 text-white font-bold"
+                                  style={{ 
+                                    transform: 'rotate(-90deg)',
+                                    whiteSpace: 'nowrap',
+                                    zIndex: 5
+                                  }}
+                                >
+                                  <div className="w-5 h-5 flex items-center justify-center flex-shrink-0 scale-90 filter brightness-200">
+                                    {getCompanyLogo(model.organization)}
+                                  </div>
+                                  <span className="text-[10px] uppercase tracking-[0.2em] font-black drop-shadow-sm">
+                                    {model.name}
+                                  </span>
                                 </div>
-                                <span className="text-[10px] uppercase tracking-[0.2em] font-black">
-                                  {model.name}
-                                </span>
-                              </div>
-                            </motion.div>
+                              </motion.div>
                             
                             <div className="absolute -top-12 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-20">
                               <div className="px-4 py-2 bg-[#001219] text-white text-[11px] font-black rounded-xl shadow-2xl flex flex-col items-center border border-white/10">
