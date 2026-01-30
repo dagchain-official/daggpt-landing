@@ -25,6 +25,9 @@ dagchain-bd805ccbe63a.json
 *-credentials.json
 *.json.key
 
+# Documentation files
+*.md
+
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*

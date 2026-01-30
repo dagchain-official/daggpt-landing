@@ -122,7 +122,7 @@ export function ModelPerformance() {
             className="text-4xl md:text-6xl font-black text-[#001219] mb-8 tracking-tighter"
           >
             The Intelligence <br />
-            <span className="bg-gradient-to-r from-[#9B2226] via-[#AE2012] to-[#EE9B00] bg-clip-text text-transparent">Leaderboard</span>
+            <span className="bg-gradient-to-r from-[#10002B] via-[#5A189A] to-[#C77DFF] bg-clip-text text-transparent font-black tracking-tighter">Leaderboard</span>
           </motion.h2>
           
             <motion.p 
@@ -137,13 +137,13 @@ export function ModelPerformance() {
             </motion.p>
           </div>
 
-          {/* Stats Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-            {[
-              { label: "Total Models", value: `${modelData.length}+`, icon: TrendingUp, color: "text-[#005F73]" },
-              { label: "Avg Latency", value: "0.8s", icon: Zap, color: "text-[#EE9B00]" },
-              { label: "Uptime", value: "99.99%", icon: Clock, color: "text-[#0A9396]" }
-            ].map((stat, i) => (
+            {/* Stats Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+              {[
+                { label: "Total Models", value: `${modelData.length}+`, icon: TrendingUp, color: "text-[#10002B]" },
+                { label: "Avg Latency", value: "0.8s", icon: Zap, color: "text-[#5A189A]" },
+                { label: "Uptime", value: "99.99%", icon: Clock, color: "text-[#9D4EDD]" }
+              ].map((stat, i) => (
               <motion.div 
                 key={i}
                 initial={{ opacity: 0, y: 20 }}
@@ -174,23 +174,23 @@ export function ModelPerformance() {
         >
             <div className="flex flex-col md:flex-row items-center justify-between mb-12 gap-6">
               <h3 className="text-2xl font-black text-[#001219] tracking-tighter">Elo Rating Distribution</h3>
-                <div className="flex items-center gap-6">
-                  <div className="flex items-center gap-2">
-                    <div className="w-2.5 h-2.5 bg-[#AE2012] rounded-full shadow-[0_0_10px_rgba(174,32,18,0.3)]" />
-                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Ultra Class</span>
+                  <div className="flex items-center gap-6">
+                    <div className="flex items-center gap-2">
+                      <div className="w-2.5 h-2.5 bg-[#10002B] rounded-full shadow-[0_0_10px_rgba(16,0,43,0.3)]" />
+                      <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Ultra Class</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="w-2.5 h-2.5 bg-[#7B2CBF] rounded-full shadow-[0_0_10px_rgba(123,44,191,0.3)]" />
+                      <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Pro Class</span>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <div className="w-2.5 h-2.5 bg-[#0A9396] rounded-full shadow-[0_0_10px_rgba(10,147,150,0.3)]" />
-                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Pro Class</span>
-                  </div>
-                </div>
             </div>
 
           {/* Chart Container */}
           <div className="overflow-x-auto pb-8 scrollbar-hide">
             {loading ? (
               <div className="flex items-center justify-center h-[400px]">
-                <div className="w-12 h-12 border-4 border-slate-100 border-t-[#AE2012] rounded-full animate-spin" />
+                <div className="w-12 h-12 border-4 border-slate-100 border-t-[#5A189A] rounded-full animate-spin" />
               </div>
             ) : (
                 <div className="flex items-end justify-start gap-6 min-w-max px-2" style={{ height: '450px' }}>
@@ -207,10 +207,8 @@ export function ModelPerformance() {
                       heightPercentage = 75;
                     }
                     
+                      const purplePalette = ['#10002B', '#240046', '#3C096C', '#5A189A', '#7B2CBF', '#9D4EDD', '#C77DFF', '#E0AAFF'];
                       const isUltraClass = model.score >= 1400;
-                      const gradient = isUltraClass 
-                        ? 'from-[#9B2226] via-[#BB3E03] to-[#EE9B00]'
-                        : 'from-[#005F73] via-[#0A9396] to-[#94D2BD]';
                     
                       return (
                           <div 
@@ -223,7 +221,8 @@ export function ModelPerformance() {
                                 whileInView={{ height: `${heightPercentage}%`, opacity: 1 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: index * 0.03, duration: 1, ease: [0.16, 1, 0.3, 1] }}
-                                className={`w-full rounded-2xl bg-gradient-to-t ${gradient} transition-all duration-500 group-hover:scale-x-110 group-hover:brightness-110 relative flex items-center justify-center shadow-lg border border-white/20`}
+                                style={{ background: `linear-gradient(to top, ${purplePalette[index % purplePalette.length]}, ${purplePalette[(index + 1) % purplePalette.length]})` }}
+                                className={`w-full rounded-2xl transition-all duration-500 group-hover:scale-x-110 group-hover:brightness-110 relative flex items-center justify-center shadow-lg border border-white/20`}
                               >
                                 <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl" />
                                 
@@ -246,7 +245,7 @@ export function ModelPerformance() {
                             
                             <div className="absolute -top-12 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-20">
                               <div className="px-4 py-2 bg-[#001219] text-white text-[11px] font-black rounded-xl shadow-2xl flex flex-col items-center border border-white/10">
-                                <span className={`${isUltraClass ? 'text-[#EE9B00]' : 'text-[#94D2BD]'} text-[8px] uppercase tracking-widest mb-1`}>ELO RATING</span>
+                                <span className="text-[#C77DFF] text-[8px] uppercase tracking-widest mb-1">ELO RATING</span>
                                 {model.score}
                               </div>
                             </div>
