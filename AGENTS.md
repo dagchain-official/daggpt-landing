@@ -1,33 +1,30 @@
 ## Project Summary
-A high-end AI creative ecosystem featuring advanced chat, image generation, and model performance benchmarks. The platform focuses on premium aesthetics, featuring a "million-dollar" light-themed UI with glassmorphism and interactive hexagon backgrounds.
+A multi-modal AI creative ecosystem utilizing Google Vertex AI for advanced text, image, video, music, and website generation. The platform features a "million-dollar" light-themed UI with high-end glassmorphism, dynamic intelligence selectors, and a professional dual-pane workspace.
 
 ## Tech Stack
-- **Frontend**: React (Create React App), Tailwind CSS, Framer Motion, Lucide React
-- **Backend**: Express (Proxy server for external APIs)
-- **Services**: Vertex AI integration (Gemini models)
-- **State Management**: React Hooks (useState, useEffect, useRef)
-- **Routing**: React Router DOM
+- **Frontend**: React (CRA), Tailwind CSS, Framer Motion, Lucide React
+- **Backend**: Express (Node.js) with Google Vertex AI SDK & Auth
+- **AI Models**: Gemini 3, Gemini 2.5, Claude 4.5, DeepSeek 3.2, Llama 4, Imagen 4, Veo 3.1, Lyria 2
+- **Routing**: React Router DOM (v6)
 
 ## Architecture
-- `src/components`: UI components (Hero, Chat, Leaderboard, Gallery)
-- `src/components/ui`: Reusable design elements (Backgrounds, Navbar)
-- `src/services`: API interaction logic (Leaderboard fetching)
-- `server/`: Backend proxy for handling API requests and bypassing CORS
+- `src/components/ChatboxContainer.jsx`: The "Floating Glass Island" Hero chatbox with multi-function tabs.
+- `src/components/ChatPage.jsx`: Professional 20/80 split workspace for AI responses and generation previews.
+- `src/services/vertexAIService.js`: Centralized service layer for multi-modal generation and polling.
+- `server/server.js`: Secure backend proxy for Vertex AI, handling MaaS REST API calls and long-running operations.
 
 ## User Preferences
-- **Theme**: Light theme preferred (premium white/slate aesthetic).
-- **Background**: Hexagon/Honeycomb design with hover effects and high visibility.
-- **Design Quality**: "10/10" million-dollar aesthetic, avoiding "AI slop".
-- **Interactivity**: High-end motion and glassmorphic elements.
+- **Aesthetic**: "Million-dollar" premium design language (Light Mode).
+- **Layout**: Floating components, glassmorphic panels, and spacious dual-pane workspaces.
+- **Interactivity**: Fluid transitions via Framer Motion, dynamic model filtering, and real-time generation polling.
 
 ## Project Guidelines
-- Use PascalCase for React components and file names.
-- Maintain a clean, premium light-mode aesthetic.
-- Use Framer Motion for sophisticated animations.
-- No comments unless requested.
+- **UI Design**: 10/10 quality; avoid "AI slop" by using distinctive typography and sharp accents.
+- **Redirection**: Initial Hero interactions must redirect to the dedicated Workspace page with full state context.
+- **Multi-modality**: Support for Chat, Image (Imagen 4), Video (Veo 3.1), Music (Lyria 2), and Website Builder.
 
 ## Common Patterns
-- Glassmorphism: `bg-white/60 backdrop-blur-[40px] border border-slate-200/50`.
-- Hexagon Backgrounds: Interactive, responsive grid with parallax effects.
-- Typography: Bold, high-impact headings (black weight) with tracking-tighter.
-- Buttons: Rounded-2xl with subtle shadows and scaling transitions.
+- **Glassmorphism**: `bg-white/60 backdrop-blur-[40px] border border-slate-200/50 shadow-xl`.
+- **Workspace Layout**: 20% Sidebar (History) / 80% Main (Generation Area).
+- **Long-Running Ops**: Backend pooling with operation status polling for heavy tasks like video generation.
+- **Dynamic Selectors**: Model dropdowns that automatically filter based on the active function tab.
