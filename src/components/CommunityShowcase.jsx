@@ -35,7 +35,7 @@ export function CommunityShowcase() {
         { id: 9, model: 'DALL-E 3', preview: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=500&fit=crop' },
         { id: 10, model: 'Midjourney v6', preview: 'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=800&h=500&fit=crop' },
         { id: 11, model: 'Flux Pro', preview: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&h=500&fit=crop' },
-        { id: 12, model: 'SDXL', preview: 'https://images.unsplash.com/photo-1600585154526-990dcea4d4dd?w=800&h=500&fit=crop' },
+        { id: 12, model: 'SDXL', preview: 'https://images.unsplash.com/photo-1600508774834-4b3c40bbad99?w=800&h=500&fit=crop' },
         { id: 13, model: 'Midjourney v6.1', preview: 'https://images.unsplash.com/photo-1600573472591-ee6b68d14c68?w=800&h=500&fit=crop' },
         { id: 14, model: 'DALL-E 3', preview: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=800&h=500&fit=crop' },
         { id: 15, model: 'SD 3.5', preview: 'https://images.unsplash.com/photo-1600121848594-d8644e57abab?w=800&h=500&fit=crop' },
@@ -61,11 +61,11 @@ export function CommunityShowcase() {
       category: 'Music',
       items: [
         { id: 25, model: 'Suno v3.5', preview: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=800&h=500&fit=crop' },
-        { id: 26, model: 'Udio 1.5', preview: 'https://images.unsplash.com/photo-1514525253342-b0bb047622ff?w=800&h=500&fit=crop' },
+        { id: 26, model: 'Udio 1.5', preview: 'https://images.unsplash.com/photo-1453738773917-9c3eff1db985?w=800&h=500&fit=crop' },
         { id: 27, model: 'MusicLM', preview: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=800&h=500&fit=crop' },
         { id: 28, model: 'Stable Audio', preview: 'https://images.unsplash.com/photo-1493225255756-d9584f8606e9?w=800&h=500&fit=crop' },
         { id: 29, model: 'AIVA', preview: 'https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=800&h=500&fit=crop' },
-        { id: 30, model: 'Amper', preview: 'https://images.unsplash.com/photo-1459749411177-042180ce673c?w=800&h=500&fit=crop' },
+        { id: 30, model: 'Amper', preview: 'https://images.unsplash.com/photo-1516280440614-37939bbacd81?w=800&h=500&fit=crop' },
         { id: 31, model: 'Soundraw', preview: 'https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=800&h=500&fit=crop' },
         { id: 32, model: 'Jukedeck', preview: 'https://images.unsplash.com/photo-1420161900862-9a86fa1f5c79?w=800&h=500&fit=crop' }
       ]
@@ -79,21 +79,17 @@ export function CommunityShowcase() {
   return (
     <section className="w-full py-32 px-4 bg-transparent relative z-10 overflow-hidden" id="community">
       <div className="max-w-[1400px] mx-auto">
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-20"
-        >
-          <div className="inline-flex items-center gap-2 mb-6 px-5 py-2 rounded-full bg-white/40 border border-slate-200 shadow-sm backdrop-blur-md">
-            <Sparkles className="w-3.5 h-3.5 text-purple-600" />
-            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-500">Community Gallery</span>
-          </div>
-          <h2 className="text-4xl md:text-7xl font-black text-slate-900 mb-8 tracking-tighter">
-            Designed by the <br />
-            <span className="bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-600 bg-clip-text text-transparent">Creative Community</span>
-          </h2>
-        </motion.div>
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-20"
+          >
+            <h2 className="text-4xl md:text-7xl font-black text-slate-900 mb-8 tracking-tighter">
+              Designed by the <br />
+              <span className="bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-600 bg-clip-text text-transparent">Creative Community</span>
+            </h2>
+          </motion.div>
 
         {/* Filter Bar */}
         <div className="mb-20 flex items-center justify-center gap-4 flex-wrap">
@@ -122,34 +118,21 @@ export function CommunityShowcase() {
         <div className="space-y-32">
           <AnimatePresence mode="wait">
             {filteredGroups.map((group, groupIndex) => (
-              <motion.div 
-                key={group.category + groupIndex}
-                initial={{ opacity: 0, y: 40 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -40 }}
-                transition={{ delay: groupIndex * 0.1, duration: 0.8 }}
-              >
-                <div className="flex items-end justify-between mb-10 px-4">
-                  <div className="flex items-center gap-6">
-                    <div className="w-16 h-16 rounded-[1.5rem] bg-white border border-slate-200 flex items-center justify-center shadow-lg">
-                      <span className="text-3xl">
-                        {group.category === 'Website' ? '🌐' : 
-                         group.category === 'Images' ? '🖼️' :
-                         group.category === 'Videos' ? '🎥' : '🎵'}
-                      </span>
-                    </div>
-                    <div>
-                      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-2">{group.category}</p>
-                      <p className="text-2xl font-bold text-slate-900 tracking-tight leading-none italic">"{group.prompt}"</p>
+                <motion.div 
+                  key={group.category + groupIndex}
+                  initial={{ opacity: 0, y: 40 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -40 }}
+                  transition={{ delay: groupIndex * 0.1, duration: 0.8 }}
+                >
+                  <div className="flex items-end justify-between mb-10 px-4 text-center md:text-left">
+                    <div className="flex flex-col md:flex-row items-center gap-6 w-full md:w-auto">
+                      <div>
+                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-2">{group.category}</p>
+                        <p className="text-2xl font-bold text-slate-900 tracking-tight leading-none italic">"{group.prompt}"</p>
+                      </div>
                     </div>
                   </div>
-                  <div className="hidden md:flex items-center gap-3">
-                    <button className="flex items-center gap-2 px-6 py-3 bg-white hover:bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-600 transition-all shadow-sm">
-                      <Copy className="w-4 h-4" />
-                      COPY PROMPT
-                    </button>
-                  </div>
-                </div>
 
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 px-4">
                   {group.items.map((item) => (

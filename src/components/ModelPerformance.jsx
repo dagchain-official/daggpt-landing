@@ -167,19 +167,19 @@ export function ModelPerformance() {
           viewport={{ once: true }}
           className="bg-white/80 backdrop-blur-3xl rounded-[2.5rem] border border-slate-200/50 p-10 md:p-16 shadow-[0_32px_64px_-16px_rgba(0,0,0,0.05)]"
         >
-          <div className="flex flex-col md:flex-row items-center justify-between mb-12 gap-6">
-            <h3 className="text-2xl font-black text-slate-900 tracking-tighter">Elo Rating Distribution</h3>
-            <div className="flex items-center gap-6">
-              <div className="flex items-center gap-2">
-                <div className="w-2.5 h-2.5 bg-purple-500 rounded-full shadow-[0_0_10px_rgba(168,85,247,0.3)]" />
-                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Ultra Class</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-2.5 h-2.5 bg-blue-500 rounded-full shadow-[0_0_10px_rgba(59,130,246,0.3)]" />
-                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Pro Class</span>
+            <div className="flex flex-col md:flex-row items-center justify-between mb-12 gap-6">
+              <h3 className="text-2xl font-black text-slate-900 tracking-tighter">Elo Rating Distribution</h3>
+              <div className="flex items-center gap-6">
+                <div className="flex items-center gap-2">
+                  <div className="w-2.5 h-2.5 bg-purple-500 rounded-full shadow-[0_0_10px_rgba(168,85,247,0.3)]" />
+                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Ultra Class</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-2.5 h-2.5 bg-blue-500 rounded-full shadow-[0_0_10px_rgba(59,130,246,0.3)]" />
+                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Pro Class</span>
+                </div>
               </div>
             </div>
-          </div>
 
           {/* Chart Container */}
           <div className="overflow-x-auto pb-8 scrollbar-hide">
