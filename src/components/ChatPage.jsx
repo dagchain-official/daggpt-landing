@@ -173,44 +173,39 @@ export function ChatPage() {
   return (
     <div className="flex h-screen bg-white overflow-hidden">
       
-      {/* Sidebar (20%) */}
-      <aside className="w-[20%] h-full bg-slate-50/50 border-r border-slate-200/50 flex flex-col z-20">
-        <div className="p-6">
+      {/* Sidebar (10%) */}
+      <aside className="w-[10%] h-full bg-slate-50/50 border-r border-slate-200/50 flex flex-col z-20 overflow-hidden">
+        <div className="p-4">
           <button 
             onClick={() => navigate('/')}
-            className="flex items-center gap-3 px-4 py-3 bg-white border border-slate-200 rounded-2xl w-full text-xs font-black uppercase tracking-widest hover:bg-slate-50 transition-all shadow-sm mb-8"
+            className="flex items-center justify-center gap-2 px-2 py-3 bg-white border border-slate-200 rounded-2xl w-full text-[9px] font-black uppercase tracking-tighter hover:bg-slate-50 transition-all shadow-sm mb-8"
           >
-            <Plus className="w-4 h-4" />
-            New Project
+            <Plus className="w-3.5 h-3.5" />
+            New
           </button>
 
           <div className="space-y-1">
-            <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-4 mb-4 flex items-center gap-2">
+            <div className="text-[8px] font-black text-slate-400 uppercase tracking-widest px-2 mb-4 flex items-center gap-2">
               <History className="w-3 h-3" />
-              Recent Threads
+              Recent
             </div>
             {history.map(item => (
               <button 
                 key={item.id}
-                className={`w-full text-left px-4 py-3.5 rounded-2xl text-[11px] font-bold transition-all truncate flex items-center justify-between group ${
+                className={`w-full text-left px-3 py-3 rounded-xl text-[10px] font-bold transition-all truncate flex items-center justify-between group ${
                   item.active ? 'bg-slate-900 text-white shadow-lg' : 'text-slate-500 hover:bg-white hover:text-slate-900'
                 }`}
               >
-                <span className="truncate pr-4">{item.title}</span>
-                <MoreHorizontal className={`w-4 h-4 opacity-0 group-hover:opacity-40 transition-opacity ${item.active ? 'text-white' : ''}`} />
+                <span className="truncate">{item.title}</span>
               </button>
             ))}
           </div>
         </div>
 
-        <div className="mt-auto p-6 border-t border-slate-200/50">
-          <div className="flex items-center gap-3 p-3 bg-white rounded-2xl border border-slate-200/50 shadow-sm">
-            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center text-white text-[10px] font-black uppercase">
+        <div className="mt-auto p-4 border-t border-slate-200/50">
+          <div className="flex items-center justify-center p-2 bg-white rounded-xl border border-slate-200/50 shadow-sm">
+            <div className="w-7 h-7 rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center text-white text-[9px] font-black uppercase">
               JD
-            </div>
-            <div className="flex flex-col">
-              <span className="text-[10px] font-black text-slate-900">John Doe</span>
-              <span className="text-[9px] font-bold text-slate-400 uppercase tracking-tighter">Pro Plan</span>
             </div>
           </div>
         </div>

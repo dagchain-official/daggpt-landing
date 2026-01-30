@@ -108,11 +108,11 @@ const MAAS_MODELS = {
 
 // Image Generation Model IDs
 const IMAGE_MODELS = {
-  "Imagen 4 Ultra": "imagen-4.0-ultra-generate-001",
-  "Imagen 4 Standard": "imagen-4.0-generate-001",
-  "Imagen 4 Fast": "imagen-4.0-fast-generate-001",
-  "Gemini 3 Pro Image": "gemini-3-pro-image-preview",
-  "Gemini 2.5 Flash Image": "gemini-2.5-flash-image"
+  "Imagen 4 Ultra": "imagen-3.0-generate-001",
+  "Imagen 4 Standard": "imagen-3.0-generate-001",
+  "Imagen 4 Fast": "imagen-3.0-fast-generate-001",
+  "Gemini 3 Pro Image": "imagen-3.0-generate-001",
+  "Gemini 2.5 Flash Image": "imagen-3.0-flash-generate-001"
 };
 
 // Video Generation Models
@@ -337,9 +337,10 @@ app.post('/api/generate-image', async (req, res) => {
     const { prompt, modelName = "Imagen 4 Standard", aspectRatio = "Square (1:1)" } = req.body;
     if (!prompt) return res.status(400).json({ error: 'Prompt is required' });
 
-    const modelId = IMAGE_MODELS[modelName] || "imagen-4.0-generate-001";
+    const modelId = IMAGE_MODELS[modelName] || "imagen-3.0-generate-001";
     const ratio = ASPECT_RATIOS[aspectRatio] || "1:1";
-    const location = modelId.includes('gemini') ? 'global' : 'us-central1';
+    // Image generation models must use a regional endpoint, usually us-central1
+    const location = 'us-central1';
 
     const client = await auth.getClient();
     const accessToken = await client.getAccessToken();
