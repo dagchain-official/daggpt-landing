@@ -385,15 +385,19 @@ app.post('/api/generate-video', async (req, res) => {
     const accessToken = await client.getAccessToken();
 
     // Veo 3.1 only supports 16:9, 9:16, 1:1. Map others to nearest.
-    const rawRatio = ASPECT_RATIOS[aspectRatio] || "16:9";
+    // Handle both labels (Landscape (4:3)) and raw values (4:3)
     let videoRatio = "16:9";
-    if (["1:1", "9:16", "16:9"].includes(rawRatio)) {
-      videoRatio = rawRatio;
-    } else if (rawRatio === "3:4") {
+    const mappedRatio = ASPECT_RATIOS[aspectRatio] || aspectRatio;
+    
+    if (["1:1", "9:16", "16:9"].includes(mappedRatio)) {
+      videoRatio = mappedRatio;
+    } else if (mappedRatio === "3:4" || mappedRatio === "Portrait (3:4)") {
       videoRatio = "9:16";
-    } else if (rawRatio === "4:3") {
+    } else if (mappedRatio === "4:3" || mappedRatio === "Landscape (4:3)") {
       videoRatio = "16:9";
     }
+
+    console.log(`🎬 Mapped videoRatio: ${videoRatio} (from ${aspectRatio})`);
 
     if (!projectId) {
       throw new Error('Project ID is not configured (REACT_APP_VERTEX_AI_PROJECT_ID)');

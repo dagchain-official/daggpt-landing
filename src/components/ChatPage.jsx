@@ -83,7 +83,7 @@ export function ChatPage() {
         break;
       }
     }
-  }, []);
+  }, [setIsLoading, setLoadingText, setError, setMessages]);
 
   const handleGeneration = useCallback(async (prompt, type, model, ratio) => {
     console.log(`🚀 handleGeneration started: type=${type}, model=${model}, ratio=${ratio}`);
