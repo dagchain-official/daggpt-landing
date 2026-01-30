@@ -13,7 +13,6 @@ import {
   History, 
   Plus, 
   User, 
-  Bot,
   Music as MusicIcon,
   Download,
   ExternalLink
@@ -37,9 +36,18 @@ export function ChatPage() {
     { id: 3, title: 'AI Ethics Discussion', active: false },
   ]);
   
-  const messagesEndRef = useRef(null);
+    const messagesEndRef = useRef(null);
+  
+    const getAspectRatioClass = (ratio) => {
+      if (ratio?.includes('16:9')) return 'aspect-video';
+      if (ratio?.includes('9:16')) return 'aspect-[9/16]';
+      if (ratio?.includes('4:3')) return 'aspect-[4/3]';
+      if (ratio?.includes('3:4')) return 'aspect-[3/4]';
+      if (ratio?.includes('1:1')) return 'aspect-square';
+      return 'aspect-video';
+    };
 
-  const scrollToBottom = () => {
+    const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
@@ -249,12 +257,16 @@ export function ChatPage() {
                 transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: index * 0.1 }}
                 className={`flex gap-6 ${msg.role === 'user' ? 'flex-row-reverse' : 'flex-row'}`}
               >
-                {/* Avatar */}
-                <div className={`w-10 h-10 rounded-2xl flex-shrink-0 flex items-center justify-center border shadow-sm ${
-                  msg.role === 'user' ? 'bg-white border-slate-200' : 'bg-slate-900 border-slate-800'
-                }`}>
-                  {msg.role === 'user' ? <User className="w-5 h-5 text-slate-400" /> : <Bot className="w-5 h-5 text-white" />}
-                </div>
+                  {/* Avatar */}
+                  <div className={`w-10 h-10 rounded-2xl flex-shrink-0 flex items-center justify-center border shadow-sm ${
+                    msg.role === 'user' ? 'bg-white border-slate-200' : 'bg-slate-900 border-slate-800'
+                  }`}>
+                    {msg.role === 'user' ? (
+                      <User className="w-5 h-5 text-slate-400" />
+                    ) : (
+                      <img src="/DAGGPT-01.jpg" className="w-6 h-6 rounded-lg object-cover" alt="DAG GPT" />
+                    )}
+                  </div>
 
                 {/* Bubble Container */}
                 <div className={`flex flex-col gap-3 max-w-[80%] ${msg.role === 'user' ? 'items-end' : 'items-start'}`}>
@@ -361,10 +373,52 @@ export function ChatPage() {
               className="flex gap-6"
             >
               <div className="w-10 h-10 rounded-2xl bg-slate-900 flex items-center justify-center border border-slate-800 shadow-sm animate-pulse">
-                <Bot className="w-5 h-5 text-white" />
+                <img src="/DAGGPT-01.jpg" className="w-6 h-6 rounded-lg object-cover" alt="DAG GPT" />
               </div>
-              <div className="flex flex-col gap-3">
-                <div className="px-8 py-6 rounded-[2rem] bg-white border border-slate-200/50 shadow-sm flex items-center gap-4">
+              <div className="flex flex-col gap-3 w-full max-w-[80%]">
+                {selectedFunction === "Video Generation" && (
+                   <motion.div 
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className={`w-full ${getAspectRatioClass(aspectRatio)} rounded-[2.5rem] bg-slate-100 border border-slate-200 overflow-hidden relative group shadow-2xl shadow-slate-200/50 mb-4`}
+                   >
+                      <motion.div 
+                        animate={{ 
+                          background: [
+                            "linear-gradient(45deg, #f1f5f9 25%, #f8fafc 50%, #f1f5f9 75%)",
+                            "linear-gradient(45deg, #f8fafc 25%, #f1f5f9 50%, #f8fafc 75%)"
+                          ]
+                        }}
+                        transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                        className="absolute inset-0 opacity-50"
+                      />
+                      <div className="absolute inset-0 flex items-center justify-center">
+                         <div className="flex flex-col items-center gap-6">
+                            <div className="relative">
+                               <motion.div 
+                                  animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
+                                  transition={{ duration: 4, repeat: Infinity }}
+                                  className="absolute inset-0 bg-indigo-500 rounded-full blur-3xl"
+                               />
+                               <div className="relative w-16 h-16 bg-white/40 backdrop-blur-xl rounded-2xl border border-white/50 flex items-center justify-center shadow-xl">
+                                  <Sparkles className="w-8 h-8 text-indigo-500 animate-pulse" />
+                               </div>
+                            </div>
+                            <div className="flex flex-col items-center gap-2">
+                               <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] animate-pulse">Cinematic Rendering</span>
+                               <div className="flex gap-1.5">
+                                  <motion.div animate={{ opacity: [0.2, 1, 0.2] }} transition={{ repeat: Infinity, duration: 1.5 }} className="w-1 h-1 bg-indigo-400 rounded-full" />
+                                  <motion.div animate={{ opacity: [0.2, 1, 0.2] }} transition={{ repeat: Infinity, duration: 1.5, delay: 0.2 }} className="w-1 h-1 bg-indigo-400 rounded-full" />
+                                  <motion.div animate={{ opacity: [0.2, 1, 0.2] }} transition={{ repeat: Infinity, duration: 1.5, delay: 0.4 }} className="w-1 h-1 bg-indigo-400 rounded-full" />
+                               </div>
+                            </div>
+                         </div>
+                      </div>
+                      <div className="absolute inset-0 backdrop-blur-[40px] opacity-20"></div>
+                   </motion.div>
+                )}
+                
+                <div className="px-8 py-6 rounded-[2rem] bg-white border border-slate-200/50 shadow-sm flex items-center gap-4 w-fit">
                    <div className="flex gap-1.5">
                       <motion.div animate={{ scale: [1, 1.2, 1] }} transition={{ repeat: Infinity, duration: 1 }} className="w-1.5 h-1.5 bg-indigo-500 rounded-full" />
                       <motion.div animate={{ scale: [1, 1.2, 1] }} transition={{ repeat: Infinity, duration: 1, delay: 0.2 }} className="w-1.5 h-1.5 bg-indigo-500 rounded-full" />
