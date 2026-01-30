@@ -1,9 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
-import { NavBar } from './components/ui/TubelightNavbar';
+import { NavBar } from './components/ui/TubelightNavbar.jsx';
 import { Logo } from './components/Logo';
-import { PremiumBackground } from './components/ui/PremiumBackground';
+import { HexagonBackground } from './components/ui/hexagon-background.jsx';
 import { HeroSection } from './components/HeroSection';
 import { ChatboxContainer } from './components/ChatboxContainer';
 import { ChatPage } from './components/ChatPage';
@@ -21,9 +21,9 @@ function HomePage() {
   ];
 
   return (
-    <div className="min-h-screen w-full relative bg-[#030303] text-white selection:bg-purple-500/30">
-      {/* Premium Background */}
-      <PremiumBackground />
+    <div className="min-h-screen w-full relative bg-slate-50 text-slate-900 selection:bg-purple-500/10">
+      {/* Premium Hexagon Background */}
+      <HexagonBackground />
       
       {/* Logo */}
       <div className="fixed top-6 left-8 z-50">

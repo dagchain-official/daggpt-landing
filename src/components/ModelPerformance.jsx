@@ -114,10 +114,10 @@ export function ModelPerformance() {
             viewport={{ once: true }}
             className="flex items-center justify-center md:justify-start gap-3 mb-6"
           >
-            <div className="p-2.5 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md">
-              <BarChart3 className="w-5 h-5 text-purple-400" />
+            <div className="p-2.5 rounded-2xl bg-white border border-slate-200 shadow-sm">
+              <BarChart3 className="w-5 h-5 text-purple-600" />
             </div>
-            <span className="text-xs font-black text-white/40 uppercase tracking-[0.2em]">Live Benchmarks</span>
+            <span className="text-xs font-bold text-slate-400 uppercase tracking-[0.2em]">Live Benchmarks</span>
           </motion.div>
           
           <motion.h2 
@@ -125,10 +125,10 @@ export function ModelPerformance() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-4xl md:text-6xl font-black text-white mb-8 tracking-tighter"
+            className="text-4xl md:text-6xl font-black text-slate-900 mb-8 tracking-tighter"
           >
             The Intelligence <br />
-            <span className="bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">Leaderboard</span>
+            <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">Leaderboard</span>
           </motion.h2>
           
           <motion.p 
@@ -136,23 +136,23 @@ export function ModelPerformance() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="text-lg text-white/40 max-w-3xl leading-relaxed font-light mb-10"
+            className="text-lg text-slate-500 max-w-3xl leading-relaxed font-normal mb-10"
           >
             Real-time performance analytics across the world's most capable AI models. 
-            Ranked using the <span className="text-white/80 font-medium italic">Bradley-Terry Elo system</span> based on millions of head-to-head creative matchups.
+            Ranked using the <span className="text-slate-900 font-semibold italic">Bradley-Terry Elo system</span> based on millions of head-to-head creative matchups.
           </motion.p>
 
           <div className="flex flex-wrap items-center justify-center md:justify-start gap-6">
             <button
               onClick={fetchLeaderboardData}
               disabled={loading}
-              className="group flex items-center gap-3 px-6 py-3.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded-2xl transition-all disabled:opacity-50 text-sm font-bold text-white shadow-xl"
+              className="group flex items-center gap-3 px-6 py-3.5 bg-white hover:bg-slate-50 border border-slate-200 rounded-2xl transition-all disabled:opacity-50 text-sm font-bold text-slate-700 shadow-sm"
             >
-              <RefreshCw className={`w-4 h-4 text-purple-400 ${loading ? 'animate-spin' : 'group-hover:rotate-180 transition-transform duration-700'}`} />
+              <RefreshCw className={`w-4 h-4 text-purple-600 ${loading ? 'animate-spin' : 'group-hover:rotate-180 transition-transform duration-700'}`} />
               Sync Data
             </button>
             {lastUpdated && (
-              <span className="text-xs font-medium text-white/20 tracking-wider uppercase">
+              <span className="text-xs font-semibold text-slate-400 tracking-wider uppercase">
                 Last updated {lastUpdated.toLocaleTimeString()}
               </span>
             )}
@@ -162,9 +162,9 @@ export function ModelPerformance() {
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
           {[
-            { label: "Total Models", value: `${modelData.length}+`, icon: TrendingUp, color: "text-blue-400" },
-            { label: "Avg Latency", value: "0.8s", icon: Zap, color: "text-yellow-400" },
-            { label: "Uptime", value: "99.99%", icon: Clock, color: "text-emerald-400" }
+            { label: "Total Models", value: `${modelData.length}+`, icon: TrendingUp, color: "text-blue-600" },
+            { label: "Avg Latency", value: "0.8s", icon: Zap, color: "text-amber-600" },
+            { label: "Uptime", value: "99.99%", icon: Clock, color: "text-emerald-600" }
           ].map((stat, i) => (
             <motion.div 
               key={i}
@@ -172,15 +172,15 @@ export function ModelPerformance() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className="bg-white/[0.03] backdrop-blur-xl rounded-3xl p-8 border border-white/10 group hover:border-white/20 transition-all"
+              className="bg-white/60 backdrop-blur-xl rounded-3xl p-8 border border-slate-200/50 group hover:border-purple-200 transition-all shadow-sm"
             >
               <div className="flex items-center gap-5">
-                <div className="p-4 bg-white/5 rounded-2xl border border-white/5 group-hover:scale-110 transition-transform">
+                <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100 group-hover:scale-110 transition-transform">
                   <stat.icon className={`w-6 h-6 ${stat.color}`} />
                 </div>
                 <div>
-                  <p className="text-[10px] font-black text-white/20 uppercase tracking-[0.2em] mb-1">{stat.label}</p>
-                  <p className="text-3xl font-black text-white tracking-tighter">{stat.value}</p>
+                  <p className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-1">{stat.label}</p>
+                  <p className="text-3xl font-black text-slate-900 tracking-tighter">{stat.value}</p>
                 </div>
               </div>
             </motion.div>
@@ -192,18 +192,18 @@ export function ModelPerformance() {
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
-          className="bg-white/[0.02] backdrop-blur-3xl rounded-[2.5rem] border border-white/10 p-10 md:p-16 shadow-[0_32px_64px_-16px_rgba(0,0,0,0.5)]"
+          className="bg-white/80 backdrop-blur-3xl rounded-[2.5rem] border border-slate-200/50 p-10 md:p-16 shadow-[0_32px_64px_-16px_rgba(0,0,0,0.05)]"
         >
           <div className="flex flex-col md:flex-row items-center justify-between mb-12 gap-6">
-            <h3 className="text-2xl font-black text-white tracking-tighter">Elo Rating Distribution</h3>
+            <h3 className="text-2xl font-black text-slate-900 tracking-tighter">Elo Rating Distribution</h3>
             <div className="flex items-center gap-6">
               <div className="flex items-center gap-2">
-                <div className="w-2.5 h-2.5 bg-purple-500 rounded-full shadow-[0_0_10px_rgba(168,85,247,0.5)]" />
-                <span className="text-[10px] font-bold text-white/40 uppercase tracking-widest">Ultra Class</span>
+                <div className="w-2.5 h-2.5 bg-purple-500 rounded-full shadow-[0_0_10px_rgba(168,85,247,0.3)]" />
+                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Ultra Class</span>
               </div>
               <div className="flex items-center gap-2">
-                <div className="w-2.5 h-2.5 bg-blue-500 rounded-full shadow-[0_0_10px_rgba(59,130,246,0.5)]" />
-                <span className="text-[10px] font-bold text-white/40 uppercase tracking-widest">Pro Class</span>
+                <div className="w-2.5 h-2.5 bg-blue-500 rounded-full shadow-[0_0_10px_rgba(59,130,246,0.3)]" />
+                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Pro Class</span>
               </div>
             </div>
           </div>
@@ -212,7 +212,7 @@ export function ModelPerformance() {
           <div className="overflow-x-auto pb-8 scrollbar-hide">
             {loading ? (
               <div className="flex items-center justify-center h-[400px]">
-                <div className="w-12 h-12 border-4 border-white/10 border-t-purple-500 rounded-full animate-spin" />
+                <div className="w-12 h-12 border-4 border-slate-100 border-t-purple-600 rounded-full animate-spin" />
               </div>
             ) : (
               <div className="flex items-end justify-start gap-6 min-w-max px-2" style={{ height: '400px' }}>
@@ -229,7 +229,6 @@ export function ModelPerformance() {
                     heightPercentage = 70;
                   }
                   
-                  // Vibrant futuristic palette
                   const barGradients = [
                     'from-purple-600 via-purple-500 to-purple-400',
                     'from-blue-600 via-blue-500 to-blue-400',
@@ -248,13 +247,13 @@ export function ModelPerformance() {
                     >
                       <div className="relative flex items-end justify-center w-16 h-[320px]">
                         <div 
-                          className={`w-full rounded-2xl bg-gradient-to-t ${gradient} transition-all duration-500 group-hover:scale-x-110 group-hover:brightness-125 relative flex items-center justify-center overflow-hidden shadow-2xl`}
+                          className={`w-full rounded-2xl bg-gradient-to-t ${gradient} transition-all duration-500 group-hover:scale-x-110 group-hover:brightness-110 relative flex items-center justify-center overflow-hidden shadow-sm`}
                           style={{ height: `${heightPercentage}%` }}
                         >
                           <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity" />
                           
                           <div 
-                            className="flex flex-row items-center gap-3 text-white font-black"
+                            className="flex flex-row items-center gap-3 text-white font-bold"
                             style={{ 
                               transform: 'rotate(-90deg)',
                               whiteSpace: 'nowrap',
@@ -263,23 +262,22 @@ export function ModelPerformance() {
                             <div className="w-5 h-5 flex items-center justify-center flex-shrink-0 scale-75 filter grayscale brightness-200">
                               {getCompanyLogo(model.organization)}
                             </div>
-                            <span className="text-[10px] uppercase tracking-widest">
+                            <span className="text-[10px] uppercase tracking-widest font-black">
                               {model.name}
                             </span>
                           </div>
                         </div>
                         
-                        {/* Score bubble on hover */}
                         <div className="absolute -top-10 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
-                          <span className="px-3 py-1 bg-white text-black text-[10px] font-black rounded-lg shadow-2xl">
+                          <span className="px-3 py-1 bg-slate-900 text-white text-[10px] font-black rounded-lg shadow-xl">
                             {model.score}
                           </span>
                         </div>
                       </div>
 
                       <div className="text-center">
-                        <p className="text-[10px] font-black text-white tracking-widest uppercase">{model.score}</p>
-                        <p className="text-[9px] font-bold text-white/20 uppercase tracking-widest mt-1">{model.organization}</p>
+                        <p className="text-[10px] font-black text-slate-900 tracking-widest uppercase">{model.score}</p>
+                        <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest mt-1">{model.organization}</p>
                       </div>
                     </motion.div>
                   );
@@ -288,8 +286,8 @@ export function ModelPerformance() {
             )}
           </div>
 
-          <div className="mt-16 pt-10 border-t border-white/5">
-            <p className="text-xs text-white/20 font-medium leading-relaxed max-w-2xl">
+          <div className="mt-16 pt-10 border-t border-slate-100">
+            <p className="text-xs text-slate-400 font-medium leading-relaxed max-w-2xl">
               * Benchmarks are calculated using an ensemble of human evaluation and automated metrics. 
               Values are refreshed daily at 00:00 UTC to ensure maximum accuracy across model iterations.
             </p>

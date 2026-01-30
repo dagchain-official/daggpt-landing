@@ -8,11 +8,11 @@ export function NavBar({ items, className }) {
   return (
     <div
       className={cn(
-        "fixed bottom-0 sm:top-0 left-1/2 -translate-x-1/2 z-50 mb-6 sm:pt-6 pointer-events-none",
+        "fixed bottom-8 sm:top-0 left-1/2 -translate-x-1/2 z-[100] sm:pt-6 pointer-events-none",
         className,
       )}
     >
-      <div className="flex items-center gap-3 bg-background/5 border border-border backdrop-blur-lg py-1 px-1 rounded-full shadow-lg pointer-events-auto">
+      <div className="flex items-center gap-1 bg-white/40 border border-slate-200 shadow-[0_20px_50px_rgba(0,0,0,0.05)] backdrop-blur-2xl py-1.5 px-1.5 rounded-full pointer-events-auto">
         {items.map((item) => {
           const Icon = item.icon
           const isActive = activeTab === item.name
@@ -21,40 +21,29 @@ export function NavBar({ items, className }) {
             <a
               key={item.name}
               href={item.url}
-              onClick={() => setActiveTab(item.name)}
+              onClick={(e) => {
+                e.preventDefault();
+                setActiveTab(item.name);
+              }}
               className={cn(
-                "relative cursor-pointer text-sm font-semibold px-6 py-2 rounded-full transition-colors",
-                "text-foreground/80 hover:text-primary",
-                isActive && "bg-muted text-primary",
+                "relative cursor-pointer text-[11px] font-black uppercase tracking-widest px-6 py-2.5 rounded-full transition-all duration-300",
+                isActive 
+                  ? "text-slate-900" 
+                  : "text-slate-400 hover:text-slate-600",
               )}
             >
-              {item.icon ? (
-                <>
-                  <span className="hidden md:inline">{item.name}</span>
-                  <span className="md:hidden">
-                    <Icon size={18} strokeWidth={2.5} />
-                  </span>
-                </>
-              ) : (
-                <span>{item.name}</span>
-              )}
+              <span className="relative z-10">{item.name}</span>
               {isActive && (
                 <motion.div
-                  layoutId="lamp"
-                  className="absolute inset-0 w-full bg-primary/5 rounded-full -z-10"
+                  layoutId="activeNavBackground"
+                  className="absolute inset-0 bg-white border border-slate-100 shadow-sm rounded-full z-0"
                   initial={false}
                   transition={{
                     type: "spring",
-                    stiffness: 300,
+                    stiffness: 400,
                     damping: 30,
                   }}
-                >
-                  <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-8 h-1 bg-primary rounded-t-full">
-                    <div className="absolute w-12 h-6 bg-primary/20 rounded-full blur-md -top-2 -left-2" />
-                    <div className="absolute w-8 h-6 bg-primary/20 rounded-full blur-md -top-1" />
-                    <div className="absolute w-4 h-4 bg-primary/20 rounded-full blur-sm top-0 left-2" />
-                  </div>
-                </motion.div>
+                />
               )}
             </a>
           )

@@ -122,9 +122,9 @@ export function ChatboxContainer() {
         <div className="space-y-12">
           {/* Main Chatbox Container */}
           <div className="relative group">
-            <div className="absolute -inset-[2px] bg-gradient-to-r from-purple-500/20 via-blue-500/20 to-cyan-500/20 rounded-[2.5rem] blur-xl opacity-0 group-hover:opacity-100 transition duration-1000"></div>
+            <div className="absolute -inset-[1px] bg-gradient-to-r from-purple-500/10 via-blue-500/10 to-cyan-500/10 rounded-[2.5rem] blur-2xl opacity-0 group-hover:opacity-100 transition duration-1000"></div>
             
-            <div className="relative bg-black/40 backdrop-blur-[40px] border border-white/10 rounded-[2rem] shadow-[0_32px_64px_-16px_rgba(0,0,0,0.6)] overflow-hidden">
+            <div className="relative bg-white/60 backdrop-blur-[40px] border border-slate-200/50 rounded-[2.5rem] shadow-[0_32px_64px_-16px_rgba(0,0,0,0.08)] overflow-hidden transition-all duration-500 group-hover:shadow-[0_48px_80px_-16px_rgba(0,0,0,0.12)]">
               {/* Input Area */}
               <div className="p-8 pb-4">
                 <div className="flex items-start gap-6">
@@ -133,8 +133,8 @@ export function ChatboxContainer() {
                       value={inputValue}
                       onChange={(e) => setInputValue(e.target.value)}
                       onKeyPress={handleKeyPress}
-                      placeholder={`Imagine something incredible...`}
-                      className="w-full h-full bg-transparent text-white text-xl md:text-2xl placeholder:text-white/20 focus:outline-none resize-none leading-relaxed font-light"
+                      placeholder={`What's on your mind today?`}
+                      className="w-full h-full bg-transparent text-slate-900 text-xl md:text-2xl placeholder:text-slate-300 focus:outline-none resize-none leading-relaxed font-normal"
                     />
                     
                     {attachedFiles.length > 0 && (
@@ -144,12 +144,12 @@ export function ChatboxContainer() {
                             initial={{ scale: 0.8, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
                             key={index}
-                            className="inline-flex items-center gap-2.5 px-4 py-2 bg-white/5 backdrop-blur-md rounded-xl text-xs text-white/80 border border-white/10 shadow-lg"
+                            className="inline-flex items-center gap-2.5 px-4 py-2 bg-slate-100/80 backdrop-blur-md rounded-xl text-xs text-slate-700 border border-slate-200 shadow-sm"
                           >
-                            <FileText className="w-4 h-4 text-purple-400" />
-                            <span className="max-w-[140px] truncate">{file.name}</span>
-                            <button onClick={() => setAttachedFiles(f => f.filter((_, i) => i !== index))} className="hover:text-red-400 transition-colors">
-                              <X className="w-4 h-4" />
+                            <FileText className="w-4 h-4 text-purple-600" />
+                            <span className="max-w-[140px] truncate font-medium">{file.name}</span>
+                            <button onClick={() => setAttachedFiles(f => f.filter((_, i) => i !== index))} className="hover:text-red-600 transition-colors ml-1">
+                              <X className="w-3.5 h-3.5" />
                             </button>
                           </motion.div>
                         ))}
@@ -160,13 +160,13 @@ export function ChatboxContainer() {
               </div>
 
               {/* Enhanced Toolbar */}
-              <div className="px-6 py-6 bg-white/[0.02] border-t border-white/5">
+              <div className="px-6 py-6 bg-slate-50/50 border-t border-slate-100">
                 <div className="flex flex-col md:flex-row items-center justify-between gap-6">
                   {/* Left: Dynamic Controls */}
                   <div className="flex items-center flex-wrap gap-3">
                     <button 
                       onClick={() => fileInputRef.current?.click()}
-                      className="group p-3 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 transition-all text-white/60 hover:text-white"
+                      className="group p-3 rounded-2xl bg-white hover:bg-slate-50 border border-slate-200 shadow-sm transition-all text-slate-500 hover:text-slate-900"
                     >
                       <Paperclip className="w-5 h-5" />
                       <input ref={fileInputRef} type="file" multiple className="hidden" onChange={(e) => setAttachedFiles([...attachedFiles, ...Array.from(e.target.files)])} />
@@ -175,9 +175,9 @@ export function ChatboxContainer() {
                     <div className="relative">
                       <button 
                         onClick={() => setShowModelDropdown(!showModelDropdown)}
-                        className="flex items-center gap-3 px-5 py-3 text-sm font-medium rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 transition-all text-white/80"
+                        className="flex items-center gap-3 px-5 py-3 text-sm font-semibold rounded-2xl bg-white hover:bg-slate-50 border border-slate-200 shadow-sm transition-all text-slate-700"
                       >
-                        <Sparkles className="w-4 h-4 text-purple-400" />
+                        <Sparkles className="w-4 h-4 text-purple-600" />
                         <span>{selectedTool === "Image Generation" ? selectedImageModel : selectedModel}</span>
                         <ChevronDown className={`w-4 h-4 opacity-40 transition-transform ${showModelDropdown ? 'rotate-180' : ''}`} />
                       </button>
@@ -188,9 +188,9 @@ export function ChatboxContainer() {
                             initial={{ opacity: 0, y: 10, scale: 0.95 }}
                             animate={{ opacity: 1, y: 0, scale: 1 }}
                             exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                            className="absolute bottom-full left-0 mb-4 w-72 bg-[#0a0a0a] border border-white/10 rounded-[1.5rem] shadow-[0_16px_48px_rgba(0,0,0,0.8)] z-[100] p-3 backdrop-blur-3xl"
+                            className="absolute bottom-full left-0 mb-4 w-72 bg-white border border-slate-200 rounded-[1.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.1)] z-[100] p-2 backdrop-blur-3xl"
                           >
-                            <div className="text-[10px] font-bold text-white/20 px-3 pb-2 uppercase tracking-widest">Select Intelligence</div>
+                            <div className="text-[10px] font-bold text-slate-400 px-4 pt-3 pb-2 uppercase tracking-widest">Select Intelligence</div>
                             {(selectedTool === "Image Generation" ? imageModels : aiModels).map((model) => (
                               <button
                                 key={model.id}
@@ -199,13 +199,13 @@ export function ChatboxContainer() {
                                   else setSelectedModel(model.name)
                                   setShowModelDropdown(false)
                                 }}
-                                className="w-full text-left px-4 py-3 rounded-xl hover:bg-white/5 text-sm flex items-center justify-between transition-all group"
+                                className="w-full text-left px-4 py-3 rounded-xl hover:bg-slate-50 text-sm flex items-center justify-between transition-all group"
                               >
-                                <div className="flex flex-col">
-                                  <span className="text-white/80 group-hover:text-white font-medium">{model.name}</span>
-                                  <span className="text-[10px] text-white/30">{model.tier}</span>
+                                <div className="flex flex-col text-left items-start">
+                                  <span className="text-slate-700 group-hover:text-slate-900 font-bold">{model.name}</span>
+                                  <span className="text-[10px] text-slate-400 font-medium">{model.tier}</span>
                                 </div>
-                                {(selectedTool === "Image Generation" ? selectedImageModel : selectedModel) === model.name && <Check className="w-4 h-4 text-purple-400" />}
+                                {(selectedTool === "Image Generation" ? selectedImageModel : selectedModel) === model.name && <Check className="w-4 h-4 text-purple-600" />}
                               </button>
                             ))}
                           </motion.div>
@@ -218,33 +218,33 @@ export function ChatboxContainer() {
                   <div className="flex items-center gap-4 w-full md:w-auto">
                     <button 
                       onClick={() => setIsPublic(!isPublic)}
-                      className={`flex-1 md:flex-none flex items-center justify-center gap-2.5 px-5 py-3 rounded-2xl text-sm font-medium transition-all border ${
+                      className={`flex-1 md:flex-none flex items-center justify-center gap-2.5 px-5 py-3 rounded-2xl text-xs font-bold transition-all border shadow-sm ${
                         isPublic 
-                          ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' 
-                          : 'bg-rose-500/10 text-rose-400 border-rose-500/20'
+                          ? 'bg-emerald-50 text-emerald-600 border-emerald-100 hover:bg-emerald-100' 
+                          : 'bg-rose-50 text-rose-600 border-rose-100 hover:bg-rose-100'
                       }`}
                     >
                       {isPublic ? <Globe className="w-4 h-4" /> : <Lock className="w-4 h-4" />}
-                      <span>{isPublic ? 'Public' : 'Private'}</span>
+                      <span className="uppercase tracking-widest">{isPublic ? 'Public' : 'Private'}</span>
                     </button>
 
-                    <div className="h-8 w-[1px] bg-white/10 mx-1 hidden md:block" />
+                    <div className="h-8 w-[1px] bg-slate-200 mx-1 hidden md:block" />
 
                     <VoiceInputButton 
                       onTranscript={(text) => setInputValue(v => v + (v ? ' ' : '') + text)}
-                      className="p-3 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 text-white/60 hover:text-white transition-all"
+                      className="p-3 rounded-2xl bg-white hover:bg-slate-50 border border-slate-200 text-slate-500 hover:text-slate-900 transition-all shadow-sm"
                     />
 
                     <button 
                       onClick={handleSendMessage}
                       disabled={!inputValue.trim()}
-                      className={`relative group flex items-center justify-center gap-3 px-8 py-3.5 rounded-2xl text-sm font-black transition-all ${
+                      className={`relative group flex items-center justify-center gap-3 px-8 py-4 rounded-2xl text-sm font-black transition-all ${
                         !inputValue.trim() 
-                          ? 'bg-white/5 text-white/20 cursor-not-allowed border border-white/5' 
-                          : 'bg-white text-black hover:scale-[1.05] active:scale-[0.98] shadow-[0_0_20px_rgba(255,255,255,0.3)] hover:shadow-[0_0_30px_rgba(255,255,255,0.5)]'
+                          ? 'bg-slate-100 text-slate-400 cursor-not-allowed border border-slate-200 opacity-50' 
+                          : 'bg-slate-900 text-white hover:bg-black hover:scale-[1.02] active:scale-[0.98] shadow-[0_10px_25px_rgba(0,0,0,0.15)]'
                       }`}
                     >
-                      <span>GENERATE</span>
+                      <span className="tracking-widest">GENERATE</span>
                       <Send className="w-4 h-4" />
                     </button>
                   </div>
@@ -255,28 +255,30 @@ export function ChatboxContainer() {
 
           {/* Feature Dock - Reimagined */}
           <div className="relative">
-            <div className="flex items-center justify-center flex-wrap gap-3">
+            <div className="flex items-center justify-center flex-wrap gap-4">
               {aiTools.map((tool) => {
                 const isActive = selectedTool === tool.name
                 const Icon = tool.icon
                 return (
                   <motion.button
                     key={tool.id}
-                    whileHover={{ y: -6, scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
+                    whileHover={{ y: -6, scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
                     onClick={() => setSelectedTool(tool.name)}
-                    className={`relative flex items-center gap-3 px-7 py-4 rounded-[1.5rem] transition-all duration-500 ${
+                    className={`relative flex items-center gap-3 px-8 py-4 rounded-2xl transition-all duration-300 border ${
                       isActive 
-                        ? "bg-white text-black shadow-[0_20px_40px_rgba(255,255,255,0.1)] z-10" 
-                        : "bg-white/5 hover:bg-white/10 text-white/40 hover:text-white border border-white/5"
+                        ? "bg-white text-slate-900 border-slate-300 shadow-[0_15px_30px_rgba(0,0,0,0.08)] z-10" 
+                        : "bg-white/40 hover:bg-white/80 text-slate-500 hover:text-slate-800 border-slate-200/50 backdrop-blur-sm"
                     }`}
                   >
-                    <Icon className={`w-5 h-5 ${isActive ? 'text-black' : 'text-white/40'}`} />
-                    <span className="text-sm font-black tracking-tight uppercase">{tool.name}</span>
+                    <div className={`p-1.5 rounded-lg ${isActive ? 'bg-slate-100' : 'bg-transparent'}`}>
+                      <Icon className={`w-5 h-5 ${isActive ? 'text-slate-900' : 'text-slate-400'}`} />
+                    </div>
+                    <span className="text-sm font-bold tracking-tight">{tool.name}</span>
                     {isActive && (
                       <motion.div 
-                        layoutId="activeToolGlow"
-                        className="absolute -inset-[1px] rounded-[1.5rem] border border-white/50 opacity-50"
+                        layoutId="activeToolIndicator"
+                        className="absolute bottom-2 left-1/2 -translate-x-1/2 w-6 h-1 bg-purple-600 rounded-full"
                       />
                     )}
                   </motion.button>

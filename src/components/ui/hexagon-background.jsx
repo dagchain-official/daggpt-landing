@@ -1,31 +1,35 @@
 import * as React from 'react';
 import { cn } from '../../lib/utils';
+import { motion, useScroll, useTransform } from 'framer-motion';
 
 function HexagonBackground({
   className,
   children,
   hexagonProps = {},
-  hexagonSize = 75,
-  hexagonMargin = 3,
+  hexagonSize = 64,
+  hexagonMargin = 4,
   ...props
 }) {
   const hexagonWidth = hexagonSize;
-  const hexagonHeight = hexagonSize * 1.1;
-  const rowSpacing = hexagonSize * 0.8;
-  const baseMarginTop = -36 - 0.275 * (hexagonSize - 100);
-  const computedMarginTop = baseMarginTop + hexagonMargin;
+  const hexagonHeight = hexagonSize * 1.15;
+  const rowSpacing = hexagonSize * 0.85;
+  const computedMarginTop = -hexagonSize * 0.25;
   const oddRowMarginLeft = -(hexagonSize / 2);
-  const evenRowMarginLeft = hexagonMargin / 2;
+  const evenRowMarginLeft = 0;
 
   const [gridDimensions, setGridDimensions] = React.useState({
     rows: 0,
     columns: 0,
   });
 
+  const containerRef = React.useRef(null);
+  const { scrollYProgress } = useScroll();
+  const y = useTransform(scrollYProgress, [0, 1], [0, -100]);
+
   const updateGridDimensions = React.useCallback(() => {
     if (typeof window === 'undefined') return;
-    const rows = Math.ceil(window.innerHeight / rowSpacing);
-    const columns = Math.ceil(window.innerWidth / hexagonWidth) + 1;
+    const rows = Math.ceil(window.innerHeight / rowSpacing) + 2;
+    const columns = Math.ceil(window.innerWidth / hexagonWidth) + 2;
     setGridDimensions({ rows, columns });
   }, [rowSpacing, hexagonWidth]);
 
@@ -37,32 +41,45 @@ function HexagonBackground({
 
   return (
     <div
-      data-slot="hexagon-background"
+      ref={containerRef}
       className={cn(
-        'relative size-full overflow-hidden bg-white',
+        'fixed inset-0 size-full overflow-hidden bg-slate-50/50',
         className,
       )}
       {...props}
     >
-      <style>{`:root { --hexagon-margin: ${hexagonMargin}px; }`}</style>
-      <div className="absolute top-0 -left-0 size-full overflow-hidden">
+      {/* Background Gradients for depth */}
+      <div className="absolute inset-0 z-0">
+        <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-purple-100/40 rounded-full blur-[120px]" />
+        <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-blue-100/30 rounded-full blur-[150px]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle_at_center,transparent_0%,white_90%)]" />
+      </div>
+
+      <motion.div 
+        style={{ y }}
+        className="absolute top-[-50px] -left-0 size-full overflow-visible z-10 opacity-[0.4]"
+      >
         {Array.from({ length: gridDimensions.rows }).map((_, rowIndex) => (
           <div
             key={`row-${rowIndex}`}
             style={{
               marginTop: computedMarginTop,
               marginLeft:
-                ((rowIndex + 1) % 2 === 0
+                (rowIndex % 2 === 0
                   ? evenRowMarginLeft
-                  : oddRowMarginLeft) - 10,
+                  : oddRowMarginLeft),
             }}
-            className="inline-flex"
+            className="flex flex-nowrap"
           >
             {Array.from({ length: gridDimensions.columns }).map(
               (_, colIndex) => (
-                <div
+                <motion.div
                   key={`hexagon-${rowIndex}-${colIndex}`}
-                  {...hexagonProps}
+                  whileHover={{ 
+                    scale: 1.05,
+                    zIndex: 20,
+                  }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
                   style={{
                     width: hexagonWidth,
                     height: hexagonHeight,
@@ -70,21 +87,27 @@ function HexagonBackground({
                     ...hexagonProps?.style,
                   }}
                   className={cn(
-                    'relative cursor-pointer transition-all duration-300',
+                    'relative transition-all duration-500 group',
                     '[clip-path:polygon(50%_0%,_100%_25%,_100%_75%,_50%_100%,_0%_75%,_0%_25%)]',
-                    "before:content-[''] before:absolute before:top-0 before:left-0 before:w-full before:h-full before:bg-gray-200 before:transition-colors before:duration-300",
-                    "after:content-[''] after:absolute after:inset-[var(--hexagon-margin)] after:bg-white after:transition-colors after:duration-300",
-                    'after:[clip-path:polygon(50%_0%,_100%_25%,_100%_75%,_50%_100%,_0%_75%,_0%_25%)]',
-                    'hover:before:bg-purple-400 hover:after:bg-purple-50',
+                    'bg-slate-200/40 hover:bg-purple-200/60',
+                    'before:content-[""] before:absolute before:inset-[1px] before:bg-white/80 before:z-[1]',
+                    'before:[clip-path:polygon(50%_0%,_100%_25%,_100%_75%,_50%_100%,_0%_75%,_0%_25%)]',
+                    'hover:shadow-[0_0_20px_rgba(168,85,247,0.2)]',
                     hexagonProps?.className,
                   )}
-                />
+                >
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br from-purple-500/10 to-blue-500/10 z-[2]" />
+                </motion.div>
               ),
             )}
           </div>
         ))}
+      </motion.div>
+      
+      {/* Content overlay */}
+      <div className="relative z-20 w-full h-full">
+        {children}
       </div>
-      {children}
     </div>
   );
 }
