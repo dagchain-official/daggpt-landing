@@ -8,6 +8,7 @@ import { HeroSection } from './components/HeroSection';
 import { ChatboxContainer } from './components/ChatboxContainer';
 import { ChatPage } from './components/ChatPage';
 import { ImageGenerationPage } from './components/ImageGenerationPage';
+import { PrivacyPolicyPage } from './components/PrivacyPolicyPage';
 import { ModelPerformance } from './components/ModelPerformance';
 import { CommunityShowcase } from './components/CommunityShowcase';
 import { Footer } from './components/ui/Footer';
@@ -70,6 +71,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/chat" element={<ChatPage />} />
         <Route path="/image-generation" element={<ImageGenerationPage />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
       </Routes>
     </Router>
   );

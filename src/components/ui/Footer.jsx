@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Logo } from '../Logo';
-import { Twitter, Github, Linkedin, Mail, ArrowRight, Heart } from 'lucide-react';
+import { Twitter, Github, Linkedin, Mail, ArrowRight } from 'lucide-react';
 
 export function Footer() {
   const footerLinks = [
@@ -79,44 +79,23 @@ export function Footer() {
                 </h4>
                 <ul className="space-y-5">
                   {section.links.map((link, j) => (
-                    <li key={j}>
-                      <a 
-                        href="/" 
-                        className="text-slate-500 hover:text-purple-600 transition-all flex items-center group text-[15px] font-semibold tracking-tight"
-                      >
-                        {link}
-                        <ArrowRight className="w-4 h-4 ml-2 opacity-0 -translate-x-3 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
-                      </a>
-                    </li>
+                      <li key={j}>
+                        <a 
+                          href={link === 'Privacy Policy' ? '/privacy-policy' : '/'} 
+                          target={link === 'Privacy Policy' ? '_blank' : undefined}
+                          rel={link === 'Privacy Policy' ? 'noopener noreferrer' : undefined}
+                          className="text-slate-500 hover:text-purple-600 transition-all flex items-center group text-[15px] font-semibold tracking-tight"
+                        >
+                          {link}
+                          <ArrowRight className="w-4 h-4 ml-2 opacity-0 -translate-x-3 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
+                        </a>
+                      </li>
                   ))}
                 </ul>
               </div>
             ))}
           </div>
 
-          {/* Bottom Bar */}
-          <div className="pt-16 border-t border-slate-200/60 flex flex-col md:flex-row items-center justify-between gap-10">
-            <div className="flex items-center gap-8">
-              <p className="text-slate-400 text-sm font-bold tracking-tight">
-                © 2026 DAG GPT.
-              </p>
-              <div className="flex items-center gap-6">
-                <a href="/daggpt-privacy-policy.pdf" target="_blank" rel="noopener noreferrer" className="text-xs font-black text-slate-400 hover:text-slate-900 uppercase tracking-widest transition-colors">Privacy</a>
-                <a href="/" className="text-xs font-black text-slate-400 hover:text-slate-900 uppercase tracking-widest transition-colors">Terms</a>
-              </div>
-            </div>
-            
-            <div className="px-6 py-3 bg-white/50 backdrop-blur-xl border border-slate-200 rounded-2xl shadow-sm flex items-center gap-3">
-              <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span className="text-[11px] font-black text-slate-600 uppercase tracking-[0.15em]">Systems Operational</span>
-            </div>
-
-            <div className="flex items-center gap-2 text-slate-400 text-sm font-bold">
-              <span>Made with</span>
-              <Heart className="w-4 h-4 text-rose-500 fill-rose-500 animate-bounce" />
-              <span>by the Creative Team</span>
-            </div>
-          </div>
         </div>
 
         {/* Decorative Background Elements */}
