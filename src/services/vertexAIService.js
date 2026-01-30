@@ -39,23 +39,30 @@ class VertexAIService {
       console.log(`🌐 Fetch ${options.method || 'GET'} ${url} | Status: ${response.status}`);
       const contentType = response.headers.get('content-type');
 
-    if (!response.ok) {
-      let errorMessage = `Request failed with status ${response.status}`;
-      if (contentType && contentType.includes('application/json')) {
-        const errorData = await response.json();
-        errorMessage = errorData.error || errorData.message || errorMessage;
-      } else {
-        const text = await response.text();
-        errorMessage = text.substring(0, 100) || errorMessage;
+      if (!response.ok) {
+        let errorMessage = `Request failed with status ${response.status}`;
+        if (contentType && contentType.includes('application/json')) {
+          const errorData = await response.json();
+          errorMessage = errorData.error || errorData.message || errorMessage;
+        } else {
+          const text = await response.text();
+          errorMessage = text.substring(0, 100) || errorMessage;
+        }
+        throw new Error(errorMessage);
       }
-      throw new Error(errorMessage);
-    }
 
-    if (contentType && contentType.includes('application/json')) {
-      return await response.json();
+      if (contentType && contentType.includes('application/json')) {
+        return await response.json();
+      }
+      
+      throw new Error(`Expected JSON response but received ${contentType || 'unknown content'}`);
+    } catch (error) {
+      clearTimeout(timeoutId);
+      if (error.name === 'AbortError') {
+        throw new Error('Request timed out after 60 seconds');
+      }
+      throw error;
     }
-    
-    throw new Error(`Expected JSON response but received ${contentType || 'unknown content'}`);
   }
 
   /**
