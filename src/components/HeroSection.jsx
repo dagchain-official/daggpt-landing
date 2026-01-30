@@ -1,6 +1,5 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { HexagonBackground } from './ui/hexagon-background';
 
 export function HeroSection() {
   const containerVariants = {
@@ -8,88 +7,81 @@ export function HeroSection() {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2,
+        staggerChildren: 0.15,
       },
     },
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: 30 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.8,
+        duration: 1,
         ease: [0.16, 1, 0.3, 1],
       },
     },
   };
 
   return (
-    <div className="relative w-full min-h-[60vh] flex flex-col items-center justify-center overflow-hidden bg-white">
-      {/* Premium Background Layer */}
-      <div className="absolute inset-0 z-0 opacity-40">
-        <HexagonBackground 
-          hexagonSize={60} 
-          hexagonMargin={2}
-          className="bg-transparent"
-          hexagonProps={{
-            className: "before:bg-gray-100 after:bg-white hover:before:bg-purple-200 hover:after:bg-purple-50/50"
-          }}
-        />
-      </div>
-
-      {/* Radial Gradient Overlay for Depth */}
-      <div className="absolute inset-0 z-1 pointer-events-none bg-[radial-gradient(circle_at_center,_transparent_0%,_white_80%)]" />
-
+    <div className="relative w-full min-h-[50vh] flex flex-col items-center justify-center overflow-hidden bg-transparent pt-32 pb-16">
       {/* Content Container */}
       <motion.div 
-        className="relative z-10 max-w-6xl mx-auto text-center px-4 pt-20 pb-10"
+        className="relative z-10 max-w-6xl mx-auto text-center px-4"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
       >
-        <motion.div variants={itemVariants} className="inline-block mb-4 px-4 py-1.5 rounded-full bg-purple-50 border border-purple-100 shadow-sm">
-          <span className="text-xs font-bold uppercase tracking-widest text-purple-600">The Future of AI is Here</span>
+        <motion.div 
+          variants={itemVariants} 
+          className="inline-flex items-center gap-2 mb-6 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md"
+        >
+          <div className="w-2 h-2 rounded-full bg-purple-500 animate-pulse" />
+          <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/70">
+            Powered by Next-Gen Intelligence
+          </span>
         </motion.div>
 
         <motion.h1 
           variants={itemVariants}
-          className="text-5xl md:text-7xl lg:text-8xl font-black text-gray-900 mb-8 leading-[1.1] tracking-tight"
+          className="text-6xl md:text-8xl lg:text-[10rem] font-black text-white mb-8 leading-[0.9] tracking-tighter"
         >
-          Your Intelligent <br />
-          <span className="relative inline-block">
-            <span className="bg-gradient-to-r from-purple-600 via-blue-600 to-cyan-500 bg-clip-text text-transparent" style={{ fontFamily: 'Nasalization, sans-serif' }}>
-              AI ASSISTANT
+          FUTURE OF <br />
+          <span className="relative inline-block mt-2">
+            <span className="bg-gradient-to-r from-purple-400 via-blue-400 to-cyan-400 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(168,85,247,0.4)]">
+              CREATIVITY
             </span>
-            <motion.div 
-              className="absolute -bottom-2 left-0 w-full h-1.5 bg-gradient-to-r from-purple-600 to-cyan-500 rounded-full"
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: 1 }}
-              transition={{ delay: 1, duration: 1, ease: "easeOut" }}
-            />
           </span>
         </motion.h1>
 
         <motion.p 
           variants={itemVariants}
-          className="text-lg md:text-2xl text-gray-500 max-w-3xl mx-auto leading-relaxed font-medium mb-4"
+          className="text-lg md:text-xl text-white/50 max-w-2xl mx-auto leading-relaxed font-light mb-12"
         >
-          Unleash the power of DAGGPT. Generate content, images, and code with the world's most advanced AI models in one unified platform.
+          Experience the most advanced AI ecosystem. Build, create, and innovate with tools designed for the next generation of digital excellence.
         </motion.p>
         
         <motion.div 
           variants={itemVariants}
-          className="flex items-center justify-center gap-4 text-sm text-gray-400 font-medium"
+          className="flex flex-col items-center gap-6"
         >
-          <div className="flex -space-x-2">
-            {[1, 2, 3, 4].map((i) => (
-              <div key={i} className={`w-8 h-8 rounded-full border-2 border-white bg-gray-100 flex items-center justify-center text-[10px] font-bold text-gray-400 shadow-sm`}>
+          <div className="flex -space-x-3">
+            {[1, 2, 3, 4, 5].map((i) => (
+              <div 
+                key={i} 
+                className="w-10 h-10 rounded-full border-2 border-[#030303] bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center text-[10px] font-bold text-white shadow-xl"
+              >
                 {String.fromCharCode(64 + i)}
               </div>
             ))}
+            <div className="w-10 h-10 rounded-full border-2 border-[#030303] bg-white/10 backdrop-blur-md flex items-center justify-center text-[10px] font-bold text-white shadow-xl">
+              +50k
+            </div>
           </div>
-          <span>Trusted by 50,000+ creators and developers</span>
+          <p className="text-xs font-medium text-white/40 tracking-wider uppercase">
+            Trusted by the world's most innovative teams
+          </p>
         </motion.div>
       </motion.div>
     </div>

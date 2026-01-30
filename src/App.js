@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 import { NavBar } from './components/ui/tubelight-navbar';
 import { Logo } from './components/Logo';
-import { BackgroundVideo } from './components/BackgroundVideo';
+import { PremiumBackground } from './components/ui/premium-background';
 import { HeroSection } from './components/HeroSection';
 import { ChatboxContainer } from './components/ChatboxContainer';
 import { ChatPage } from './components/ChatPage';
@@ -21,9 +21,9 @@ function HomePage() {
   ];
 
   return (
-    <div className="min-h-screen w-full relative bg-white">
-      {/* Background Video */}
-      <BackgroundVideo />
+    <div className="min-h-screen w-full relative bg-[#030303] text-white selection:bg-purple-500/30">
+      {/* Premium Background */}
+      <PremiumBackground />
       
       {/* Logo */}
       <div className="fixed top-6 left-8 z-50">

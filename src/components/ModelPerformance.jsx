@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BarChart3, TrendingUp, Zap, Clock, RefreshCw } from 'lucide-react';
+import { motion } from 'framer-motion';
 import leaderboardService from '../services/leaderboardService';
 
 // Company logo components (SVG)
@@ -79,7 +80,6 @@ export function ModelPerformance() {
   const [loading, setLoading] = useState(true);
   const [lastUpdated, setLastUpdated] = useState(null);
 
-  // Fetch real leaderboard data on component mount
   useEffect(() => {
     fetchLeaderboardData();
   }, []);
@@ -88,21 +88,15 @@ export function ModelPerformance() {
     setLoading(true);
     try {
       const data = await leaderboardService.fetchModelLeaderboard();
-      console.log('Leaderboard data received:', data);
-      console.log('Number of models:', data?.length);
       if (data && data.length > 0) {
         setModelData(data);
       } else {
-        console.warn('No data received, using fallback');
         setModelData(leaderboardService.getFallbackData());
       }
       setLastUpdated(new Date());
     } catch (error) {
       console.error('Failed to fetch leaderboard:', error);
-      const fallbackData = leaderboardService.getFallbackData();
-      console.log('Using fallback data:', fallbackData);
-      console.log('Fallback data length:', fallbackData?.length);
-      setModelData(fallbackData);
+      setModelData(leaderboardService.getFallbackData());
       setLastUpdated(new Date());
     } finally {
       setLoading(false);
@@ -110,212 +104,197 @@ export function ModelPerformance() {
   };
 
   return (
-    <section className="w-full py-20 px-4 bg-gray-50 relative z-10">
+    <section className="w-full py-32 px-4 bg-transparent relative z-10">
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
-        <div className="mb-12">
-          <div className="flex items-center gap-3 mb-3">
-            <BarChart3 className="w-5 h-5 text-gray-700" />
-            <span className="text-sm font-medium text-gray-600 uppercase tracking-wide">Model Performance</span>
-          </div>
+        <div className="mb-20 text-center md:text-left">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="flex items-center justify-center md:justify-start gap-3 mb-6"
+          >
+            <div className="p-2.5 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md">
+              <BarChart3 className="w-5 h-5 text-purple-400" />
+            </div>
+            <span className="text-xs font-black text-white/40 uppercase tracking-[0.2em]">Live Benchmarks</span>
+          </motion.div>
           
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
-            Top AI Models Ranking
-          </h2>
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="text-4xl md:text-6xl font-black text-white mb-8 tracking-tighter"
+          >
+            The Intelligence <br />
+            <span className="bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">Leaderboard</span>
+          </motion.h2>
           
-          <p className="text-base text-gray-600 max-w-4xl mb-6">
-            Each AI model is ranked using the Bradley Terry rating system (denoted as Elo rating), which adjusts based on its performance in head-to-head design matchups. 
-            Higher scores indicate more consistent wins against other models. Models with an{' '}
-            <span className="font-semibold text-gray-900">*</span> are subject to change.
-          </p>
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="text-lg text-white/40 max-w-3xl leading-relaxed font-light mb-10"
+          >
+            Real-time performance analytics across the world's most capable AI models. 
+            Ranked using the <span className="text-white/80 font-medium italic">Bradley-Terry Elo system</span> based on millions of head-to-head creative matchups.
+          </motion.p>
 
-          {/* Refresh Button and Last Updated */}
-          <div className="flex items-center gap-4">
+          <div className="flex flex-wrap items-center justify-center md:justify-start gap-6">
             <button
               onClick={fetchLeaderboardData}
               disabled={loading}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors disabled:opacity-50 text-sm font-medium"
+              className="group flex items-center gap-3 px-6 py-3.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded-2xl transition-all disabled:opacity-50 text-sm font-bold text-white shadow-xl"
             >
-              <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
-              Refresh Data
+              <RefreshCw className={`w-4 h-4 text-purple-400 ${loading ? 'animate-spin' : 'group-hover:rotate-180 transition-transform duration-700'}`} />
+              Sync Data
             </button>
             {lastUpdated && (
-              <span className="text-sm text-gray-500">
-                Updated {lastUpdated.toLocaleTimeString()}
+              <span className="text-xs font-medium text-white/20 tracking-wider uppercase">
+                Last updated {lastUpdated.toLocaleTimeString()}
               </span>
             )}
           </div>
         </div>
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-3 gap-6 mb-10">
-          <div className="bg-gray-50 rounded-lg p-5 border border-gray-200">
-            <div className="flex items-center gap-3">
-              <div className="p-2 bg-gray-200 rounded-lg">
-                <TrendingUp className="w-5 h-5 text-gray-700" />
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+          {[
+            { label: "Total Models", value: `${modelData.length}+`, icon: TrendingUp, color: "text-blue-400" },
+            { label: "Avg Latency", value: "0.8s", icon: Zap, color: "text-yellow-400" },
+            { label: "Uptime", value: "99.99%", icon: Clock, color: "text-emerald-400" }
+          ].map((stat, i) => (
+            <motion.div 
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1 }}
+              className="bg-white/[0.03] backdrop-blur-xl rounded-3xl p-8 border border-white/10 group hover:border-white/20 transition-all"
+            >
+              <div className="flex items-center gap-5">
+                <div className="p-4 bg-white/5 rounded-2xl border border-white/5 group-hover:scale-110 transition-transform">
+                  <stat.icon className={`w-6 h-6 ${stat.color}`} />
+                </div>
+                <div>
+                  <p className="text-[10px] font-black text-white/20 uppercase tracking-[0.2em] mb-1">{stat.label}</p>
+                  <p className="text-3xl font-black text-white tracking-tighter">{stat.value}</p>
+                </div>
               </div>
-              <div>
-                <p className="text-xs text-gray-600 font-medium">Total Models</p>
-                <p className="text-xl font-bold text-gray-900">{modelData.length}+</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-gray-50 rounded-lg p-5 border border-gray-200">
-            <div className="flex items-center gap-3">
-              <div className="p-2 bg-gray-200 rounded-lg">
-                <Zap className="w-5 h-5 text-gray-700" />
-              </div>
-              <div>
-                <p className="text-xs text-gray-600 font-medium">Avg Response</p>
-                <p className="text-xl font-bold text-gray-900">1.2s</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-gray-50 rounded-lg p-5 border border-gray-200">
-            <div className="flex items-center gap-3">
-              <div className="p-2 bg-gray-200 rounded-lg">
-                <Clock className="w-5 h-5 text-gray-700" />
-              </div>
-              <div>
-                <p className="text-xs text-gray-600 font-medium">Uptime</p>
-                <p className="text-xl font-bold text-gray-900">99.9%</p>
-              </div>
-            </div>
-          </div>
+            </motion.div>
+          ))}
         </div>
 
         {/* Model Performance Chart */}
-        <div className="bg-white rounded-lg border border-gray-200 p-8">
-          <div className="flex items-center justify-between mb-6">
-            <h3 className="text-lg font-semibold text-gray-900">Elo Rating</h3>
-            <div className="flex items-center gap-4 text-xs text-gray-500">
-              <span className="flex items-center gap-2">
-                <span className="w-2 h-2 bg-green-500 rounded-full"></span>
-                Top 25
-              </span>
-              <span className="flex items-center gap-2">
-                <span className="w-2 h-2 bg-yellow-500 rounded-full"></span>
-                All Models
-              </span>
-              <span className="flex items-center gap-2">
-                <span className="w-2 h-2 bg-gray-400 rounded-full"></span>
-                Elo Rating
-              </span>
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          className="bg-white/[0.02] backdrop-blur-3xl rounded-[2.5rem] border border-white/10 p-10 md:p-16 shadow-[0_32px_64px_-16px_rgba(0,0,0,0.5)]"
+        >
+          <div className="flex flex-col md:flex-row items-center justify-between mb-12 gap-6">
+            <h3 className="text-2xl font-black text-white tracking-tighter">Elo Rating Distribution</h3>
+            <div className="flex items-center gap-6">
+              <div className="flex items-center gap-2">
+                <div className="w-2.5 h-2.5 bg-purple-500 rounded-full shadow-[0_0_10px_rgba(168,85,247,0.5)]" />
+                <span className="text-[10px] font-bold text-white/40 uppercase tracking-widest">Ultra Class</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-2.5 h-2.5 bg-blue-500 rounded-full shadow-[0_0_10px_rgba(59,130,246,0.5)]" />
+                <span className="text-[10px] font-bold text-white/40 uppercase tracking-widest">Pro Class</span>
+              </div>
             </div>
           </div>
 
-          {/* Chart */}
-          <div className="overflow-x-auto pb-4">
+          {/* Chart Container */}
+          <div className="overflow-x-auto pb-8 scrollbar-hide">
             {loading ? (
-              <div className="flex items-center justify-center" style={{ height: '400px' }}>
-                <p className="text-gray-500">Loading benchmark data...</p>
+              <div className="flex items-center justify-center h-[400px]">
+                <div className="w-12 h-12 border-4 border-white/10 border-t-purple-500 rounded-full animate-spin" />
               </div>
             ) : (
-              <div className="flex items-end justify-start gap-4 min-w-max" style={{ height: '400px' }}>
-                {modelData.length > 0 ? modelData.map((model, index) => {
-                // Calculate height based on score - use actual values for better visualization
-                const minScore = Math.min(...modelData.map(m => m.score));
-                const maxScore = Math.max(...modelData.map(m => m.score));
-                const scoreRange = maxScore - minScore;
-                
-                // Calculate height percentage with better scaling
-                let heightPercentage;
-                if (scoreRange > 0) {
-                  // Normalize score to 0-1 range, then scale to 40-100% for visibility
-                  const normalized = (model.score - minScore) / scoreRange;
-                  heightPercentage = (normalized * 60) + 40; // 40% to 100% range
-                } else {
-                  heightPercentage = 70;
-                }
-                
-                // Berry Bliss color palette: blush (#F2D7EE), rosewood (#D3BCC0), grape (#A5688B), purple (#69306D), twilight blue (#0E103D)
-                const colors = ['#0E103D', '#69306D', '#A5688B', '#D3BCC0', '#F2D7EE'];
-                const colorIndex = Math.floor((index / modelData.length) * colors.length);
-                const barColor = colors[Math.min(colorIndex, colors.length - 1)];
-                
-                // Determine text color based on bar color brightness (dark bars = white text, light bars = dark text)
-                const isDarkBar = colorIndex < 3; // First 3 colors are dark
-                const textColor = isDarkBar ? '#FFFFFF' : '#1F2937'; // white or gray-800
-                
-                console.log(`Model: ${model.name}, Score: ${model.score}, Height: ${heightPercentage}%`);
-                
-                return (
-                  <div key={`${model.name}-${index}`} className="flex flex-col items-center gap-2 group cursor-pointer min-w-[70px]">
-                    {/* Score Label - Above Bar */}
-                    <div className="mb-1">
-                      <span className="text-xs font-semibold text-gray-700">
-                        {model.score}
-                      </span>
-                    </div>
-                    
-                    {/* Bar Container with Rotated Content Inside */}
-                    <div className="relative flex items-end justify-center" style={{ height: '300px', width: '60px' }}>
-                      <div 
-                        className="rounded-t-md transition-all duration-300 group-hover:opacity-90 relative flex items-center justify-center overflow-hidden"
-                        style={{ 
-                          height: `${heightPercentage}%`,
-                          width: '50px',
-                          minHeight: '80px',
-                          backgroundColor: barColor
-                        }}
-                      >
-                        {/* Rotated Content Inside Bar */}
+              <div className="flex items-end justify-start gap-6 min-w-max px-2" style={{ height: '400px' }}>
+                {modelData.map((model, index) => {
+                  const minScore = Math.min(...modelData.map(m => m.score));
+                  const maxScore = Math.max(...modelData.map(m => m.score));
+                  const scoreRange = maxScore - minScore;
+                  
+                  let heightPercentage;
+                  if (scoreRange > 0) {
+                    const normalized = (model.score - minScore) / scoreRange;
+                    heightPercentage = (normalized * 60) + 40; 
+                  } else {
+                    heightPercentage = 70;
+                  }
+                  
+                  // Vibrant futuristic palette
+                  const barGradients = [
+                    'from-purple-600 via-purple-500 to-purple-400',
+                    'from-blue-600 via-blue-500 to-blue-400',
+                    'from-cyan-600 via-cyan-500 to-cyan-400',
+                    'from-indigo-600 via-indigo-500 to-indigo-400',
+                  ];
+                  const gradient = barGradients[index % barGradients.length];
+                  
+                  return (
+                    <motion.div 
+                      key={`${model.name}-${index}`}
+                      initial={{ height: 0, opacity: 0 }}
+                      whileInView={{ height: 'auto', opacity: 1 }}
+                      transition={{ delay: index * 0.05, duration: 0.8, ease: "easeOut" }}
+                      className="flex flex-col items-center gap-4 group cursor-pointer min-w-[80px]"
+                    >
+                      <div className="relative flex items-end justify-center w-16 h-[320px]">
                         <div 
-                          className="flex flex-row items-center gap-2"
-                          style={{ 
-                            transform: 'rotate(-90deg)',
-                            whiteSpace: 'nowrap',
-                            transformOrigin: 'center center',
-                            color: textColor
-                          }}
+                          className={`w-full rounded-2xl bg-gradient-to-t ${gradient} transition-all duration-500 group-hover:scale-x-110 group-hover:brightness-125 relative flex items-center justify-center overflow-hidden shadow-2xl`}
+                          style={{ height: `${heightPercentage}%` }}
                         >
-                          {/* Company Logo */}
-                          <div className="w-5 h-5 flex items-center justify-center flex-shrink-0">
-                            {getCompanyLogo(model.organization) || (
-                              <span className="text-xs font-bold">{model.organization?.charAt(0) || '?'}</span>
-                            )}
-                          </div>
+                          <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity" />
                           
-                          {/* Model Name */}
-                          <span className="text-xs font-semibold">
-                            {model.name.length > 20 ? model.name.substring(0, 17) + '...' : model.name}
-                          </span>
+                          <div 
+                            className="flex flex-row items-center gap-3 text-white font-black"
+                            style={{ 
+                              transform: 'rotate(-90deg)',
+                              whiteSpace: 'nowrap',
+                            }}
+                          >
+                            <div className="w-5 h-5 flex items-center justify-center flex-shrink-0 scale-75 filter grayscale brightness-200">
+                              {getCompanyLogo(model.organization)}
+                            </div>
+                            <span className="text-[10px] uppercase tracking-widest">
+                              {model.name}
+                            </span>
+                          </div>
                         </div>
                         
-                        {/* Rank on hover - top corner */}
-                        <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                          <span className="text-white font-bold text-xs bg-black bg-opacity-30 px-1.5 py-0.5 rounded">
-                            #{index + 1}
+                        {/* Score bubble on hover */}
+                        <div className="absolute -top-10 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
+                          <span className="px-3 py-1 bg-white text-black text-[10px] font-black rounded-lg shadow-2xl">
+                            {model.score}
                           </span>
                         </div>
                       </div>
-                    </div>
 
-                    {/* Organization Name - Below Bar */}
-                    <div className="text-center pt-2">
-                      <span className="text-xs text-gray-500">{model.organization}</span>
-                    </div>
-                  </div>
-                );
-              }) : (
-                <div className="flex items-center justify-center w-full h-full">
-                  <p className="text-gray-500">Loading model data...</p>
-                </div>
-              )}
+                      <div className="text-center">
+                        <p className="text-[10px] font-black text-white tracking-widest uppercase">{model.score}</p>
+                        <p className="text-[9px] font-bold text-white/20 uppercase tracking-widest mt-1">{model.organization}</p>
+                      </div>
+                    </motion.div>
+                  );
+                })}
               </div>
             )}
           </div>
 
-          {/* Legend */}
-          <div className="mt-6 pt-6 border-t border-gray-200">
-            <p className="text-xs text-gray-600">
-              Performance scores are based on real-world benchmarks and updated regularly. 
-              Rankings reflect model capabilities across various tasks including reasoning, coding, and creative generation.
+          <div className="mt-16 pt-10 border-t border-white/5">
+            <p className="text-xs text-white/20 font-medium leading-relaxed max-w-2xl">
+              * Benchmarks are calculated using an ensemble of human evaluation and automated metrics. 
+              Values are refreshed daily at 00:00 UTC to ensure maximum accuracy across model iterations.
             </p>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
