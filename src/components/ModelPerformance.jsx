@@ -105,23 +105,12 @@ export function ModelPerformance() {
 
   return (
     <section className="w-full py-32 px-4 bg-transparent relative z-10">
-      <div className="max-w-7xl mx-auto">
-        {/* Section Header */}
-        <div className="mb-20 text-center md:text-left">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="flex items-center justify-center md:justify-start gap-3 mb-6"
-          >
-            <div className="p-2.5 rounded-2xl bg-white border border-slate-200 shadow-sm">
-              <BarChart3 className="w-5 h-5 text-purple-600" />
-            </div>
-            <span className="text-xs font-bold text-slate-400 uppercase tracking-[0.2em]">Live Benchmarks</span>
-          </motion.div>
-          
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
+        <div className="max-w-7xl mx-auto">
+          {/* Section Header */}
+          <div className="mb-20 text-center md:text-left">
+            
+            <motion.h2 
+              initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
@@ -131,33 +120,17 @@ export function ModelPerformance() {
             <span className="bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">Leaderboard</span>
           </motion.h2>
           
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="text-lg text-slate-500 max-w-3xl leading-relaxed font-normal mb-10"
-          >
-            Real-time performance analytics across the world's most capable AI models. 
-            Ranked using the <span className="text-slate-900 font-semibold italic">Bradley-Terry Elo system</span> based on millions of head-to-head creative matchups.
-          </motion.p>
-
-          <div className="flex flex-wrap items-center justify-center md:justify-start gap-6">
-            <button
-              onClick={fetchLeaderboardData}
-              disabled={loading}
-              className="group flex items-center gap-3 px-6 py-3.5 bg-white hover:bg-slate-50 border border-slate-200 rounded-2xl transition-all disabled:opacity-50 text-sm font-bold text-slate-700 shadow-sm"
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="text-lg text-slate-500 max-w-3xl leading-relaxed font-normal mb-10"
             >
-              <RefreshCw className={`w-4 h-4 text-purple-600 ${loading ? 'animate-spin' : 'group-hover:rotate-180 transition-transform duration-700'}`} />
-              Sync Data
-            </button>
-            {lastUpdated && (
-              <span className="text-xs font-semibold text-slate-400 tracking-wider uppercase">
-                Last updated {lastUpdated.toLocaleTimeString()}
-              </span>
-            )}
+              Real-time performance analytics across the world's most capable AI models. 
+              Ranked using the <span className="text-slate-900 font-semibold italic">Bradley-Terry Elo system</span> based on millions of head-to-head creative matchups.
+            </motion.p>
           </div>
-        </div>
 
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">

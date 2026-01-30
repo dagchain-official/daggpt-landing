@@ -27,24 +27,14 @@ export function HeroSection() {
   return (
     <div className="relative w-full min-h-[45vh] flex flex-col items-center justify-center overflow-hidden bg-transparent pt-32 pb-12">
       {/* Content Container */}
-      <motion.div 
-        className="relative z-10 max-w-6xl mx-auto text-center px-4"
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-      >
         <motion.div 
-          variants={itemVariants} 
-          className="inline-flex items-center gap-2 mb-8 px-5 py-2 rounded-full bg-white/40 border border-slate-200/50 shadow-[0_2px_15px_rgba(0,0,0,0.03)] backdrop-blur-md"
+          className="relative z-10 max-w-6xl mx-auto text-center px-4"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
         >
-          <div className="w-2 h-2 rounded-full bg-purple-600 animate-pulse shadow-[0_0_8px_rgba(147,51,234,0.5)]" />
-          <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-600">
-            Powered by Next-Gen Intelligence
-          </span>
-        </motion.div>
-
-        <motion.h1 
-          variants={itemVariants}
+          <motion.h1 
+            variants={itemVariants}
           className="text-7xl md:text-9xl lg:text-[11rem] font-black text-slate-900 mb-8 leading-[0.85] tracking-tighter"
         >
           FUTURE OF <br />
