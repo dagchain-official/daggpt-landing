@@ -21,46 +21,46 @@ function HomePage() {
     { name: 'Discover', url: '#discover' }
   ];
 
-  return (
-    <HexagonBackground>
-      <div className="min-h-screen w-full relative text-slate-900 selection:bg-purple-500/10 pointer-events-none">
-        {/* Logo */}
-        <div className="fixed top-6 left-8 z-50 pointer-events-auto">
-          <Logo />
+    return (
+      <HexagonBackground>
+        <div className="min-h-screen w-full relative text-slate-900 selection:bg-purple-500/10">
+          {/* Logo */}
+          <div className="fixed top-6 left-8 z-50">
+            <Logo />
+          </div>
+          
+          {/* Navbar */}
+          <div className="">
+            <NavBar items={navItems} />
+          </div>
+          
+          {/* Hero Section */}
+          <div className="">
+            <HeroSection />
+          </div>
+          
+          {/* Main Content - Chatbox Container */}
+          <div className="">
+            <ChatboxContainer />
+          </div>
+          
+          {/* Model Performance Section */}
+          <div className="">
+            <ModelPerformance />
+          </div>
+          
+          {/* Community Showcase Section */}
+          <div className="">
+            <CommunityShowcase />
+          </div>
+          
+          {/* Premium Footer */}
+          <div className="">
+            <Footer />
+          </div>
         </div>
-        
-        {/* Navbar */}
-        <div className="pointer-events-auto">
-          <NavBar items={navItems} />
-        </div>
-        
-        {/* Hero Section */}
-        <div className="pointer-events-auto">
-          <HeroSection />
-        </div>
-        
-        {/* Main Content - Chatbox Container */}
-        <div className="pointer-events-auto">
-          <ChatboxContainer />
-        </div>
-        
-        {/* Model Performance Section */}
-        <div className="pointer-events-auto">
-          <ModelPerformance />
-        </div>
-        
-        {/* Community Showcase Section */}
-        <div className="pointer-events-auto">
-          <CommunityShowcase />
-        </div>
-        
-        {/* Premium Footer */}
-        <div className="pointer-events-auto">
-          <Footer />
-        </div>
-      </div>
-    </HexagonBackground>
-  );
+      </HexagonBackground>
+    );
 }
 
 function App() {

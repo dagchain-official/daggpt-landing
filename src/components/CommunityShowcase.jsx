@@ -151,12 +151,12 @@ export function CommunityShowcase() {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 px-4">
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 px-4">
                   {group.items.map((item) => (
                     <motion.div
                       key={item.id}
-                      whileHover={{ y: -8, scale: 1.01 }}
-                      className="group relative bg-white border border-slate-200 rounded-[1.5rem] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500"
+                      whileHover={{ y: -4, scale: 1.01 }}
+                      className="group relative bg-white border border-slate-200 rounded-[1.2rem] overflow-hidden shadow-sm hover:shadow-lg transition-all duration-500"
                     >
                       <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
                         <img 
@@ -167,22 +167,22 @@ export function CommunityShowcase() {
                         <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                         
                         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500">
-                           <div className="p-3 bg-white/90 backdrop-blur-md rounded-2xl shadow-2xl scale-75 group-hover:scale-100 transition-transform duration-500">
-                              <Maximize2 className="w-5 h-5 text-slate-900" />
+                           <div className="p-2 bg-white/90 backdrop-blur-md rounded-xl shadow-2xl scale-75 group-hover:scale-100 transition-transform duration-500">
+                              <Maximize2 className="w-4 h-4 text-slate-900" />
                            </div>
                         </div>
 
-                        <div className="absolute bottom-3 left-3 right-3 flex items-center justify-end">
-                          <span className="text-[8px] font-black text-white uppercase tracking-widest px-2.5 py-1.5 bg-black/40 backdrop-blur-md rounded-lg border border-white/20">
+                        <div className="absolute bottom-2 left-2 right-2 flex items-center justify-end">
+                          <span className="text-[7px] font-black text-white uppercase tracking-widest px-2 py-1 bg-black/40 backdrop-blur-md rounded-md border border-white/20">
                             {item.model}
                           </span>
                         </div>
                       </div>
 
-                      <div className="p-4 bg-white">
+                      <div className="p-3 bg-white">
                         <div className="flex items-center justify-between">
-                          <p className="text-[9px] font-black text-slate-400 tracking-[0.1em] uppercase">Showcase Project</p>
-                          <Sparkles className="w-3 h-3 text-slate-200 group-hover:text-purple-400 transition-colors" />
+                          <p className="text-[8px] font-black text-slate-400 tracking-[0.1em] uppercase">Project Showcase</p>
+                          <Sparkles className="w-2.5 h-2.5 text-slate-200 group-hover:text-purple-400 transition-colors" />
                         </div>
                       </div>
                     </motion.div>
