@@ -195,18 +195,18 @@ export function ChatboxContainer() {
   }
 
   return (
-    <div className="w-full px-4 pb-20 pt-8 relative z-10">
-      <div className="w-full max-w-6xl mx-auto">
-        <div className="space-y-8">
+    <div className="w-full px-4 relative z-10" style={{ minHeight: '60vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', paddingTop: '100px' }}>
+      <div className="w-full max-w-xl mx-auto">
+        <div className="space-y-6">
 
           {/* Main Chatbox Container */}
           <div className="bg-white border border-gray-200 rounded-2xl shadow-xl overflow-visible">
             {/* Input Field with Tool Indicator */}
-            <div className="p-6 relative">
+            <div className="p-4 relative">
               {/* Selected Tool Indicator - Top Right - Neumorphic 3D */}
-              <div className="absolute top-4 right-4">
+              <div className="absolute top-3 right-3">
                 <div 
-                  className="inline-flex items-center gap-2 py-1.5 px-4 rounded-full"
+                  className="inline-flex items-center gap-2 py-1 px-3 rounded-full"
                   style={{
                     background: '#ffffff',
                     boxShadow: '6px 6px 12px rgba(0, 0, 0, 0.1), -6px -6px 12px rgba(255, 255, 255, 0.9), inset 2px 2px 4px rgba(0, 0, 0, 0.05)',
@@ -221,7 +221,7 @@ export function ChatboxContainer() {
                 onChange={(e) => setInputValue(e.target.value)}
                 onKeyPress={handleKeyPress}
                 placeholder="Ask me to build a beautiful landing page, generate an image, or create a video..."
-                className="w-full h-32 bg-transparent text-gray-900 text-sm placeholder:text-gray-400 focus:outline-none resize-none leading-relaxed pr-32"
+                className="w-full h-20 bg-transparent text-gray-900 text-sm placeholder:text-gray-400 focus:outline-none resize-none leading-relaxed pr-32"
               />
               
               {/* Hidden File Input */}

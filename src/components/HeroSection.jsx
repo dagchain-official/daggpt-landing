@@ -2,7 +2,7 @@ import React from 'react';
 
 export function HeroSection() {
   return (
-    <div className="w-full px-4 flex items-center justify-center relative z-10" style={{ minHeight: '50vh', paddingTop: '80px' }}>
+    <div className="w-full px-4 flex items-center justify-center relative z-10" style={{ paddingTop: '20px', paddingBottom: '60px' }}>
       <div className="max-w-6xl mx-auto text-center">
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight whitespace-nowrap">
           Your smart AI assistant with{' '}
