@@ -1,9 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
-import { NavBar } from './components/ui/tubelight-navbar';
+import { NavBar } from './components/ui/TubelightNavbar';
 import { Logo } from './components/Logo';
-import { PremiumBackground } from './components/ui/premium-background';
+import { PremiumBackground } from './components/ui/PremiumBackground';
 import { HeroSection } from './components/HeroSection';
 import { ChatboxContainer } from './components/ChatboxContainer';
 import { ChatPage } from './components/ChatPage';
