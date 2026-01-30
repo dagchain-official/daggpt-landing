@@ -268,7 +268,7 @@ export function ImageGenerationPage() {
 
             {/* Tips & Guidelines */}
             <div className="bg-white rounded-2xl shadow-xl border border-gray-200 p-6">
-              <h3 className="text-sm font-bold text-gray-900 mb-3">💡 Tips for Better Results</h3>
+              <h3 className="text-sm font-bold text-gray-900 mb-3">Tips for Better Results</h3>
               <ul className="space-y-2 text-xs text-gray-600">
                 <li className="flex gap-2">
                   <span className="text-primary font-bold">•</span>
@@ -291,7 +291,7 @@ export function ImageGenerationPage() {
 
             {/* Example Prompts */}
             <div className="bg-white rounded-2xl shadow-xl border border-gray-200 p-6">
-              <h3 className="text-sm font-bold text-gray-900 mb-3">✨ Example Prompts</h3>
+              <h3 className="text-sm font-bold text-gray-900 mb-3">Example Prompts</h3>
               <div className="space-y-2">
                 {[
                   "A serene mountain valley with waterfalls and pine forests in watercolor style",

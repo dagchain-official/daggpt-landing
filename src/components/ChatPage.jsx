@@ -56,15 +56,15 @@ export function ChatPage() {
   }, [messages]);
 
   const pollVideoStatus = useCallback(async (opName) => {
-    console.log(`🎬 Starting polling for operation: ${opName}`);
+    console.log(`Starting polling for operation: ${opName}`);
     let done = false;
     let attempts = 0;
     while (!done && attempts < 60) { // Max 15 mins (increased)
       attempts++;
       try {
-          console.log(`🔍 Polling attempt ${attempts} for ${opName}...`);
+          console.log(`Polling attempt ${attempts} for ${opName}...`);
           const status = await vertexAIService.checkOperationStatus(opName);
-          console.log(`📊 Operation status:`, status);
+          console.log(`Operation status:`, status);
           if (status.done) {
             done = true;
             if (status.error) throw new Error(status.error.message);
@@ -80,21 +80,19 @@ export function ChatPage() {
               videoUrl: videoData.video?.bytesBase64Encoded || videoData.bytesBase64Encoded || videoData.gcsUri,
               mimeType: videoData.video?.mimeType || videoData.mimeType || 'video/mp4'
             }]);
-            setIsLoading(false);
           } else {
           setLoadingText(`Generating video... (${attempts * 2}%)`);
           await new Promise(r => setTimeout(r, 15000)); // Poll every 15s
         }
       } catch (err) {
         setError('Video generation failed: ' + err.message);
-        setIsLoading(false);
         break;
       }
     }
-  }, [setIsLoading, setLoadingText, setError, setMessages]);
+  }, [setLoadingText, setError, setMessages]);
 
   const handleGeneration = useCallback(async (prompt, type, model, ratio) => {
-    console.log(`🚀 handleGeneration started: type=${type}, model=${model}, ratio=${ratio}`);
+    console.log(`handleGeneration started: type=${type}, model=${model}, ratio=${ratio}`);
     setIsLoading(true);
     setLoadingText('Initializing intelligence...');
     setError(null);
@@ -114,9 +112,8 @@ export function ChatPage() {
       } else if (type === "Video Generation") {
         setLoadingText('Director AI is composing...');
         const op = await vertexAIService.generateVideo(prompt, model, ratio);
-        // Polling logic for video
-        pollVideoStatus(op.operationName);
-        return;
+        // Polling logic for video - Await here to keep loading state active
+        await pollVideoStatus(op.operationName);
       } else if (type === "Music Generation") {
         setLoadingText('Composing your symphony...');
         result = await vertexAIService.generateMusic(prompt, model);
@@ -375,58 +372,104 @@ export function ChatPage() {
               <div className="w-10 h-10 rounded-2xl bg-slate-900 flex items-center justify-center border border-slate-800 shadow-sm animate-pulse">
                 <img src="/DAGGPT-01.jpg" className="w-6 h-6 rounded-lg object-cover" alt="DAG GPT" />
               </div>
-              <div className="flex flex-col gap-3 w-full max-w-[80%]">
-                {selectedFunction === "Video Generation" && (
-                   <motion.div 
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className={`w-full ${getAspectRatioClass(aspectRatio)} rounded-[2.5rem] bg-slate-100 border border-slate-200 overflow-hidden relative group shadow-2xl shadow-slate-200/50 mb-4`}
-                   >
-                      <motion.div 
-                        animate={{ 
-                          background: [
-                            "linear-gradient(45deg, #f1f5f9 25%, #f8fafc 50%, #f1f5f9 75%)",
-                            "linear-gradient(45deg, #f8fafc 25%, #f1f5f9 50%, #f8fafc 75%)"
-                          ]
-                        }}
-                        transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-                        className="absolute inset-0 opacity-50"
-                      />
-                      <div className="absolute inset-0 flex items-center justify-center">
-                         <div className="flex flex-col items-center gap-6">
-                            <div className="relative">
-                               <motion.div 
-                                  animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
-                                  transition={{ duration: 4, repeat: Infinity }}
-                                  className="absolute inset-0 bg-indigo-500 rounded-full blur-3xl"
-                               />
-                               <div className="relative w-16 h-16 bg-white/40 backdrop-blur-xl rounded-2xl border border-white/50 flex items-center justify-center shadow-xl">
-                                  <Sparkles className="w-8 h-8 text-indigo-500 animate-pulse" />
-                               </div>
-                            </div>
-                            <div className="flex flex-col items-center gap-2">
-                               <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] animate-pulse">Cinematic Rendering</span>
-                               <div className="flex gap-1.5">
-                                  <motion.div animate={{ opacity: [0.2, 1, 0.2] }} transition={{ repeat: Infinity, duration: 1.5 }} className="w-1 h-1 bg-indigo-400 rounded-full" />
-                                  <motion.div animate={{ opacity: [0.2, 1, 0.2] }} transition={{ repeat: Infinity, duration: 1.5, delay: 0.2 }} className="w-1 h-1 bg-indigo-400 rounded-full" />
-                                  <motion.div animate={{ opacity: [0.2, 1, 0.2] }} transition={{ repeat: Infinity, duration: 1.5, delay: 0.4 }} className="w-1 h-1 bg-indigo-400 rounded-full" />
-                               </div>
-                            </div>
-                         </div>
-                      </div>
-                      <div className="absolute inset-0 backdrop-blur-[40px] opacity-20"></div>
-                   </motion.div>
-                )}
-                
-                <div className="px-8 py-6 rounded-[2rem] bg-white border border-slate-200/50 shadow-sm flex items-center gap-4 w-fit">
-                   <div className="flex gap-1.5">
-                      <motion.div animate={{ scale: [1, 1.2, 1] }} transition={{ repeat: Infinity, duration: 1 }} className="w-1.5 h-1.5 bg-indigo-500 rounded-full" />
-                      <motion.div animate={{ scale: [1, 1.2, 1] }} transition={{ repeat: Infinity, duration: 1, delay: 0.2 }} className="w-1.5 h-1.5 bg-indigo-500 rounded-full" />
-                      <motion.div animate={{ scale: [1, 1.2, 1] }} transition={{ repeat: Infinity, duration: 1, delay: 0.4 }} className="w-1.5 h-1.5 bg-indigo-500 rounded-full" />
-                   </div>
-                   <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">{loadingText}</span>
+                <div className="flex flex-col gap-3 w-full max-w-[80%]">
+                  {selectedFunction === "Video Generation" && (
+                     <motion.div 
+                      initial={{ opacity: 0, scale: 0.98 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      className={`w-full ${getAspectRatioClass(aspectRatio)} rounded-[3rem] bg-slate-900 border border-slate-800 overflow-hidden relative group shadow-[0_32px_64px_-16px_rgba(0,0,0,0.3)] mb-6`}
+                     >
+                        {/* Dynamic Cinematic Background */}
+                        <motion.div 
+                          animate={{ 
+                            background: [
+                              "radial-gradient(circle at 20% 20%, #1e1b4b 0%, #0f172a 100%)",
+                              "radial-gradient(circle at 80% 80%, #1e1b4b 0%, #0f172a 100%)",
+                              "radial-gradient(circle at 20% 20%, #1e1b4b 0%, #0f172a 100%)"
+                            ]
+                          }}
+                          transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+                          className="absolute inset-0"
+                        />
+                        
+                        {/* Grain/Noise Overlay for Film Texture */}
+                        <div className="absolute inset-0 opacity-[0.03] pointer-events-none mix-blend-overlay bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
+
+                        {/* Scanner Effect */}
+                        <motion.div 
+                          animate={{ top: ["-10%", "110%"] }}
+                          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                          className="absolute left-0 right-0 h-32 bg-gradient-to-b from-transparent via-indigo-500/20 to-transparent z-10 pointer-events-none"
+                        />
+
+                        {/* Centered Creative Suite UI */}
+                        <div className="absolute inset-0 flex items-center justify-center z-20">
+                           <div className="flex flex-col items-center gap-8">
+                              <div className="relative">
+                                 {/* Glowing Aura */}
+                                 <motion.div 
+                                    animate={{ 
+                                       scale: [1, 1.4, 1],
+                                       opacity: [0.2, 0.4, 0.2]
+                                    }}
+                                    transition={{ duration: 5, repeat: Infinity }}
+                                    className="absolute inset-[-40px] bg-indigo-500/30 rounded-full blur-[60px]"
+                                 />
+                                 
+                                 {/* Central Lens/Icon */}
+                                 <div className="relative w-24 h-24 bg-white/5 backdrop-blur-2xl rounded-[2rem] border border-white/10 flex items-center justify-center shadow-2xl overflow-hidden group">
+                                    <motion.div 
+                                      animate={{ rotate: 360 }}
+                                      transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                                      className="absolute inset-0 border-2 border-dashed border-indigo-500/20 rounded-full scale-150"
+                                    />
+                                    <Sparkles className="w-10 h-10 text-white animate-pulse" />
+                                 </div>
+                              </div>
+
+                              <div className="flex flex-col items-center gap-4 text-center px-6">
+                                 <div className="space-y-1">
+                                    <motion.h3 
+                                       initial={{ opacity: 0 }}
+                                       animate={{ opacity: 1 }}
+                                       className="text-white text-lg font-black tracking-[0.2em] uppercase"
+                                    >
+                                       Cinematic Synthesis
+                                    </motion.h3>
+                                    <p className="text-indigo-300/60 text-[10px] font-bold uppercase tracking-[0.4em] animate-pulse">
+                                       Veo 3.1 Fast Rendering Pipeline
+                                    </p>
+                                 </div>
+
+                                 {/* Progress Visualizer */}
+                                 <div className="w-48 h-[2px] bg-white/10 rounded-full overflow-hidden relative">
+                                    <motion.div 
+                                      animate={{ left: ["-100%", "100%"] }}
+                                      transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                                      className="absolute inset-y-0 w-1/2 bg-gradient-to-r from-transparent via-indigo-500 to-transparent"
+                                    />
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+
+                        {/* Glass Overlay with Vignette */}
+                        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/40 pointer-events-none"></div>
+                        <div className="absolute inset-0 backdrop-blur-[2px]"></div>
+                     </motion.div>
+                  )}
+                  
+                  <div className="px-10 py-7 rounded-[2.5rem] bg-white border border-slate-200 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] flex items-center gap-6 w-fit">
+                     <div className="relative flex items-center justify-center">
+                        <motion.div 
+                           animate={{ rotate: 360 }}
+                           transition={{ repeat: Infinity, duration: 2, ease: "linear" }}
+                           className="w-5 h-5 border-2 border-indigo-500/20 border-t-indigo-500 rounded-full"
+                        />
+                     </div>
+                     <span className="text-xs font-black text-slate-900 uppercase tracking-[0.2em]">{loadingText}</span>
+                  </div>
                 </div>
-              </div>
             </motion.div>
           )}
 

@@ -17,7 +17,7 @@ const VoiceInputButton = ({ onTranscript, className = '' }) => {
 
     const isBrave = navigator.brave && navigator.brave.isBrave;
     if (isBrave) {
-      console.warn('⚠️ Voice input may not work in Brave browser due to privacy settings. Please use Chrome or Edge for voice input.');
+      console.warn('Voice input may not work in Brave browser due to privacy settings. Please use Chrome or Edge for voice input.');
     }
 
     const recognition = new SpeechRecognition();
@@ -42,19 +42,19 @@ const VoiceInputButton = ({ onTranscript, className = '' }) => {
       console.error('Speech recognition error:', event.error, event);
       setListening(false);
       
-      if (event.error === 'not-allowed') {
-        alert('🎤 Microphone Access Denied\n\nPlease allow microphone access in your browser settings.');
-      } else if (event.error === 'network') {
-        const isBrave = navigator.brave && navigator.brave.isBrave;
-        const braveMsg = isBrave ? '\n\n⚠️ Brave browser blocks Google speech servers by default.\nPlease use Chrome or Edge for voice input.' : '';
-        alert(`🌐 Network Error\n\nSpeech recognition requires internet connection to Google servers.\n\nPlease check:\n• Internet connection\n• Firewall/VPN settings\n• Try Chrome or Edge browser${braveMsg}\n\nAlternatively, type your message manually.`);
-      } else if (event.error === 'no-speech') {
-        console.log('No speech detected');
-      } else if (event.error === 'aborted') {
-        console.log('Speech recognition aborted');
-      } else {
-        alert(`🎤 Speech Recognition Error: ${event.error}\n\nPlease try again or type your message manually.`);
-      }
+        if (event.error === 'not-allowed') {
+          alert('Microphone Access Denied\n\nPlease allow microphone access in your browser settings.');
+        } else if (event.error === 'network') {
+          const isBrave = navigator.brave && navigator.brave.isBrave;
+          const braveMsg = isBrave ? '\n\nBrave browser blocks Google speech servers by default.\nPlease use Chrome or Edge for voice input.' : '';
+          alert(`Network Error\n\nSpeech recognition requires internet connection to Google servers.\n\nPlease check:\n• Internet connection\n• Firewall/VPN settings\n• Try Chrome or Edge browser${braveMsg}\n\nAlternatively, type your message manually.`);
+        } else if (event.error === 'no-speech') {
+          console.log('No speech detected');
+        } else if (event.error === 'aborted') {
+          console.log('Speech recognition aborted');
+        } else {
+          alert(`Speech Recognition Error: ${event.error}\n\nPlease try again or type your message manually.`);
+        }
     };
 
     recognition.onresult = (event) => {
