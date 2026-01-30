@@ -371,174 +371,123 @@ app.post('/api/generate-image', async (req, res) => {
   }
 });
 
-  // Video Generation (Long-Running)
-  app.post('/api/generate-video', async (req, res) => {
-    try {
-      const { prompt, modelName = "Veo 3.1 Cinematic", aspectRatio = "16:9" } = req.body;
-      if (!prompt) return res.status(400).json({ error: 'Prompt is required' });
-
-      const modelId = VIDEO_MODELS[modelName] || "veo-3.1-generate-001";
-      const location = 'us-central1';
-      const client = await auth.getClient();
-      const accessToken = await client.getAccessToken();
-
-      if (!projectId) {
-        throw new Error('Project ID is not configured (REACT_APP_VERTEX_AI_PROJECT_ID)');
-      }
-
-      const url = `https://${location}-aiplatform.googleapis.com/v1/projects/${projectId}/locations/${location}/publishers/google/models/${modelId}:predictLongRunning`;
-      
-      console.log(`Starting video generation for model: ${modelId} at ${url}`);
-
-      const requestBody = {
-        instances: [{ prompt }],
-        parameters: {
-          durationSeconds: 8,
-          generateAudio: true,
-          aspectRatio: ASPECT_RATIOS[aspectRatio] || "16:9",
-          resolution: "1080p",
-          sampleCount: 1,
-          personGeneration: "allow_adult"
-        }
-      };
-
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: { 
-          'Authorization': `Bearer ${accessToken.token}`, 
-          'Content-Type': 'application/json' 
-        },
-        body: JSON.stringify(requestBody)
-      });
-
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error(`Google API Error (${response.status}):`, errorText);
-        throw new Error(`Google API Error: ${errorText}`);
-      }
-
-      const data = await response.json();
-      console.log('Video generation started:', data.name);
-      
-      // Return operation name for polling
-      res.json({ success: true, operationName: data.name, modelUsed: modelName });
-    } catch (error) {
-      console.error('Video error:', error);
-      res.status(500).json({ success: false, error: error.message });
-    }
-  });
-
-// Music Generation
-app.post('/api/generate-music', async (req, res) => {
+// Video Generation (Long-Running)
+app.post('/api/generate-video', async (req, res) => {
   try {
-    const { prompt, modelName = "Lyria 2 High-Fidelity" } = req.body;
+    const { prompt, modelName = "Veo 3.1 Cinematic", aspectRatio = "16:9" } = req.body;
     if (!prompt) return res.status(400).json({ error: 'Prompt is required' });
 
-    const modelId = MUSIC_MODELS[modelName] || "lyria-002";
+    const modelId = VIDEO_MODELS[modelName] || "veo-3.1-generate-001";
     const location = 'us-central1';
     const client = await auth.getClient();
     const accessToken = await client.getAccessToken();
 
-    const url = `https://${location}-aiplatform.googleapis.com/v1/projects/${projectId}/locations/${location}/publishers/google/models/${modelId}:predict`;
+    if (!projectId) {
+      throw new Error('Project ID is not configured (REACT_APP_VERTEX_AI_PROJECT_ID)');
+    }
+
+    const url = `https://${location}-aiplatform.googleapis.com/v1/projects/${projectId}/locations/${location}/publishers/google/models/${modelId}:predictLongRunning`;
+    
+    console.log(`🎬 Video Generation: ${modelName} | Project: ${projectId} | URL: ${url}`);
 
     const requestBody = {
       instances: [{ prompt }],
-      parameters: { sampleCount: 1 }
+      parameters: {
+        durationSeconds: 8,
+        generateAudio: true,
+        aspectRatio: ASPECT_RATIOS[aspectRatio] || "16:9",
+        resolution: "1080p",
+        sampleCount: 1,
+        personGeneration: "allow_adult"
+      }
     };
 
     const response = await fetch(url, {
       method: 'POST',
-      headers: { 'Authorization': `Bearer ${accessToken.token}`, 'Content-Type': 'application/json' },
+      headers: { 
+        'Authorization': `Bearer ${accessToken.token}`, 
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
       body: JSON.stringify(requestBody)
     });
 
-    if (!response.ok) throw new Error(await response.text());
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error(`❌ Google API Error (${response.status}):`, errorText);
+      throw new Error(`Google API Error: ${errorText}`);
+    }
 
     const data = await response.json();
-    const audioData = data.predictions?.[0]?.bytesBase64Encoded;
-    if (!audioData) throw new Error('No audio data in response');
-
-    res.json({ success: true, audioData, mimeType: 'audio/wav', modelUsed: modelName });
+    console.log('✅ Video generation started:', data.name);
+    
+    res.json({ success: true, operationName: data.name, modelUsed: modelName });
   } catch (error) {
-    console.error('Music error:', error);
+    console.error('❌ Video generation exception:', error);
     res.status(500).json({ success: false, error: error.message });
   }
 });
 
-// Website Builder endpoint
-app.post('/api/generate-website', async (req, res) => {
+// Polling endpoint for long-running operations (Wildcard to handle slashes)
+app.get('/api/operation/*', async (req, res) => {
   try {
-    const { prompt } = req.body;
-    if (!prompt) return res.status(400).json({ error: 'Prompt is required' });
+    // Extract everything after /api/operation/
+    const operationName = req.params[0];
+    if (!operationName) return res.status(400).json({ error: 'Operation name is required' });
 
-    const systemPrompt = `You are an expert full-stack web developer. Create a modern, responsive website based on the user's description. Return the complete code in a single HTML file including CSS (using Tailwind CDN if possible) and any necessary JavaScript. Use a "million-dollar" aesthetic with glassmorphism, beautiful typography, and smooth animations. Focus on high-end design.`;
+    console.log(`🔍 Checking operation: ${operationName}`);
 
-    const modelId = "gemini-2.5-flash";
-    const text = await callVertexSDK(modelId, `${systemPrompt}\n\nUser Request: ${prompt}`, []);
+    const client = await auth.getClient();
+    const accessToken = await client.getAccessToken();
 
-    res.json({ success: true, code: text, modelUsed: "Gemini 2.5 Flash" });
+    // Standard Vertex AI operation endpoint
+    const url = `https://us-central1-aiplatform.googleapis.com/v1/${operationName}`;
+
+    const response = await fetch(url, {
+      headers: { 
+        'Authorization': `Bearer ${accessToken.token}`,
+        'Accept': 'application/json'
+      }
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.warn(`⚠️ Standard operation check failed: ${errorText}. Trying fetchPredictOperation fallback...`);
+      
+      // Veo 3.1 fallback
+      const parts = operationName.split('/');
+      const project = parts[1];
+      const location = parts[3];
+      
+      if (project && location) {
+        const fallbackUrl = `https://${location}-aiplatform.googleapis.com/v1/projects/${project}/locations/${location}/publishers/google/models/veo-3.1-generate-001:fetchPredictOperation`;
+        
+        const fallbackResponse = await fetch(fallbackUrl, {
+          method: 'POST',
+          headers: { 
+            'Authorization': `Bearer ${accessToken.token}`,
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({ operationName })
+        });
+        
+        if (fallbackResponse.ok) {
+          const fallbackData = await fallbackResponse.json();
+          return res.json(fallbackData);
+        }
+      }
+      
+      throw new Error(`Operation check failed with status ${response.status}: ${errorText}`);
+    }
+
+    const data = await response.json();
+    res.json(data);
   } catch (error) {
-    console.error('Web Builder error:', error);
-    res.status(500).json({ success: false, error: error.message });
+    console.error('❌ Operation status error:', error);
+    res.status(500).json({ error: error.message });
   }
 });
-
-  // Polling endpoint for long-running operations
-  app.get('/api/operation/:operationName', async (req, res) => {
-    try {
-      // operationName can be a full path like projects/.../operations/...
-      const { operationName } = req.params;
-      const client = await auth.getClient();
-      const accessToken = await client.getAccessToken();
-
-      // Standard Vertex AI operation endpoint
-      const url = `https://us-central1-aiplatform.googleapis.com/v1/${operationName}`;
-
-      console.log(`Checking operation status for: ${operationName}`);
-
-      const response = await fetch(url, {
-        headers: { 'Authorization': `Bearer ${accessToken.token}` }
-      });
-
-      if (!response.ok) {
-        // Some models (like Veo) might require fetchPredictOperation
-        // We can try fallback if standard GET fails or if it's a specific model type
-        const errorText = await response.text();
-        console.warn(`Standard operation check failed: ${errorText}. Trying fetchPredictOperation fallback...`);
-        
-        // Extract project/location from operationName if possible
-        const parts = operationName.split('/');
-        const project = parts[1];
-        const location = parts[3];
-        
-        if (project && location) {
-          const fallbackUrl = `https://${location}-aiplatform.googleapis.com/v1/projects/${project}/locations/${location}/publishers/google/models/veo-3.1-generate-001:fetchPredictOperation`;
-          
-          const fallbackResponse = await fetch(fallbackUrl, {
-            method: 'POST',
-            headers: { 
-              'Authorization': `Bearer ${accessToken.token}`,
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ operationName })
-          });
-          
-          if (fallbackResponse.ok) {
-            const fallbackData = await fallbackResponse.json();
-            return res.json(fallbackData);
-          }
-        }
-        
-        throw new Error(`Operation check failed: ${errorText}`);
-      }
-
-      const data = await response.json();
-      res.json(data);
-    } catch (error) {
-      console.error('Operation check error:', error);
-      res.status(500).json({ error: error.message });
-    }
-  });
 
 // Leaderboard proxy
 app.get('/api/leaderboard-proxy', async (req, res) => {

@@ -8,22 +8,57 @@ class VertexAIService {
   }
 
   /**
+   * Safe JSON fetch helper
+   */
+  async safeFetch(url, options = {}) {
+    const defaultHeaders = {
+      'Accept': 'application/json',
+    };
+
+    if (options.body && !options.headers?.['Content-Type']) {
+      defaultHeaders['Content-Type'] = 'application/json';
+    }
+
+    const mergedOptions = {
+      ...options,
+      headers: {
+        ...defaultHeaders,
+        ...options.headers,
+      }
+    };
+
+    const response = await fetch(url, mergedOptions);
+    const contentType = response.headers.get('content-type');
+
+    if (!response.ok) {
+      let errorMessage = `Request failed with status ${response.status}`;
+      if (contentType && contentType.includes('application/json')) {
+        const errorData = await response.json();
+        errorMessage = errorData.error || errorData.message || errorMessage;
+      } else {
+        const text = await response.text();
+        errorMessage = text.substring(0, 100) || errorMessage;
+      }
+      throw new Error(errorMessage);
+    }
+
+    if (contentType && contentType.includes('application/json')) {
+      return await response.json();
+    }
+    
+    throw new Error(`Expected JSON response but received ${contentType || 'unknown content'}`);
+  }
+
+  /**
    * Send a chat message to Vertex AI via backend proxy
    */
   async sendMessage(message, modelName = "Gemini 3 Flash", conversationHistory = []) {
     try {
-      const response = await fetch(`${this.baseURL}/chat`, {
+      const data = await this.safeFetch(`${this.baseURL}/chat`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message, modelName, conversationHistory })
       });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Failed to get response from AI');
-      }
-
-      const data = await response.json();
       if (!data.success) throw new Error(data.error || 'AI request failed');
 
       return {
@@ -42,18 +77,11 @@ class VertexAIService {
    */
   async generateImage(prompt, modelName = "Imagen 4 Standard", aspectRatio = "Square (1:1)") {
     try {
-      const response = await fetch(`${this.baseURL}/generate-image`, {
+      const data = await this.safeFetch(`${this.baseURL}/generate-image`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ prompt, modelName, aspectRatio })
       });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Failed to generate image');
-      }
-
-      const data = await response.json();
       if (!data.success) throw new Error(data.error || 'Image generation failed');
 
       return data;
@@ -68,25 +96,10 @@ class VertexAIService {
    */
   async generateVideo(prompt, modelName = "Veo 3.1 Cinematic", aspectRatio = "16:9") {
     try {
-      const response = await fetch(`${this.baseURL}/generate-video`, {
+      const data = await this.safeFetch(`${this.baseURL}/generate-video`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ prompt, modelName, aspectRatio })
       });
-
-      if (!response.ok) {
-        let errorMessage = 'Failed to start video generation';
-        try {
-          const errorData = await response.json();
-          errorMessage = errorData.error || errorMessage;
-        } catch (e) {
-          // Fallback if response is not JSON
-          errorMessage = await response.text();
-        }
-        throw new Error(errorMessage);
-      }
-
-      const data = await response.json();
       return data; // returns operationName
     } catch (error) {
       console.error('Error generating video:', error);
@@ -99,18 +112,10 @@ class VertexAIService {
    */
   async generateMusic(prompt, modelName = "Lyria 2 High-Fidelity") {
     try {
-      const response = await fetch(`${this.baseURL}/generate-music`, {
+      const data = await this.safeFetch(`${this.baseURL}/generate-music`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ prompt, modelName })
       });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Failed to generate music');
-      }
-
-      const data = await response.json();
       return data;
     } catch (error) {
       console.error('Error generating music:', error);
@@ -123,18 +128,10 @@ class VertexAIService {
    */
   async generateWebsite(prompt) {
     try {
-      const response = await fetch(`${this.baseURL}/generate-website`, {
+      const data = await this.safeFetch(`${this.baseURL}/generate-website`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ prompt })
       });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Failed to build website');
-      }
-
-      const data = await response.json();
       return data;
     } catch (error) {
       console.error('Error building website:', error);
@@ -147,9 +144,8 @@ class VertexAIService {
    */
   async checkOperationStatus(operationName) {
     try {
-      const response = await fetch(`${this.baseURL}/operation/${encodeURIComponent(operationName)}`);
-      if (!response.ok) throw new Error('Failed to check operation status');
-      return await response.json();
+      // Use wildcard route in backend that handles slashes
+      return await this.safeFetch(`${this.baseURL}/operation/${encodeURIComponent(operationName)}`);
     } catch (error) {
       console.error('Error checking operation:', error);
       throw error;
